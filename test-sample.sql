@@ -6,7 +6,7 @@ INSERT INTO Users(username, email, first_name, last_name)
 INSERT INTO Locations(LID, lat, lng, city, state, country)
 	VALUES ('c20c3de9-d693-4838-a6f4-3974a8d87194', 6.001427, -78.938232, 'Durham', 'North Carolina', 'USA');
 
-INSERT INTO Favorites(userID, location)
+INSERT INTO Favorites(username, location)
 	VALUES ('test1', 'c20c3de9-d693-4838-a6f4-3974a8d87194');
 
 INSERT INTO Categories(CID, Name)
