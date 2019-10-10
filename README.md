@@ -1,6 +1,6 @@
 ## 316Proj
 
-# Must have PostgreSQl installed (we are using 11.5)
+# Must have PostgreSQL installed (we are using 11.5)
 
 Create `caction` db
 ```bash
