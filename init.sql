@@ -41,15 +41,14 @@ CREATE TABLE Rain (
 );
 
 CREATE TABLE Users (
-	userID uuid PRIMARY KEY NOT NULL,
-	username VARCHAR(32) NOT NULL,
-	email VARCHAR(64) NOT NULL,
+	username VARCHAR(32) PRIMARY KEY NOT NULL,
+	email VARCHAR(64) NOT NULL UNIQUE,
 	first_name VARCHAR(32) NOT  NULL,
 	last_name VARCHAR(32) NOT NULL
 );
 
 CREATE TABLE Favorites (
-	userID uuid PRIMARY KEY REFERENCES Users(userID) NOT NULL,
+	username VARCHAR(32) PRIMARY KEY REFERENCES Users(username) NOT NULL,
 	location uuid REFERENCES Locations(LID)
 );
 
