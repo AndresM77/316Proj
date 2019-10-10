@@ -6,8 +6,7 @@ import {
   Marker
 } from "react-simple-maps";
 import "./App.css";
-import Slider from "@material-ui/core/Slider";
-import Tooltip from "@material-ui/core/Tooltip";
+import { Slider, Tooltip, Select, MenuItem } from "@material-ui/core";
 import "./App.css";
 
 const geoUrl =
@@ -39,17 +38,45 @@ function ValueLabelComponent(props) {
 }
 
 const MapChart = ({ setTooltipContent }) => {
+  
+  const [values, setValues] = React.useState({
+    category: "",
+    name: ""
+  });
+
+  const handleChange = event => {
+    setValues(oldValues => ({
+      ...oldValues,
+      [event.target.name]: event.target.value
+    }));
+  };
+
   return (
     <div>
-      <div style={{position:"absolute", bottom:"100px"}}>
+      <div style={{ position: "absolute", bottom: "100px", width: "300px" }}>
+        <Select
+          value={values.category}
+          onChange={handleChange}
+          style={{ width: "inherit", marginBottom: "30px" }}
+          inputProps={{
+            name: 'category',
+            id: 'category-simple',
+          }}
+        >
+          <MenuItem value={1}>Temperature</MenuItem>
+          <MenuItem value={2}>Air Pollution</MenuItem>
+        </Select>
         <Slider
           ValueLabelComponent={ValueLabelComponent}
           min={1900}
           max={2015}
           defaultValue={2015}
           step={1}
-          marks={[{ value: 1900, label: "1900" }, { value: 2015, label: "2015" }]}
-          style={{color: "#F53", width: "300px"}}
+          marks={[
+            { value: 1900, label: "1900" },
+            { value: 2015, label: "2015" }
+          ]}
+          style={{ color: "#F53" }}
         />
       </div>
       <div>
