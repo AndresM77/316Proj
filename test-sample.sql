@@ -1,13 +1,13 @@
 -- Populating Database --
 
-INSERT INTO Users(userID, username, email, first_name, last_name)
-	VALUES ('15c8c038-894c-46d1-b36f-10175eafa81c', 'test1', 'bar@foo.com', 'firstName', 'lastName');
+INSERT INTO Users(username, email, first_name, last_name)
+	VALUES ('test1', 'bar@foo.com', 'firstName', 'lastName');
 
 INSERT INTO Locations(LID, lat, lng, city, state, country)
 	VALUES ('c20c3de9-d693-4838-a6f4-3974a8d87194', 6.001427, -78.938232, 'Durham', 'North Carolina', 'USA');
 
 INSERT INTO Favorites(userID, location)
-	VALUES ('15c8c038-894c-46d1-b36f-10175eafa81c', 'c20c3de9-d693-4838-a6f4-3974a8d87194');
+	VALUES ('test1', 'c20c3de9-d693-4838-a6f4-3974a8d87194');
 
 INSERT INTO Categories(CID, Name)
 	VALUES
@@ -39,7 +39,8 @@ INSERT INTO Rain(DPID, CID, rainfall, source)
 
 -- Test Queries for Database --
 
-SELECT * FROM Favorites WHERE userID = '15c8c038-894c-46d1-b36f-10175eafa81c';
+-- When Querying for Favorited locations by a certain User
+SELECT * FROM Favorites WHERE username = 'test1';
 
 -- When Querying for all Air Quality Datapoints
 SELECT quality, lat, lng FROM Air, DataPoints, Locations WHERE Air.DPID=DataPoints.DPID;
@@ -60,4 +61,10 @@ SELECT rainfall, lat, lng FROM Rain, DataPoints, Locations WHERE Rain.DPID=DataP
 SELECT temperature, lat, lng FROM Temperature, DataPoints, Locations WHERE Temperature.DPID=DataPoints.DPID AND DataPoints.time='2019-9-10';
 
 -- When Quering Nonprofits
-SELECT name, description FROM Nonprofits
+SELECT name, description FROM Nonprofits;
+
+-- When Querying for Nonprofits by Category
+SELECT name, description FROM Nonprofits WHERE CID = '43c505fb-b51e-4ad4-a735-38e48e2dfb93';
+
+-- When Querying Other Users
+SELECT username FROM Users;
