@@ -1,5 +1,7 @@
 ## 316Proj
 
+# Must have PostgreSQl installed (we are using 11.5)
+
 Create `caction` db
 ```bash
 createdb caction
