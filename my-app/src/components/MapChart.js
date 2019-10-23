@@ -21,7 +21,7 @@ export default class MapChart extends React.Component {
 
   componentDidMount() {
     this.setState({
-      selectedYear: 2015
+      selectedYear: 2010
     })
 
   }
