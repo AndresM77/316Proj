@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 
-class Donate extends Componenet {
+class Donate extends Component {
   render() {
     return (
       <div>
-        <h2>Donate page ..<h2>
+        <h2> Donate page .. </h2>
       </div>
     );
   }

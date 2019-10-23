@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 
-class Contacts extends Componenet {
+class Contacts extends Component {
   render() {
     return (
       <div>
-        <h2>Contacts page ..<h2>
+        <h2> Contacts page .. </h2>
       </div>
     );
   }

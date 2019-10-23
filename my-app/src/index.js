@@ -4,6 +4,7 @@ import ReactTooltip from "react-tooltip";
 import App from './App'
 
 import "./index.css";
+import { BrowserRouter as Router } from 'react-router-dom';
 
 import MapChart from "./components/MapChart";
 
@@ -19,4 +20,8 @@ import MapChart from "./components/MapChart";
 // }
 
 const rootElement = document.getElementById("root");
-ReactDOM.render(<App />, rootElement);
+ReactDOM.render(
+  <Router>
+    <App />
+  </Router>,
+  rootElement);
