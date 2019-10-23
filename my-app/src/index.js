@@ -4,7 +4,7 @@ import ReactTooltip from "react-tooltip";
 
 import "./index.css";
 
-import MapChart from "./MapChart";
+import MapChart from "./components/MapChart";
 
 function App() {
   const [content, setContent] = useState("");
