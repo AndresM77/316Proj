@@ -21,7 +21,7 @@ export default class MapChart extends React.Component {
 
   componentDidMount() {
     this.setState({
-      selectedYear: 2010
+      selectedYear: 2015
     })
 
   }
@@ -49,8 +49,9 @@ export default class MapChart extends React.Component {
             data-tip=""
             projectionConfig={{ scale: 200 }}
             width={980}
-            height={551}
+            height={500}
             style={{
+              marginTop: "10px",
               width: "100%",
               height: "auto"
             }}
