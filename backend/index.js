@@ -12,7 +12,7 @@ const getCategories = (req, res) => {
     })
 }
 
-app.route("/categories").get(getCategories);
+app.route("/api/categories").get(getCategories);
 
 
 app.listen(process.env.PORT || 3002, () => {
