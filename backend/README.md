@@ -33,3 +33,4 @@ DB_PORT=5432
 DB_DATABASE=caction
 ```
 
+[Might find some help here](https://gist.github.com/AtulKsol/4470d377b448e56468baef85af7fd614)
