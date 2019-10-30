@@ -13,35 +13,53 @@ export default class MapChart extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      geoUrl:
-        "https://raw.githubusercontent.com/zcreativelabs/react-simple-maps/master/topojson-maps/world-110m.json",
-      selectedYear: ""
+      selectedYear: "",
+      selectedCategory: "",
+      points: this.testData,
+      selectedPoints: []
     };
   }
 
-  componentDidMount() {
-    this.setState({
-      selectedYear: 2015
-    })
+  testData = [
+    {id: 1, coordinates: [74.006, 40.7128], year: 2015, category: "temp", city: "Boston", measurement: "33C"},
+    {id: 2, coordinates: [64, 45], year: 1900, category: "temp", city: "Random City", measurement: "20C"},
+    {id: 3, coordinates: [-74.006, 40.7128], year: 2015, category: "air", city: "Boston", measurement: "100PPM"},
+    {id: 4, coordinates: [-64, 45], year: 1900, category: "air", city: "Random City", measurement: "30PPM"}
+  ]
 
+  componentDidMount() {
+    this.setState({selectedYear: 2015}, this.filterDataPoints)
   }
 
   handleYearChange = (year) => {
+    this.setState({selectedYear: year}, this.filterDataPoints)
+  }
+
+  handleCategoryChange = (category) => {
+    this.setState({selectedCategory: category.value}, this.filterDataPoints)
+  }
+
+  filterDataPoints = () => {
+    const filteredByYear = this.filterByYear(this.state.points);
+    const filteredByYearAndCategory = this.filterByCategory(filteredByYear);
     this.setState({
-      selectedYear: year
+      selectedPoints: filteredByYearAndCategory
     })
   }
 
-  testData = [
-    {coordinates: [-74.006, 40.7128], year: 2015, city: "Boston", temperature: "33C"},
-    {coordinates: [-64, 45], year: 1900, city: "Random City", temperature: "20C"}
-  ]
+  filterByCategory = (points) => {
+    return points.filter(point => point.category === this.state.selectedCategory);
+  }
+
+  filterByYear = (points) => {
+    return points.filter(point => point.year === this.state.selectedYear)
+  }
 
   render() {
     return (
       <div>
-        <div style={{ position: "absolute", bottom: "100px", width: "300px" }}>
-          <DataTypeSelect />
+        <div style={{ position: "absolute", bottom: "130px", width: "300px" }}>
+          <DataTypeSelect handleCategoryChange={this.handleCategoryChange}/>
           <YearSlider startYear={1900} endYear={2015} handleYearChange={this.handleYearChange}/>
         </div>
         <div>
@@ -56,24 +74,25 @@ export default class MapChart extends React.Component {
               height: "auto"
             }}
           >
-            <Geographies geography={this.state.geoUrl}>
+            <Geographies geography={"https://raw.githubusercontent.com/zcreativelabs/react-simple-maps/master/topojson-maps/world-110m.json"}>
               {({ geographies }) =>
                 geographies.map(geo => (
                   <Geography key={geo.rsmKey} geography={geo} />
                 ))
               }
             </Geographies>
-            {this.testData.map(point => (
-              point.year === this.state.selectedYear ? <Marker
+            {this.state.selectedPoints.map(point => (
+              <Marker
+                key={point.id}
                 coordinates={point.coordinates}
                 onMouseEnter={() => {
-                  this.props.setTooltipContent(`${point.city}- Temperature: ${point.temperature}`);
+                  this.props.setTooltipContent(`${point.city}- ${point.measurement}`);
                 }}
                 onMouseLeave={() => {
                   this.props.setTooltipContent("");
                 }}>
                 <circle r={8} fill="#F53"/>
-              </Marker> : null
+              </Marker>
             ))}
           </ComposableMap>
         </div>

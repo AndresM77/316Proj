@@ -1,35 +1,21 @@
 import React from "react";
-import { Select, MenuItem } from "@material-ui/core";
+import Select from "react-select";
 
 export default class DataTypeSelect extends React.Component {
+  // constructor(props) {
+  //   super(props);
+  // }
 
-    // const [values, setValues] = React.useState({
-  //   category: "",
-  //   name: ""
-  // });
-
-  // handleChange = event => {
-  //   setValues(oldValues => ({
-  //     ...oldValues,
-  //     [event.target.name]: event.target.value
-  //   }));
-  // };
+  handleChange = selectedOption => {
+    this.props.handleCategoryChange(selectedOption);
+  };
 
   render() {
-    return (
-    //   <Select
-    //     value={values.category}
-    //     onChange={this.handleChange}
-    //     style={{ width: "inherit", marginBottom: "30px" }}
-    //     inputProps={{
-    //       name: "category",
-    //       id: "category-simple"
-    //     }}
-    //   >
-    //     <MenuItem value={1}>Temperature</MenuItem>
-    //     <MenuItem value={2}>Air Pollution</MenuItem>
-    //   </Select>
-    null
-    );
+    const options = [
+      { value: "air", label: "Air Quality" },
+      { value: "temp", label: "Temperature" },
+      { value: "rain", label: "Rain" }
+    ];
+    return <Select options={options} onChange={this.handleChange} />;
   }
 }
