@@ -3,11 +3,11 @@ import {
   ComposableMap,
   Geographies,
   Geography,
-  Marker
 } from "react-simple-maps";
 import "../App.css";
-import DataTypeSelect from "../components/DataTypeSelect"
+import DataTypeSelect from "../components/DataTypeSelect";
 import YearSlider from "../components/YearSlider";
+import { scaleLinear } from "d3-scale";
 
 export default class MapChart extends React.Component {
   constructor(props) {
@@ -15,52 +15,70 @@ export default class MapChart extends React.Component {
     this.state = {
       selectedYear: "",
       selectedCategory: "",
-      points: this.testData,
+      points: this.data,
       selectedPoints: []
     };
   }
 
-  testData = [
-    {id: 1, coordinates: [74.006, 40.7128], year: 2015, category: "temp", city: "Boston", measurement: "33C"},
-    {id: 2, coordinates: [64, 45], year: 1900, category: "temp", city: "Random City", measurement: "20C"},
-    {id: 3, coordinates: [-74.006, 40.7128], year: 2015, category: "air", city: "Boston", measurement: "100PPM"},
-    {id: 4, coordinates: [-64, 45], year: 1900, category: "air", city: "Random City", measurement: "30PPM"}
-  ]
+  data = [
+    { id: 1, country: "USA", name: "United States", val: 10, category: "rain", year: 2015},
+    { id: 2, country: "USA", name: "United States", val: 15, category: "temp", year: 2015},
+    { id: 3, country: "USA", name: "United States", val: 1, category: "rain", year: 1900},
+    { id: 4, country: "USA", name: "United States", val: 4, category: "temp", year: 1900},
+    { id: 5, country: "RUS", name: "Russia", val: 16 },
+    { id: 6, country: "ISR", name: "Israel", val: 5 }
+  ];
+
+  minValue = 5; // based on the data array above
+  maxValue = 16; // based on the data array above
+
+  minColor = "#CFD8DC";
+  maxColor = "#37474F";
+
+  customScale = scaleLinear()
+    .domain([this.minValue, this.maxValue])
+    .range([this.minColor, this.maxColor]);
 
   componentDidMount() {
-    this.setState({selectedYear: 2015}, this.filterDataPoints)
+    this.setState({ selectedYear: 2015 }, this.filterDataPoints);
   }
 
-  handleYearChange = (year) => {
-    this.setState({selectedYear: year}, this.filterDataPoints)
-  }
+  handleYearChange = year => {
+    this.setState({ selectedYear: year }, this.filterDataPoints);
+  };
 
-  handleCategoryChange = (category) => {
-    this.setState({selectedCategory: category.value}, this.filterDataPoints)
-  }
+  handleCategoryChange = category => {
+    this.setState({ selectedCategory: category.value }, this.filterDataPoints);
+  };
 
   filterDataPoints = () => {
     const filteredByYear = this.filterByYear(this.state.points);
     const filteredByYearAndCategory = this.filterByCategory(filteredByYear);
     this.setState({
       selectedPoints: filteredByYearAndCategory
-    })
-  }
+    });
+  };
 
-  filterByCategory = (points) => {
-    return points.filter(point => point.category === this.state.selectedCategory);
-  }
+  filterByCategory = points => {
+    return points.filter(
+      point => point.category === this.state.selectedCategory
+    );
+  };
 
-  filterByYear = (points) => {
-    return points.filter(point => point.year === this.state.selectedYear)
-  }
+  filterByYear = points => {
+    return points.filter(point => point.year === this.state.selectedYear);
+  };
 
   render() {
     return (
       <div>
         <div style={{ position: "absolute", bottom: "130px", width: "300px" }}>
-          <DataTypeSelect handleCategoryChange={this.handleCategoryChange}/>
-          <YearSlider startYear={1900} endYear={2015} handleYearChange={this.handleYearChange}/>
+          <DataTypeSelect handleCategoryChange={this.handleCategoryChange} />
+          <YearSlider
+            startYear={1900}
+            endYear={2015}
+            handleYearChange={this.handleYearChange}
+          />
         </div>
         <div>
           <ComposableMap
@@ -74,26 +92,59 @@ export default class MapChart extends React.Component {
               height: "auto"
             }}
           >
-            <Geographies geography={"https://raw.githubusercontent.com/zcreativelabs/react-simple-maps/master/topojson-maps/world-110m.json"}>
+            <Geographies
+              geography={
+                "https://raw.githubusercontent.com/zcreativelabs/react-simple-maps/master/topojson-maps/world-110m.json"
+              }
+            >
               {({ geographies }) =>
-                geographies.map(geo => (
-                  <Geography key={geo.rsmKey} geography={geo} />
-                ))
+                geographies.map((geo, i) => {
+                  const country = this.state.selectedPoints.find(
+                    p => p.country === geo.properties.ISO_A3
+                  );
+                  return (
+                    <Geography
+                      key={geo.properties.ISO_A3 + i}
+                      cacheId={geo.properties.ISO_A3 + i}
+                      geography={geo}
+                      onMouseEnter={() => {
+                        const { NAME } = geo.properties;
+                        if(country) this.props.setTooltipContent(`${NAME} - ${country.val}`);
+                      }}
+                      onMouseLeave={() => {
+                        this.props.setTooltipContent("");
+                      }}
+                      style={{
+                        default: {
+                          fill: country
+                            ? this.customScale(country.val)
+                            : "#ECEFF1",
+                          stroke: "#FFF",
+                          strokeWidth: 0.75,
+                          outline: "none"
+                        },
+                        hover: {
+                          fill: country
+                            ? this.customScale(country.val)
+                            : "#ECEFF1",
+                          stroke: "#FFF",
+                          strokeWidth: 0.75,
+                          outline: "none"
+                        },
+                        pressed: {
+                          fill: country
+                            ? this.customScale(country.val)
+                            : "#ECEFF1",
+                          stroke: "#FFF",
+                          strokeWidth: 0.75,
+                          outline: "none"
+                        }
+                      }}
+                    />
+                  );
+                })
               }
             </Geographies>
-            {this.state.selectedPoints.map(point => (
-              <Marker
-                key={point.id}
-                coordinates={point.coordinates}
-                onMouseEnter={() => {
-                  this.props.setTooltipContent(`${point.city}- ${point.measurement}`);
-                }}
-                onMouseLeave={() => {
-                  this.props.setTooltipContent("");
-                }}>
-                <circle r={8} fill="#F53"/>
-              </Marker>
-            ))}
           </ComposableMap>
         </div>
       </div>
