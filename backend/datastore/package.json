@@ -1,0 +1,21 @@
+{
+  "name": "parse_csv",
+  "version": "1.0.0",
+  "description": "This is used to parse climate data and store into psql database",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "parse",
+    "csv"
+  ],
+  "author": "Frank Geng",
+  "license": "ISC",
+  "dependencies": {
+    "fast-csv": "*",
+    "pg": "*",
+    "uuid": "^3.3.3"
+  }
+}
