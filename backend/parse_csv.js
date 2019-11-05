@@ -1,21 +1,35 @@
 var fs = require("fs");
+var path = require("path");
 var $ = (jQuery = require("jquery"));
 require("./node_modules/jquery-csv/src/jquery.csv");
-
-var file_1 = "./test_USA.csv";
-var file_2 = "./test_URUGUAY.csv";
-
 
 function ReadFile(file) {
     fs.readFile(file, "UTF-8", function(err, csv) {
         if(err) {
             console.log(err);
+            return;
         }
         if(csv.indexOf("Temperature - Celsius") >= 0) {
             parseTemperature(csv);
         } else if (csv.indexOf("Rainfall - (MM)") >= 0) {
             parseRainfall(csv);
+        } else {
+            console.log("Error- wrong file type");
+            return;
         }
+    });
+}
+
+function ReadFilesFromDirectory(directory) {
+    fs.readdir(directory, function(err, files) {
+        if(err) {
+            console.log(err);
+            return;
+        }
+        files.forEach(file => {
+            var fromPath = path.join(directory, file);
+            ReadFile(fromPath);
+        });
     });
 }
 
@@ -55,5 +69,8 @@ function parseRainfall(csv) {
     })
 }
 
-ReadFile(file_1);
-ReadFile(file_2);
+var directory_path = "./files"
+
+ReadFilesFromDirectory(directory_path);
+
+

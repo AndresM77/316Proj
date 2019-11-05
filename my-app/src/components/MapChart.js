@@ -21,16 +21,18 @@ export default class MapChart extends React.Component {
   }
 
   data = [
-    { id: 1, country: "USA", name: "United States", val: 10, category: "rain", year: 2015},
-    { id: 2, country: "USA", name: "United States", val: 15, category: "temp", year: 2015},
-    { id: 3, country: "USA", name: "United States", val: 1, category: "rain", year: 1900},
-    { id: 4, country: "USA", name: "United States", val: 4, category: "temp", year: 1900},
-    { id: 5, country: "RUS", name: "Russia", val: 16 },
-    { id: 6, country: "ISR", name: "Israel", val: 5 }
+    { id: 1, country: "USA", val: 10, category: "rain", year: 2015},
+    { id: 1, country: "RUS", val: 20, category: "rain", year: 2015},
+    { id: 2, country: "USA", val: 15, category: "temp", year: 2015},
+    { id: 3, country: "USA", val: 1, category: "rain", year: 1900},
+    { id: 4, country: "USA", val: 4, category: "temp", year: 1900},
+    { id: 4, country: "EST", val: 16, category: "temp", year: 1900},
+    { id: 5, country: "RUS", val: 16 },
+    { id: 6, country: "ISR", val: 5 }
   ];
 
   minValue = 5; // based on the data array above
-  maxValue = 16; // based on the data array above
+  maxValue = 20; // based on the data array above
 
   minColor = "#CFD8DC";
   maxColor = "#37474F";
@@ -119,7 +121,7 @@ export default class MapChart extends React.Component {
                           fill: country
                             ? this.customScale(country.val)
                             : "#ECEFF1",
-                          stroke: "#FFF",
+                          stroke: "black",
                           strokeWidth: 0.75,
                           outline: "none"
                         },
@@ -127,7 +129,7 @@ export default class MapChart extends React.Component {
                           fill: country
                             ? this.customScale(country.val)
                             : "#ECEFF1",
-                          stroke: "#FFF",
+                          stroke: "black",
                           strokeWidth: 0.75,
                           outline: "none"
                         },
@@ -135,7 +137,7 @@ export default class MapChart extends React.Component {
                           fill: country
                             ? this.customScale(country.val)
                             : "#ECEFF1",
-                          stroke: "#FFF",
+                          stroke: "black",
                           strokeWidth: 0.75,
                           outline: "none"
                         }
