@@ -41,4 +41,4 @@ Lastly, run
 ```bash
 npm start
 ```
-and this will load the top 100 rows of tempurature data into the table.
+and this will load the top 100 rows of temperature data into the table.
