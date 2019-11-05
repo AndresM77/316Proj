@@ -34,3 +34,11 @@ DB_DATABASE=caction
 ```
 
 [Might find some help here](https://gist.github.com/AtulKsol/4470d377b448e56468baef85af7fd614)
+
+Then navigate into ./datastore and plug in your configurations for PostgreSQL database in credentials.js file.
+
+Lastly, run
+```bash
+npm start
+```
+and this will load the top 100 rows of temperature data into the table.
