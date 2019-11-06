@@ -4,7 +4,7 @@ const Weather = (props) => {
   console.log(props.weathers)
   return (
     <div>
-      Weather is: {props.weathers.annualData}
+      {props.weathers.annualData}
     </div>
   )
 };
