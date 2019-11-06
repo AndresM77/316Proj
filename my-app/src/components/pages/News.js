@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import NewsData from './item/newsdata';
+import NewsItem from './item/NewsItem'
 
 class News extends React.Component {
   constructor(props) {
@@ -37,31 +38,11 @@ class News extends React.Component {
       return <div>Loading...</div>;
     } else {
       return (
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center"
-          }}
-        >
-          <ul>
+          <div className="newsItems">
             {articles.map(article => (
-              <li key={article.title}>
-                <ul>
-                  <li>
-                    {article.title}
-                  </li>
-                  <li>
-                    {article.url}
-                  </li>
-                  <li>
-                    <img height="250" width="500" src ={article.urlToImage} />
-                  </li>
-                </ul>
-              </li>
+              <NewsItem title={article.title} url={article.url} imageUrl={article.urlToImage}/>
             ))}
-          </ul>
-        </div>
+          </div>
       );
     }
   }
