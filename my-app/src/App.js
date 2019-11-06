@@ -11,7 +11,6 @@ import News from './components/pages/News';
 import Donate from './components/pages/Donate';
 import NotFoundPage from './components/pages/NotFoundPage';
 import Contacts from './components/pages/Contacts';
-//Data pulled from api
 
 class App extends Component{
   render() {
