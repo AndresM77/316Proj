@@ -15,14 +15,26 @@ let counter = 0;
 // let header = [];
 // let data = [];
 
+const country = "USA"
+let lid = ""
+
+pool
+    .query(`SELECT * from locations WHERE country=$1`, [country], (err, res) => {
+        if(err) {
+            console.log(err);
+        }
+        lid = res.rows[0].lid
+    })
+
 let csvStream = csv.fromPath('./test_USA.csv', { headers: true })
     .on("data", function(record){
         csvStream.pause();
 
         //only get the first 100 rows for experimental purpose, can extend to whole file
-        if(counter < 100)
+        if(counter < 1)
         {
             let temp = record.Temperature;
+            let year = record.Year;
             // let country = record.Country;
             // let year = record.Year;
             // let iso = record.ISO3;
@@ -31,12 +43,22 @@ let csvStream = csv.fromPath('./test_USA.csv', { headers: true })
             let source = '89d79ac1-0cd5-4429-9d8c-2ac914eced86';
             
             //--------Load data into PSQL database--------
+
+            pool.query("INSERT INTO datapoints(dpid, time, lid) \
+            VALUES($1, $2, $3)", [dpid, new Date(year), uuidv4(lid)], function(err) {
+                if(err) {
+                    console.log(err);
+                }
+            });
+            
             pool.query("INSERT INTO temperature(dpid, cid, temperature, source) \
             VALUES($1, $2, $3, $4)", [dpid, CID, temp, source], function(err) {
                 if(err) {
                     console.log(err);
                 }
             });
+
+
             ++counter;
         }
 
