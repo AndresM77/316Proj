@@ -16,22 +16,25 @@ let counter = 0;
 // let data = [];
 
 const country = "USA"
-let lid = ""
 
 pool
-    .query(`SELECT * from locations WHERE country=$1`, [country], (err, res) => {
-        if(err) {
-            console.log(err);
-        }
-        lid = res.rows[0].lid
+    .query(`SELECT * from locations WHERE country=$1`, [country])
+    .then(res => {
+        console.log(res.rows[0].lid);
+        let lid = res.rows[0].lid;
+        readFile(lid);
     })
+    .catch( err =>
+        console.log(err)
+    )
 
-let csvStream = csv.fromPath('./test_USA.csv', { headers: true })
+function readFile(lid) {
+    let csvStream = csv.fromPath('./test_USA.csv', { headers: true })
     .on("data", function(record){
         csvStream.pause();
 
         //only get the first 100 rows for experimental purpose, can extend to whole file
-        if(counter < 1)
+        if(counter < 100)
         {
             let temp = record.Temperature;
             let year = record.Year;
@@ -45,12 +48,12 @@ let csvStream = csv.fromPath('./test_USA.csv', { headers: true })
             //--------Load data into PSQL database--------
 
             pool.query("INSERT INTO datapoints(dpid, time, lid) \
-            VALUES($1, $2, $3)", [dpid, new Date(year), uuidv4(lid)], function(err) {
+            VALUES($1, $2, $3)", [dpid, new Date(year), lid], function(err) {
                 if(err) {
                     console.log(err);
                 }
             });
-            
+
             pool.query("INSERT INTO temperature(dpid, cid, temperature, source) \
             VALUES($1, $2, $3, $4)", [dpid, CID, temp, source], function(err) {
                 if(err) {
@@ -69,6 +72,7 @@ let csvStream = csv.fromPath('./test_USA.csv', { headers: true })
     }).on("error", function(err){
         console.log(err);
     });
+};
 
 
 
