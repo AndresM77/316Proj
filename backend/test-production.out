@@ -1,0 +1,100 @@
+-- Test Queries for Database --
+
+-- When Querying for Favorited locations by a certain User
+SELECT * FROM Favorites WHERE username = 'test1';
+ username |               location               
+----------+--------------------------------------
+ test1    | c20c3de9-d693-4838-a6f4-3974a8d87194
+(1 row)
+
+
+-- When Querying for all Air Quality Datapoints
+SELECT quality, country FROM Air, DataPoints, Locations WHERE Air.DPID=DataPoints.DPID LIMIT 10;
+ quality | country 
+---------+---------
+    10.1 | USA
+(1 row)
+
+
+-- When Querying for all Rain DataPoints
+SELECT rainfall, country FROM Rain, DataPoints, Locations WHERE Rain.DPID=DataPoints.DPID LIMIT 10;
+ rainfall | country 
+----------+---------
+     55.5 | USA
+ 69.13532 | USA
+ 82.03559 | USA
+ 98.25043 | USA
+  92.6837 | USA
+ 86.89947 | USA
+ 65.56277 | USA
+ 70.21428 | USA
+ 80.66295 | USA
+ 78.22242 | USA
+(10 rows)
+
+
+-- When Querying for all Temperature DataPoints
+SELECT temperature, country FROM Temperature, DataPoints, Locations WHERE Temperature.DPID=DataPoints.DPID LIMIT 10;
+ temperature | country 
+-------------+---------
+        88.9 | USA
+      6.9163 | USA
+     7.06409 | USA
+      6.3984 | USA
+     6.88753 | USA
+     6.30238 | USA
+     6.77008 | USA
+     7.54176 | USA
+     7.56583 | USA
+     7.97167 | USA
+(10 rows)
+
+
+-- When Querying for time dependent Air Quality Datapoints
+SELECT quality, country FROM Air, DataPoints, Locations WHERE Air.DPID=DataPoints.DPID AND DataPoints.time='2019-9-10' LIMIT 10;
+ quality | country 
+---------+---------
+    10.1 | USA
+(1 row)
+
+
+-- When Querying for time dependent Rain DataPoints
+SELECT rainfall, country FROM Rain, DataPoints, Locations WHERE Rain.DPID=DataPoints.DPID AND DataPoints.time='2019-9-10' LIMIT 10;
+ rainfall | country 
+----------+---------
+     55.5 | USA
+(1 row)
+
+
+-- When Querying for time dependent Temperature DataPoints
+SELECT temperature, country FROM Temperature, DataPoints, Locations WHERE Temperature.DPID=DataPoints.DPID AND DataPoints.time='2019-9-10' LIMIT 10;
+ temperature | country 
+-------------+---------
+(0 rows)
+
+
+-- When Quering Nonprofits
+SELECT name, description FROM Nonprofits LIMIT 10;
+ name | description 
+------+-------------
+ EPA  | foo bar
+ EPA2 | foo bar
+ EPA3 | foo bar
+(3 rows)
+
+
+-- When Querying for Nonprofits by Category
+SELECT name, description FROM Nonprofits WHERE CID = '43c505fb-b51e-4ad4-a735-38e48e2dfb93';
+ name | description 
+------+-------------
+ EPA2 | foo bar
+(1 row)
+
+
+-- When Querying Other Users
+SELECT username FROM Users;
+ username 
+----------
+ test1
+(1 row)
+
