@@ -20,11 +20,19 @@ class News extends React.Component {
         console.log("state", this.state.news);
       })
   }
-  */
+
   render() {
     return (
       <div>
         //{this.state.news}
+      </div>
+    );
+  }
+  */
+  render() {
+    return (
+      <div>
+        <h2> News Page .. </h2>
       </div>
     );
   }

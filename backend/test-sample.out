@@ -29,55 +29,55 @@ INSERT INTO Rain(DPID, CID, rainfall, source)
 -- Test Queries for Database --
 -- When Querying for Favorited locations by a certain User
 SELECT * FROM Favorites WHERE username = 'test1';
- username |               location               
+ username |               location
 ----------+--------------------------------------
  test1    | c20c3de9-d693-4838-a6f4-3974a8d87194
 (1 row)
 
 -- When Querying for all Air Quality Datapoints
 SELECT quality, lat, lng FROM Air, DataPoints, Locations WHERE Air.DPID=DataPoints.DPID;
- quality |    lat     |     lng      
+ quality |    lat     |     lng
 ---------+------------+--------------
     10.1 | 6.00142700 | -78.93823200
 (1 row)
 
 -- When Querying for all Rain DataPoints
 SELECT rainfall, lat, lng FROM Rain, DataPoints, Locations WHERE Rain.DPID=DataPoints.DPID;
- rainfall |    lat     |     lng      
+ rainfall |    lat     |     lng
 ----------+------------+--------------
      55.5 | 6.00142700 | -78.93823200
 (1 row)
 
 -- When Querying for all Temperature DataPoints
 SELECT temperature, lat, lng FROM Temperature, DataPoints, Locations WHERE Temperature.DPID=DataPoints.DPID;
- temperature |    lat     |     lng      
+ temperature |    lat     |     lng
 -------------+------------+--------------
         88.9 | 6.00142700 | -78.93823200
 (1 row)
 
 -- When Querying for time dependent Air Quality Datapoints
 SELECT quality, lat, lng FROM Air, DataPoints, Locations WHERE Air.DPID=DataPoints.DPID AND DataPoints.time='2019-9-10';
- quality |    lat     |     lng      
+ quality |    lat     |     lng
 ---------+------------+--------------
     10.1 | 6.00142700 | -78.93823200
 (1 row)
 
 -- When Querying for time dependent Rain DataPoints
 SELECT rainfall, lat, lng FROM Rain, DataPoints, Locations WHERE Rain.DPID=DataPoints.DPID AND DataPoints.time='2019-9-10';
- rainfall |    lat     |     lng      
+ rainfall |    lat     |     lng
 ----------+------------+--------------
      55.5 | 6.00142700 | -78.93823200
 (1 row)
 
 -- When Querying for time dependent Temperature DataPoints
 SELECT temperature, lat, lng FROM Temperature, DataPoints, Locations WHERE Temperature.DPID=DataPoints.DPID AND DataPoints.time='2019-9-10';
- temperature | lat | lng 
+ temperature | lat | lng
 -------------+-----+-----
 (0 rows)
 
 -- When Quering Nonprofits
 SELECT name, description FROM Nonprofits;
- name | description 
+ name | description
 ------+-------------
  EPA  | foo bar
  EPA2 | foo bar
@@ -86,15 +86,14 @@ SELECT name, description FROM Nonprofits;
 
 -- When Querying for Nonprofits by Category
 SELECT name, description FROM Nonprofits WHERE CID = '43c505fb-b51e-4ad4-a735-38e48e2dfb93';
- name | description 
+ name | description
 ------+-------------
  EPA2 | foo bar
 (1 row)
 
 -- When Querying Other Users
 SELECT username FROM Users;
- username 
+ username
 ----------
  test1
 (1 row)
-
