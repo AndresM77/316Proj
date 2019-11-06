@@ -24,7 +24,8 @@ class News extends React.Component {
   render() {
     return (
       <div>
-        //{this.state.news}
+        {/* //{this.state.news} */}
+        This is the News
       </div>
     );
   }

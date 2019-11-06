@@ -1,6 +1,6 @@
 var credentials = {
-    username: "admin",  //Your database name
-    password: "password",  //Your database password
+    username: "ethan",  //Your database name
+    password: "thisisethan",  //Your database password
     server: "localhost",
     database: "caction",
 }

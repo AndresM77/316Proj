@@ -1,7 +1,16 @@
 var fs = require("fs");
 var path = require("path");
 var $ = (jQuery = require("jquery"));
+const pool = require('./datastore/pgdb');
+const uuidv4 = require('uuid/v4');
 require("./node_modules/jquery-csv/src/jquery.csv");
+
+pool.connect(function(err){
+    if(err)
+    {
+        console.log(err);
+    }
+});
 
 function ReadFile(file) {
     fs.readFile(file, "UTF-8", function(err, csv) {
@@ -49,6 +58,20 @@ function parseTemperature(csv) {
     Object.keys(aggregate_data).forEach((key) => {
         aggregate_data[key].Temperature = Number(aggregate_data[key].Temperature.toFixed(5));
     })
+
+    
+
+    Object.values(aggregate_data).forEach(data_point => {
+        let dpid = uuidv4();
+        let CID = '43c505fb-b51e-4ad4-a735-38e48e2dfb93';
+        let source = '89d79ac1-0cd5-4429-9d8c-2ac914eced86';
+        pool.query("INSERT INTO temperature(dpid, cid, temperature, source) \
+            VALUES($1, $2, $3, $4)", [dpid, CID, data_point.Temperature, source], function(err) {
+                if(err) {
+                    console.log(err);
+                }
+        });
+    })
 }
 
 function parseRainfall(csv) {
@@ -66,6 +89,18 @@ function parseRainfall(csv) {
 
     Object.keys(aggregate_data).forEach((key) => {
         aggregate_data[key].Rainfall = Number(aggregate_data[key].Rainfall.toFixed(5));
+    })
+
+    Object.values(aggregate_data).forEach(data_point => {
+        let dpid = uuidv4();
+        let CID = '43c505fb-b51e-4ad4-a735-38e48e2dfb93';
+        let source = '89d79ac1-0cd5-4429-9d8c-2ac914eced86';
+        pool.query("INSERT INTO rain(dpid, cid, rainfall, source) \
+            VALUES($1, $2, $3, $4)", [dpid, CID, data_point.Rainfall, source], function(err) {
+                if(err) {
+                    console.log(err);
+                }
+        });
     })
 }
 
