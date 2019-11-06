@@ -5,6 +5,10 @@ CREATE TABLE Categories (
 
 CREATE TABLE Locations (
 	LID uuid PRIMARY KEY NOT NULL,
+	lat DECIMAL(10,8),
+	lng DECIMAL(10,8),
+	city TEXT,
+	state TEXT,
 	country TEXT
 );
 
