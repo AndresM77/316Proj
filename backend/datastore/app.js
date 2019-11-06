@@ -15,7 +15,21 @@ let counter = 0;
 // let header = [];
 // let data = [];
 
-let csvStream = csv.fromPath('./test_USA.csv', { headers: true })
+const country = "USA"
+
+pool
+    .query(`SELECT * from locations WHERE country=$1`, [country])
+    .then(res => {
+        console.log(res.rows[0].lid);
+        let lid = res.rows[0].lid;
+        readFile(lid);
+    })
+    .catch( err =>
+        console.log(err)
+    )
+
+function readFile(lid) {
+    let csvStream = csv.fromPath('./test_USA.csv', { headers: true })
     .on("data", function(record){
         csvStream.pause();
 
@@ -23,6 +37,7 @@ let csvStream = csv.fromPath('./test_USA.csv', { headers: true })
         if(counter < 100)
         {
             let temp = record.Temperature;
+            let year = record.Year;
             // let country = record.Country;
             // let year = record.Year;
             // let iso = record.ISO3;
@@ -31,12 +46,22 @@ let csvStream = csv.fromPath('./test_USA.csv', { headers: true })
             let source = '89d79ac1-0cd5-4429-9d8c-2ac914eced86';
             
             //--------Load data into PSQL database--------
+
+            pool.query("INSERT INTO datapoints(dpid, time, lid) \
+            VALUES($1, $2, $3)", [dpid, new Date(year), lid], function(err) {
+                if(err) {
+                    console.log(err);
+                }
+            });
+
             pool.query("INSERT INTO temperature(dpid, cid, temperature, source) \
             VALUES($1, $2, $3, $4)", [dpid, CID, temp, source], function(err) {
                 if(err) {
                     console.log(err);
                 }
             });
+
+
             ++counter;
         }
 
@@ -47,6 +72,7 @@ let csvStream = csv.fromPath('./test_USA.csv', { headers: true })
     }).on("error", function(err){
         console.log(err);
     });
+};
 
 
 
