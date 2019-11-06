@@ -28,7 +28,7 @@ class News extends React.Component {
         }
       )
   }
-  
+
   render() {
     const { error, isLoaded, articles } = this.state;
     if (error) {
@@ -37,13 +37,31 @@ class News extends React.Component {
       return <div>Loading...</div>;
     } else {
       return (
-        <ul>
-          {articles.map(article => (
-            <li key={article.title}>
-              {article.title} {article.url}
-            </li>
-          ))}
-        </ul>
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center"
+          }}
+        >
+          <ul>
+            {articles.map(article => (
+              <li key={article.title}>
+                <ul>
+                  <li>
+                    {article.title}
+                  </li>
+                  <li>
+                    {article.url}
+                  </li>
+                  <li>
+                    <img height="250" width="500" src ={article.urlToImage} />
+                  </li>
+                </ul>
+              </li>
+            ))}
+          </ul>
+        </div>
       );
     }
   }
