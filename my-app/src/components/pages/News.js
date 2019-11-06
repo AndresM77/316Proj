@@ -24,12 +24,7 @@ class News extends React.Component {
   render() {
     return (
       <div>
-        {/* //{this.state.news} */}
-        This is the News
-      </div>
-    );
-  }
-  */
+        {/* //{this.state.news} */
   render() {
     return (
       <div>
