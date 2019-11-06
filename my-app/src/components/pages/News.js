@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import NewsData from './item/newsdata';
+import NewsItem from './item/NewsItem'
 
 class News extends React.Component {
   constructor(props) {
@@ -11,7 +12,7 @@ class News extends React.Component {
     };
   }
   componentDidMount() {
-    fetch("https://newsapi.org/v2/everything?q=climate&apiKey=7f25e9ec7b7b4ac181855d9cd830bfab")
+    fetch("https://newsapi.org/v2/everything?q=climate&pageSize=48&apiKey=7f25e9ec7b7b4ac181855d9cd830bfab")
       .then(res => res.json())
       .then(
         (result) => {
@@ -28,7 +29,7 @@ class News extends React.Component {
         }
       )
   }
-  
+
   render() {
     const { error, isLoaded, articles } = this.state;
     if (error) {
@@ -37,13 +38,11 @@ class News extends React.Component {
       return <div>Loading...</div>;
     } else {
       return (
-        <ul>
-          {articles.map(article => (
-            <li key={article.title}>
-              {article.title} {article.url}
-            </li>
-          ))}
-        </ul>
+          <div className="newsItems">
+            {articles.map(article => (
+              <NewsItem title={article.title} url={article.url} imageUrl={article.urlToImage}/>
+            ))}
+          </div>
       );
     }
   }
