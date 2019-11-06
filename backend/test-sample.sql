@@ -3,7 +3,7 @@
 INSERT INTO Users(username, email, first_name, last_name)
 	VALUES ('test1', 'bar@foo.com', 'firstName', 'lastName');
 
-INSERT INTO Locations(LID, country)
+INSERT INTO Locations(LID, lat, lng, city, state country)
 	VALUES ('c20c3de9-d693-4838-a6f4-3974a8d87194', 6.001427, -78.938232, 'Durham', 'North Carolina', 'USA');
 
 INSERT INTO Favorites(username, location)
@@ -43,7 +43,7 @@ INSERT INTO Rain(DPID, CID, rainfall, source)
 SELECT * FROM Favorites WHERE username = 'test1';
 
 -- When Querying for all Air Quality Datapoints
-SELECT quality, country FROM Air, DataPoints, Locations WHERE Air.DPID=DataPoints.DPID;
+SELECT quality, lat, lng FROM Air, DataPoints, Locations WHERE Air.DPID=DataPoints.DPID;
 
 -- When Querying for all Rain DataPoints
 SELECT rainfall, country FROM Rain, DataPoints, Locations WHERE Rain.DPID=DataPoints.DPID;
