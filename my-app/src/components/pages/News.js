@@ -12,7 +12,7 @@ class News extends React.Component {
     };
   }
   componentDidMount() {
-    fetch("https://newsapi.org/v2/everything?q=climate&apiKey=7f25e9ec7b7b4ac181855d9cd830bfab")
+    fetch("https://newsapi.org/v2/everything?q=climate&pageSize=48&apiKey=7f25e9ec7b7b4ac181855d9cd830bfab")
       .then(res => res.json())
       .then(
         (result) => {
