@@ -2,7 +2,7 @@
 
 # Must have PostgreSQL, Node.js, and npm installed
 
-##Windows User Only: Switch to psql user by:
+## Windows User Only: Switch to psql user by:
 ```bash
 sudo -i -u psql
 ```
@@ -23,7 +23,7 @@ psql caction
 CREATE USER username WITH LOGIN PASSWORD password;
 GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA public TO root;
 ```
-###Windows User Only: If you run into difficulties executing the last command, look [here](https://gist.github.com/AtulKsol/4470d377b448e56468baef85af7fd614) to solve the issue
+### Windows User Only: If you run into difficulties executing the last command, look [here](https://gist.github.com/AtulKsol/4470d377b448e56468baef85af7fd614) to solve the issue
 
 Create a `.env` file in this directory with:
 ```
