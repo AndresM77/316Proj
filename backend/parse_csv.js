@@ -63,10 +63,9 @@ function parseTemperature(csv) {
     Object.values(aggregate_data).forEach(data_point => {
         let dpid = uuidv4();
         let CID = '43c505fb-b51e-4ad4-a735-38e48e2dfb93';
-        let source = '89d79ac1-0cd5-4429-9d8c-2ac914eced86';
         let LID = 'c20c3de9-d693-4838-a6f4-3974a8d87194';
-        pool.query("INSERT INTO temperature(dpid, cid, temperature, source) \
-            VALUES($1, $2, $3, $4)", [dpid, CID, data_point.Temperature, source], function(err) {
+        pool.query("INSERT INTO temperature(dpid, cid, temperature) \
+            VALUES($1, $2, $3)", [dpid, CID, data_point.Temperature], function(err) {
                 if(err) {
                     console.log(err);
                 }
@@ -100,10 +99,9 @@ function parseRainfall(csv) {
     Object.values(aggregate_data).forEach(data_point => {
         let dpid = uuidv4();
         let CID = '43c505fb-b51e-4ad4-a735-38e48e2dfb93';
-        let source = '89d79ac1-0cd5-4429-9d8c-2ac914eced86';
         let LID = 'c20c3de9-d693-4838-a6f4-3974a8d87194';
-        pool.query("INSERT INTO rain(dpid, cid, rainfall, source) \
-            VALUES($1, $2, $3, $4)", [dpid, CID, data_point.Rainfall, source], function(err) {
+        pool.query("INSERT INTO rain(dpid, cid, rainfall) \
+            VALUES($1, $2, $3)", [dpid, CID, data_point.Rainfall], function(err) {
                 if(err) {
                     console.log(err);
                 }

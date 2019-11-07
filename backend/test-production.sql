@@ -19,13 +19,7 @@ SELECT quality, country FROM Air, DataPoints, Locations WHERE Air.DPID=DataPoint
 SELECT rainfall, country FROM Rain, DataPoints, Locations WHERE Rain.DPID=DataPoints.DPID AND DataPoints.time='2019-9-10' LIMIT 10;
 
 -- When Querying for time dependent Temperature DataPoints
-SELECT temperature, country FROM Temperature, DataPoints, Locations WHERE Temperature.DPID=DataPoints.DPID AND DataPoints.time='2019-9-10' LIMIT 10;
-
--- When Quering Nonprofits
-SELECT name, description FROM Nonprofits LIMIT 10;
-
--- When Querying for Nonprofits by Category
-SELECT name, description FROM Nonprofits WHERE CID = '43c505fb-b51e-4ad4-a735-38e48e2dfb93';
+SELECT temperature, country FROM Temperature, DataPoints, Locations WHERE Temperature.DPID=DataPoints.DPID AND DataPoints.time='2018-01-01' LIMIT 10;
 
 -- When Querying Other Users
 SELECT username FROM Users;

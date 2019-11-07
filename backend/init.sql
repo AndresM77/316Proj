@@ -14,7 +14,7 @@ CREATE TABLE Locations (
 
 CREATE TABLE Nonprofits (
 	OID uuid PRIMARY KEY NOT NULL,
-	name VARCHAR(32) NOT NULL,
+	name VARCHAR(32) NOT NULL
 	description VARCHAR(64) NOT NULL,
 	CID uuid REFERENCES Categories(CID) NOT NULL
 );
@@ -22,23 +22,20 @@ CREATE TABLE Nonprofits (
 CREATE TABLE Air (
 	DPID uuid PRIMARY KEY,
 	CID uuid  REFERENCES Categories(CID) NOT NULL,
-	quality FLOAT NOT NULL,
-	source uuid REFERENCES Nonprofits(OID) NOT NULL
+	quality FLOAT NOT NULL
 );
 
 CREATE TABLE Temperature (
 	DPID uuid PRIMARY KEY,
 	CID uuid REFERENCES Categories(CID) NOT NULL,
-	temperature FLOAT NOT NULL,
-	source uuid REFERENCES Nonprofits(OID) NOT NULL
+	temperature FLOAT NOT NULL
 );
 
 CREATE TABLE Rain (
 	DPID uuid PRIMARY KEY,
 	CID uuid REFERENCES Categories(CID) NOT NULL,
-	rainfall FLOAT NOT NULL,
-	source uuid REFERENCES Nonprofits(OID) NOT NULL
-);
+	rainfall FLOAT NOT NULL
+	);
 
 CREATE TABLE Users (
 	username VARCHAR(32) PRIMARY KEY NOT NULL,

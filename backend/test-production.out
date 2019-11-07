@@ -9,44 +9,44 @@ SELECT * FROM Favorites WHERE username = 'test1';
 
 
 -- When Querying for all Air Quality Datapoints
-SELECT quality, country FROM Air, DataPoints, Locations WHERE Air.DPID=DataPoints.DPID LIMIT 10;
- quality | country 
----------+---------
-    10.1 | USA
+SELECT quality, country, time FROM Air, DataPoints, Locations WHERE Air.DPID=DataPoints.DPID LIMIT 10;
+ quality | country |    time    
+---------+---------+------------
+    10.1 | USA     | 2019-09-10
 (1 row)
 
 
 -- When Querying for all Rain DataPoints
-SELECT rainfall, country FROM Rain, DataPoints, Locations WHERE Rain.DPID=DataPoints.DPID LIMIT 10;
- rainfall | country 
-----------+---------
-     55.5 | USA
- 69.13532 | USA
- 82.03559 | USA
- 98.25043 | USA
-  92.6837 | USA
- 86.89947 | USA
- 65.56277 | USA
- 70.21428 | USA
- 80.66295 | USA
- 78.22242 | USA
+SELECT rainfall, country, time FROM Rain, DataPoints, Locations WHERE Rain.DPID=DataPoints.DPID LIMIT 10;
+ rainfall | country |    time    
+----------+---------+------------
+     55.5 | USA     | 2019-09-10
+ 69.13532 | USA     | 1901-01-01
+ 86.89947 | USA     | 1905-01-01
+ 65.56277 | USA     | 1906-01-01
+ 70.21428 | USA     | 1907-01-01
+ 80.66295 | USA     | 1908-01-01
+ 78.22242 | USA     | 1909-01-01
+  65.0838 | USA     | 1910-01-01
+ 82.03559 | USA     | 1902-01-01
+ 98.48448 | USA     | 1911-01-01
 (10 rows)
 
 
 -- When Querying for all Temperature DataPoints
-SELECT temperature, country FROM Temperature, DataPoints, Locations WHERE Temperature.DPID=DataPoints.DPID LIMIT 10;
- temperature | country 
--------------+---------
-        88.9 | USA
-      6.9163 | USA
-     7.06409 | USA
-      6.3984 | USA
-     6.88753 | USA
-     6.30238 | USA
-     6.77008 | USA
-     7.54176 | USA
-     7.56583 | USA
-     7.97167 | USA
+SELECT temperature, country, time FROM Temperature, DataPoints, Locations WHERE Temperature.DPID=DataPoints.DPID LIMIT 10;
+ temperature | country |    time    
+-------------+---------+------------
+        88.9 | USA     | 2019-10-10
+     6.03862 | USA     | 1903-01-01
+     6.70715 | USA     | 1905-01-01
+     6.68636 | USA     | 1911-01-01
+      6.9163 | USA     | 1915-01-01
+     7.49037 | USA     | 1921-01-01
+     7.01919 | USA     | 1925-01-01
+     6.76352 | USA     | 1930-01-01
+     7.43175 | USA     | 1941-01-01
+     6.70097 | USA     | 1945-01-01
 (10 rows)
 
 
@@ -67,28 +67,10 @@ SELECT rainfall, country FROM Rain, DataPoints, Locations WHERE Rain.DPID=DataPo
 
 
 -- When Querying for time dependent Temperature DataPoints
-SELECT temperature, country FROM Temperature, DataPoints, Locations WHERE Temperature.DPID=DataPoints.DPID AND DataPoints.time='2019-9-10' LIMIT 10;
+SELECT temperature, country FROM Temperature, DataPoints, Locations WHERE Temperature.DPID=DataPoints.DPID AND DataPoints.time='2018-01-01' LIMIT 10;
  temperature | country 
 -------------+---------
 (0 rows)
-
-
--- When Quering Nonprofits
-SELECT name, description FROM Nonprofits LIMIT 10;
- name | description 
-------+-------------
- EPA  | foo bar
- EPA2 | foo bar
- EPA3 | foo bar
-(3 rows)
-
-
--- When Querying for Nonprofits by Category
-SELECT name, description FROM Nonprofits WHERE CID = '43c505fb-b51e-4ad4-a735-38e48e2dfb93';
- name | description 
-------+-------------
- EPA2 | foo bar
-(1 row)
 
 
 -- When Querying Other Users
