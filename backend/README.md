@@ -55,3 +55,7 @@ Next you can test queries against the data you just loaded by running:
 psql caction -af test-production.sql
 ```
 and this will display top 10 rows of temperature and rain data.
+
+## Data Was Retrieved From:
+https://climateknowledgeportal.worldbank.org/download-data
+
