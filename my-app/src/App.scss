@@ -38,7 +38,8 @@ html {
   .App-link {
     color: $text-color-primary;
   }
-  
+
+// News Page
   .newsItems {
     margin-top: 2rem;
     display: flex;
@@ -81,6 +82,8 @@ html {
     margin: 5vh auto;
   }
 
+// Navbar
+
 .navbar {
   padding-top: 3vh;
 }
@@ -113,6 +116,7 @@ html {
   }
 }
 
+// Footer
 footer {
   font-size: 12px;
   position: absolute;
@@ -123,6 +127,7 @@ footer {
   padding-bottom: 1vh;
 }
 
+// Metric selector
 .selector {
   height: 20px;
   margin-bottom: 60px;

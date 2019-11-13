@@ -16,6 +16,6 @@ export default class DataTypeSelect extends React.Component {
       { value: "temp", label: "Temperature" },
       { value: "rain", label: "Rain" }
     ];
-    return <Select className="selector" options={options} onChange={this.handleChange} placeholder="Select a measurement." />;
+    return <Select className="selector" options={options} onChange={this.handleChange} placeholder="Select a metric" />;
   }
 }
