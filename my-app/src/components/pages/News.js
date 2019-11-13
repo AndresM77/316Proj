@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import NewsData from './item/newsdata';
 import NewsItem from './item/NewsItem'
 
 class News extends React.Component {
@@ -38,10 +37,13 @@ class News extends React.Component {
       return <div>Loading...</div>;
     } else {
       return (
-          <div className="newsItems">
-            {articles.map(article => (
-              <NewsItem title={article.title} url={article.url} imageUrl={article.urlToImage}/>
-            ))}
+          <div>
+            <div><h2>News</h2></div>
+            <div className="newsItems">
+              {articles.map(article => (
+                <NewsItem title={article.title} url={article.url} imageUrl={article.urlToImage}/>
+              ))}
+            </div>
           </div>
       );
     }
