@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import NewsData from './item/newsdata';
 import NewsItem from './item/NewsItem'
 
 class News extends React.Component {

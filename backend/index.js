@@ -5,12 +5,13 @@ const app = express()
 
 const getDPs = (req, res) => {
     // const category = req.query.category;
+    console.log(res)
     let query = "";
-    if(!req.query.category) {
+    if(!req.params.category) {
         res.status(400).send("category is required");
     }
     else {
-        switch(req.query.category) {
+        switch(req.params.category) {
             case "air": 
                 query = 'SELECT quality, lat, lng FROM Air, DataPoints, Locations WHERE Air.DPID=DataPoints.DPID';
                 break;
@@ -18,7 +19,7 @@ const getDPs = (req, res) => {
                 query = 'SELECT rainfall, lat, lng FROM Rain, DataPoints, Locations WHERE Rain.DPID=DataPoints.DPID';
                 break;
             case "temp":
-                query = 'SELECT rainfall, lat, lng FROM Rain, DataPoints, Locations WHERE Rain.DPID=DataPoints.DPID';
+                query = 'SELECT * FROM temperature';
                 break;
         }
 
@@ -104,12 +105,12 @@ const getUsers = (req, res) => {
     })
 }
 
-app.route("/api/categories").get(getCategories);
-app.route("/api/dps").get(getDPs);
-app.route("/api/depdps").get(getDepDPs);
-app.route("/api/nonprofits").get(getNonprofits);
-app.route("/api/nonprofits/categories").get(getNonprofitCategories);
-app.route("/api/users").get(getUsers);
+app.route("/api/v1/categories").get(getCategories);
+app.route('/api/v1/dps/:category').get(getDPs);
+app.route("/api/v1/depdps").get(getDepDPs);
+app.route("/api/v1/nonprofits").get(getNonprofits);
+app.route("/api/v1/nonprofits/categories").get(getNonprofitCategories);
+app.route("/api/v1/users").get(getUsers);
 
 app.listen(process.env.PORT || 3002, () => {
     console.log('Server listening')
