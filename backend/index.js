@@ -105,12 +105,12 @@ const getUsers = (req, res) => {
     })
 }
 
-app.route("/api/categories").get(getCategories);
-app.route('/api/dps/:category').get(getDPs);
-app.route("/api/depdps").get(getDepDPs);
-app.route("/api/nonprofits").get(getNonprofits);
-app.route("/api/nonprofits/categories").get(getNonprofitCategories);
-app.route("/api/users").get(getUsers);
+app.route("/api/v1/categories").get(getCategories);
+app.route('/api/v1/dps/:category').get(getDPs);
+app.route("/api/v1/depdps").get(getDepDPs);
+app.route("/api/v1/nonprofits").get(getNonprofits);
+app.route("/api/v1/nonprofits/categories").get(getNonprofitCategories);
+app.route("/api/v1/users").get(getUsers);
 
 app.listen(process.env.PORT || 3002, () => {
     console.log('Server listening')
