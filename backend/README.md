@@ -5,8 +5,8 @@ Google Cloud PostgreSQL service is up and running. To gain access to it, please 
 I temporarily put the database on my Duke VCM and "tunneled" through the firewall. Now you can test two api's by the following address:
 
 ```bash
-http://cd9fd34f.ngrok.io/api/v1/dps/temp
-http://cd9fd34f.ngrok.io/api/v1/categories
+http://frank.colab.duke.edu/api/v1/dps/temp
+http://frank.colab.duke.edu/api/v1/categories
 ```
 
 ## Setup Backend
