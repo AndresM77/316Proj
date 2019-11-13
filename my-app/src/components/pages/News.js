@@ -38,10 +38,13 @@ class News extends React.Component {
       return <div>Loading...</div>;
     } else {
       return (
-          <div className="newsItems">
-            {articles.map(article => (
-              <NewsItem title={article.title} url={article.url} imageUrl={article.urlToImage}/>
-            ))}
+          <div>
+            <div><h2>News</h2></div>
+            <div className="newsItems">
+              {articles.map(article => (
+                <NewsItem title={article.title} url={article.url} imageUrl={article.urlToImage}/>
+              ))}
+            </div>
           </div>
       );
     }

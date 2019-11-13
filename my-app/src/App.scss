@@ -1,3 +1,21 @@
+$text-color-primary: #02182B;
+$text-color-secondary: #2191FB;
+
+html {
+  font-family: 'Inter', sans-serif;
+}
+
+@supports (font-variation-settings: normal) {
+  html {
+    font-family: 'Inter var', sans-serif;
+  }
+}
+
+* {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
 .App {
     text-align: center;
   }
@@ -18,7 +36,7 @@
   }
   
   .App-link {
-    color: #09d3ac;
+    color: $text-color-primary;
   }
   
   .newsItems {
@@ -39,10 +57,10 @@
       margin: 0;
       a {
           text-decoration: none;
-          color: #282c34;
+          color: $text-color-primary;
       }
       box-sizing: border-box;
-      border: 1px solid #282c34;
+      border: 1px solid $text-color-primary;
       border-radius: 5px;
       margin: .75rem;
       padding: 2%;
@@ -62,3 +80,50 @@
   
     margin: 5vh auto;
   }
+
+.navbar {
+  padding-top: 3vh;
+}
+#navbar-title {
+  font-weight: bolder;
+  color: $text-color-secondary;
+}
+
+.nav {
+  li {
+    display: inline;
+  }
+
+  a {
+    font-size: 20px;
+    font-weight: bold;
+    color: $text-color-primary;
+    list-style-type: none;
+    text-decoration: none;
+    display: block;
+    padding: 10px;
+
+    &:hover {
+      color: $text-color-secondary;
+    }
+  }
+
+  #searchbar {
+    padding-left: 5px;
+  }
+}
+
+footer {
+  font-size: 12px;
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  text-align: center;
+  padding-bottom: 1vh;
+}
+
+.selector {
+  height: 20px;
+  margin-bottom: 60px;
+}

@@ -48,7 +48,7 @@ export default class YearSlider extends React.Component {
         step={1}
         marks={[{ value: this.props.startYear, label: `${this.props.startYear}` },
          { value: this.props.endYear, label: `${this.props.endYear}` }]}
-        style={{ color: "#F53" }}
+        style={{ color: "#02182B" }}
         onChangeCommitted={this.handleYearChange}
       />
     );

@@ -1,35 +1,16 @@
 import React from 'react';
 
 function Navbar() {
-  return (
-    <nav className="navbar navbar-expand navbar-dark bg-dark">
-      <a className="navbar-brand" href=".">Climate Tracker</a>
-      <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span className="navbar-toggler-icon"></span>
-      </button>
-
-      <div className="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul className="navbar-nav m-auto">
-          <li className="nav-item active">
-            <a className="nav-link text-white text-uppercase ml-5" href=".">Home <span className="sr-only">(current)</span></a>
-          </li>
-          <li className="nav-item">
-            <a className="nav-link text-white text-uppercase ml-5" href="/News">News</a>
-          </li>
-          <li className="nav-item">
-            <a className="nav-link text-white text-uppercase ml-5" href="/Donate">Donate</a>
-          </li>
-          <li className="nav-item">
-            <a className="nav-link text-white text-uppercase ml-5" href="/Contacts">Contact Us</a>
-          </li>
-        </ul>
-        <form className="form-inline my-2 my-lg-0">
-          <input className="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search"/>
-          <button className="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-        </form>
-      </div>
-    </nav>
-  );
+  return <div className="navbar">
+    <h1 id="navbar-title">Climate Action</h1>
+    <ul className="nav">
+      <li><a href="/">Home</a></li>
+      <li><a href="/news">News</a></li>
+      <li><a href="/donate">Donate</a></li>
+      <li><a href="/contacts">Contact Us</a></li>
+      <li id="searchbar"><input type="text" placeholder="Search"></input></li>
+    </ul>
+  </div>
 }
 
 export default Navbar;
