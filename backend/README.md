@@ -1,3 +1,6 @@
+## Notice
+Google Cloud PostgreSQL service is up and running. To gain access to it, please comment your google email in slack channel. The ip address is 35.227.52.28, but you will need to whitelist your public ip in google cloud console to gain access. In the future, connecting through SSL is the right way to go.
+
 ## Setup Backend
 
 # Must have PostgreSQL, Node.js, and npm installed
@@ -58,4 +61,3 @@ and this will display top 10 rows of temperature and rain data.
 
 ## Data Was Retrieved From:
 https://climateknowledgeportal.worldbank.org/download-data
-
