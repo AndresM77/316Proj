@@ -2,7 +2,7 @@ import React from 'react';
 
 class Navbar extends React.Component {
   render() {
-    return <div class="navbar">
+    return <div className="navbar">
       <h1 id="navbar-title">Climate Action</h1>
       <ul className="nav">
         <li><a href="/">Home</a></li>
