@@ -3,6 +3,7 @@ import {
   ComposableMap,
   Geographies,
   Geography,
+  ZoomableGroup
 } from "react-simple-maps";
 import "../App.css";
 import DataTypeSelect from "../components/DataTypeSelect";
@@ -74,7 +75,7 @@ export default class MapChart extends React.Component {
   render() {
     return (
       <div>
-        <div style={{ position: "absolute", bottom: "130px", width: "300px" }}>
+        <div style={{ position: "absolute", bottom: "10vh", left: "4vw", width: "300px" }}>
           <DataTypeSelect handleCategoryChange={this.handleCategoryChange} />
           <YearSlider
             startYear={1900}
@@ -85,15 +86,15 @@ export default class MapChart extends React.Component {
         <div>
           <ComposableMap
             data-tip=""
-            projectionConfig={{ scale: 200 }}
+            projectionConfig={{ scale: 180 }}
             width={980}
             height={500}
             style={{
-              marginTop: "10px",
               width: "100%",
               height: "auto"
             }}
           >
+            <ZoomableGroup zoom={1}>
             <Geographies
               geography={
                 "https://raw.githubusercontent.com/zcreativelabs/react-simple-maps/master/topojson-maps/world-110m.json"
@@ -147,6 +148,7 @@ export default class MapChart extends React.Component {
                 })
               }
             </Geographies>
+            </ZoomableGroup>
           </ComposableMap>
         </div>
       </div>

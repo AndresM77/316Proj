@@ -9,14 +9,16 @@ class NewsItem extends React.Component {
         
         return (
             <div className="newsItem">
+                <a href={url} target="_blank" rel="noopener noreferrer">
                 <div>
                     <h1>
-                        <a href={url} target="_blank" rel="noopener noreferrer">{title}</a>
+                        {title}
                     </h1>
                     <div id="image-container">
                         <img src={imageUrl} alt={imageUrl} />
                     </div>
                 </div>
+                </a>
             </div>
         )
     }

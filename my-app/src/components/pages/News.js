@@ -11,7 +11,7 @@ class News extends React.Component {
     };
   }
   componentDidMount() {
-    fetch("https://newsapi.org/v2/everything?q=climate&pageSize=48&apiKey=7f25e9ec7b7b4ac181855d9cd830bfab")
+    fetch("https://newsapi.org/v2/everything?q=climate&pageSize=12&apiKey=7f25e9ec7b7b4ac181855d9cd830bfab")
       .then(res => res.json())
       .then(
         (result) => {
@@ -38,7 +38,7 @@ class News extends React.Component {
     } else {
       return (
           <div>
-            <div><h2>News</h2></div>
+            <div><h2 className="titleItem">News</h2></div>
             <div className="newsItems">
               {articles.map(article => (
                 <NewsItem title={article.title} url={article.url} imageUrl={article.urlToImage}/>

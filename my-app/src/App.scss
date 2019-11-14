@@ -52,26 +52,27 @@ html {
       flex: 1;
 
       width: 25vw;
+
       h1 {
         font-size: 16pt;
       }
+
       margin: 0;
       a {
           text-decoration: none;
           color: $text-color-primary;
       }
       box-sizing: border-box;
-      border: 1px solid $text-color-primary;
-      border-radius: 5px;
       margin: .75rem;
       padding: 2%;
+      // background-color: #EEEEEE;
       
   }
 
   #image-container {
-    height: 15vw;
+    height: 10vw;
     width: 22vw;
-    margin: auto;
+    margin: 0;
   }
   
   #image-container img {
@@ -79,14 +80,16 @@ html {
     width: 100%;
     height: auto;
   
-    margin: 5vh auto;
+    margin: 3vh 0;
   }
 
 // Navbar
 
 .navbar {
   padding-top: 3vh;
+  background-color: white;
 }
+
 #navbar-title {
   font-weight: bolder;
   color: $text-color-secondary;
@@ -131,4 +134,12 @@ footer {
 .selector {
   height: 20px;
   margin-bottom: 60px;
+}
+
+.titleItem {
+  font-weight: bold;
+  padding-top: 1rem;
+  position: relative;
+  left: 1vw;
+  font-size: 50px;
 }
