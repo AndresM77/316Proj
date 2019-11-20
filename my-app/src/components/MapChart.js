@@ -112,7 +112,7 @@ export default class MapChart extends React.Component {
                       geography={geo}
                       onMouseEnter={() => {
                         const { NAME } = geo.properties;
-                        if(country) this.props.setTooltipContent(`${NAME} - ${country.val}`);
+                        if(country) this.props.setTooltipContent(`${NAME}: ${country.val}`);
                       }}
                       onMouseLeave={() => {
                         this.props.setTooltipContent("");
