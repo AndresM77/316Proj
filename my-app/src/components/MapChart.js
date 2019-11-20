@@ -54,6 +54,13 @@ export default class MapChart extends React.Component {
     this.setState({ selectedCategory: category.value }, this.filterDataPoints);
   };
 
+  handleTooltipContent = (name, measurement) => {
+    let display_string =  `${name}: ${measurement}`
+    const ending_values = {"rain": " mm", "temp": " °C"}
+    display_string += ending_values[this.state.selectedCategory]
+    return display_string
+  }
+
   filterDataPoints = () => {
     const filteredByYear = this.filterByYear(this.state.points);
     const filteredByYearAndCategory = this.filterByCategory(filteredByYear);
@@ -112,7 +119,7 @@ export default class MapChart extends React.Component {
                       geography={geo}
                       onMouseEnter={() => {
                         const { NAME } = geo.properties;
-                        if(country) this.props.setTooltipContent(`${NAME}: ${country.val}`);
+                        if(country) this.props.setTooltipContent(this.handleTooltipContent(NAME, country.val));
                       }}
                       onMouseLeave={() => {
                         this.props.setTooltipContent("");

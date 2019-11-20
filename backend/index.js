@@ -22,8 +22,10 @@ const getDPs = (req, res) => {
                 query = 'SELECT temperature, country FROM Temperature WHERE Temperature.time = $1';
                 break;
         }
+        
+        const year = String(req.year) + "-01-01";
 
-        pool.query(query, [req.time+'-01-01'], (err, result) => {
+        pool.query(query, [year], (err, result) => {
             if (err) {
                 res.status(500).send("Internal Server Error")
             }
@@ -106,7 +108,7 @@ const getUsers = (req, res) => {
 }
 
 app.route("/api/v1/categories").get(getCategories);
-app.route('/api/v1/dps/:category/:time').get(getDPs);
+app.route('/api/v1/dps/:category/:year').get(getDPs);
 app.route("/api/v1/depdps").get(getDepDPs);
 app.route("/api/v1/nonprofits").get(getNonprofits);
 app.route("/api/v1/nonprofits/categories").get(getNonprofitCategories);
