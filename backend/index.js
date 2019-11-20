@@ -16,14 +16,16 @@ const getDPs = (req, res) => {
                 query = 'SELECT * FROM Air';
                 break;
             case "rain":
-                query = 'SELECT rainfall, lat, lng FROM Rain WHERE Rain.DPID=DataPoints.DPID';
+                query = 'SELECT rainfall, country FROM Rain WHERE Rain.time=$1';
                 break;
             case "temp":
                 query = 'SELECT temperature, country FROM Temperature WHERE Temperature.time = $1';
                 break;
         }
+        
+        const year = String(req.params.year) + "-01-01";
 
-        pool.query(query, ['1983-01-01'], (err, result) => {
+        pool.query(query, [year], (err, result) => {
             if (err) {
                 res.status(500).send("Internal Server Error")
             }
@@ -106,7 +108,7 @@ const getUsers = (req, res) => {
 }
 
 app.route("/api/v1/categories").get(getCategories);
-app.route('/api/v1/dps/:category/:time').get(getDPs);
+app.route('/api/v1/dps/:category/:year').get(getDPs);
 app.route("/api/v1/depdps").get(getDepDPs);
 app.route("/api/v1/nonprofits").get(getNonprofits);
 app.route("/api/v1/nonprofits/categories").get(getNonprofitCategories);
