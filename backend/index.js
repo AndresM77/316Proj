@@ -19,7 +19,7 @@ const getDPs = (req, res) => {
                 query = 'SELECT rainfall, lat, lng FROM Rain WHERE Rain.DPID=DataPoints.DPID';
                 break;
             case "temp":
-                query = 'SELECT temperature, country FROM temperature WHERE temperature.time = $1';
+                query = 'SELECT temperature, country FROM Temperature WHERE Temperature.time = $1';
                 break;
         }
 
