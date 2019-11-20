@@ -63,7 +63,7 @@ function parseTemperature(csv) {
     Object.values(aggregate_data).forEach(data_point => {
         let dpid = uuidv4();
         pool.query("INSERT INTO temperature(dpid, time, country, temperature) \
-            VALUES($1, $2, $3)", [dpid, new Date(data_point.Year).toISOString(), data_point.ISO3, data_point.Temperature], function(err) {
+            VALUES($1, $2, $3, $4)", [dpid, new Date(data_point.Year).toISOString(), data_point.ISO3, data_point.Temperature], function(err) {
                 if(err) {
                     console.log(err);
                 }

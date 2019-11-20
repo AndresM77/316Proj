@@ -22,21 +22,21 @@ CREATE TABLE Rain (
 );
 
 CREATE TABLE Users (
-	username VARCHAR(32) PRIMARY KEY NOT NULL,
+	username VARCHAR(32) PRIMARY KEY,
 	email VARCHAR(64) NOT NULL UNIQUE,
 	first_name VARCHAR(32) NOT  NULL,
 	last_name VARCHAR(32) NOT NULL
 );
 
 CREATE TABLE Nonprofits (
-	OID uuid PRIMARY KEY NOT NULL,
+	OID uuid PRIMARY KEY,
 	name VARCHAR(32) NOT NULL,
 	description VARCHAR(64) NOT NULL
 	-- CID uuid REFERENCES Categories(CID) NOT NULL
 );
 
 CREATE TABLE Campaign (
-	id uuid PRIMARY KEY NOT NULL,
+	ID uuid PRIMARY KEY,
 	name VARCHAR(32) NOT NULL,
 	description VARCHAR(64) NOT NULL,
 	goal DECIMAL(100) NOT NULL,
@@ -45,11 +45,11 @@ CREATE TABLE Campaign (
 
 CREATE TABLE Pledges (
 	username VARCHAR(32) PRIMARY KEY REFERENCES Users(username) NOT NULL,
-	campaign uuid REFERENCES Campaign(OID) NOT NULL
+	campaign uuid REFERENCES Campaign(ID) NOT NULL
 );
 
 CREATE TABLE Posts (
-	campaign uuid PRIMARY KEY REFERENCES Campaign(id) NOT NULL,
+	campaign uuid PRIMARY KEY REFERENCES Campaign(ID) NOT NULL,
 	name VARCHAR(32) NOT NULL,
 	description VARCHAR(64) NOT NULL,
 	time DATE NOT NULL
@@ -57,5 +57,5 @@ CREATE TABLE Posts (
 
 CREATE TABLE Likes (
 	username VARCHAR(32) PRIMARY KEY REFERENCES Users(username) NOT NULL,
-	campaign uuid REFERENCES Campaign(id) NOT NULL
+	campaign uuid REFERENCES Campaign(ID) NOT NULL
 );
