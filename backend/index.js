@@ -5,10 +5,12 @@ const app = express()
 
 const getDPs = (req, res) => {
     // const category = req.query.category;
-    console.log(res)
     let query = "";
     if(!req.params.category) {
         res.status(400).send("category is required");
+    }
+    else if(!req.params.year) {
+        res.status(400).send("time is required");
     }
     else {
         switch(req.params.category) {
@@ -35,34 +37,20 @@ const getDPs = (req, res) => {
 }
 
 const getCategories = (req, res) => {
-    pool.query('SELECT * FROM CATEGORIES', (err, result) => {
-        if (err) {
-            res.status(500).send("Internal Server Error")
-        }
-        res.status(200).json(result.rows);
-    })
-}
-
-const getDepDPs = (req, res) => {
-    // const category = req.query.category;
     let query = "";
-
-    if(!req.query.category) {
+    if(!req.params.categories) {
         res.status(400).send("category is required");
     }
-    else if(!req.query.time) {
-        res.status(400).send("time is required");
-    }
     else {
-        switch(req.query.category) {
+        switch(req.params.categories) {
             case "air": 
-                query = `SELECT * FROM Air WHERE Air.time=`+`'`+req.query.time+`'`;
+                query = 'SELECT * FROM Air';
                 break;
             case "rain":
-                query = `SELECT * FROM Rain WHERE Rain.time=`+`'`+req.query.time+`'`;
+                query = 'SELECT rainfall, country FROM Rain';
                 break;
             case "temp":
-                query = `SELECT * FROM Temperature WHERE Temperature.time=`+`'`+req.query.time+`'`;
+                query = 'SELECT temperature, country FROM Temperature';
                 break;
         }
 
@@ -107,9 +95,8 @@ const getUsers = (req, res) => {
     })
 }
 
-app.route("/api/v1/categories").get(getCategories);
+app.route("/api/v1/:categories").get(getCategories);
 app.route('/api/v1/dps/:category/:year').get(getDPs);
-app.route("/api/v1/depdps").get(getDepDPs);
 app.route("/api/v1/nonprofits").get(getNonprofits);
 app.route("/api/v1/nonprofits/categories").get(getNonprofitCategories);
 app.route("/api/v1/users").get(getUsers);
@@ -117,3 +104,36 @@ app.route("/api/v1/users").get(getUsers);
 app.listen(process.env.PORT || 3002, () => {
     console.log('Server listening')
   })
+
+
+// const getDepDPs = (req, res) => {
+//     // const category = req.query.category;
+//     let query = "";
+
+//     if(!req.query.category) {
+//         res.status(400).send("category is required");
+//     }
+//     else if(!req.query.time) {
+//         res.status(400).send("time is required");
+//     }
+//     else {
+//         switch(req.query.category) {
+//             case "air": 
+//                 query = `SELECT * FROM Air WHERE Air.time=`+`'`+req.query.time+`'`;
+//                 break;
+//             case "rain":
+//                 query = `SELECT * FROM Rain WHERE Rain.time=`+`'`+req.query.time+`'`;
+//                 break;
+//             case "temp":
+//                 query = `SELECT * FROM Temperature WHERE Temperature.time=`+`'`+req.query.time+`'`;
+//                 break;
+//         }
+
+//         pool.query(query, (err, result) => {
+//             if (err) {
+//                 res.status(500).send("Internal Server Error")
+//             }
+//             res.status(200).json(result.rows);
+//         })
+//     }
+// }

@@ -2,8 +2,10 @@ var fs = require("fs");
 var path = require("path");
 var $ = (jQuery = require("jquery"));
 const pool = require('./datastore/pgdb');
-const uuidv4 = require('uuid/v4');
+const uuidv5 = require('uuid/v5');
 require("./node_modules/jquery-csv/src/jquery.csv");
+
+const MY_NAMESPACE = '1b671a64-40d5-491e-99b0-da01ff1f3341';
 
 pool.connect(function(err){
     if(err)
@@ -59,9 +61,10 @@ function parseTemperature(csv) {
         aggregate_data[key].Temperature = Number(aggregate_data[key].Temperature.toFixed(5));
     })
 
-
+    console.log(aggregate_data)
     Object.values(aggregate_data).forEach(data_point => {
-        let dpid = uuidv4();
+       
+        let dpid = uuidv5(String(data_point.Year), MY_NAMESPACE);
         pool.query("INSERT INTO temperature(dpid, time, country, temperature) \
             VALUES($1, $2, $3, $4)", [dpid, new Date(data_point.Year).toISOString(), data_point.ISO3, data_point.Temperature], function(err) {
                 if(err) {
@@ -89,7 +92,7 @@ function parseRainfall(csv) {
     })
 
     Object.values(aggregate_data).forEach(data_point => {
-        let dpid = uuidv4();
+        let dpid = uuidv5(String(data_point.Year), MY_NAMESPACE);
         pool.query("INSERT INTO rain(dpid, time, country, rainfall) \
             VALUES($1, $2, $3, $4)", [dpid, new Date(data_point.Year).toISOString(), data_point.ISO3, data_point.Rainfall], function(err) {
                 if(err) {
