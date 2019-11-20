@@ -1,4 +1,4 @@
-const express` = require('express');
+const express = require('express');
 const { pool } = require('./config')
 
 const app = express()
@@ -16,14 +16,14 @@ const getDPs = (req, res) => {
                 query = 'SELECT quality, lat, lng FROM Air, DataPoints, Locations WHERE Air.DPID=DataPoints.DPID';
                 break;
             case "rain":
-                query = 'SELECT rainfall, lat, lng FROM Rain, DataPoints, Locations WHERE Rain.DPID=DataPoints.DPID';
+                query = 'SELECT rainfall, lat, lng FROM Rain WHERE Rain.DPID=DataPoints.DPID';
                 break;
             case "temp":
-                query = 'SELECT * FROM temperature';
+                query = 'SELECT temperature, country FROM temperature WHERE temperature.time = $1';
                 break;
         }
 
-        pool.query(query, (err, result) => {
+        pool.query(query, [req.time+'-01-01'], (err, result) => {
             if (err) {
                 res.status(500).send("Internal Server Error")
             }
@@ -106,7 +106,7 @@ const getUsers = (req, res) => {
 }
 
 app.route("/api/v1/categories").get(getCategories);
-app.route('/api/v1/dps/:category').get(getDPs);
+app.route('/api/v1/dps/:category/:time').get(getDPs);
 app.route("/api/v1/depdps").get(getDepDPs);
 app.route("/api/v1/nonprofits").get(getNonprofits);
 app.route("/api/v1/nonprofits/categories").get(getNonprofitCategories);
