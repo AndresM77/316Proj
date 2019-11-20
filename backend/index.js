@@ -1,4 +1,4 @@
-const express` = require('express');
+const express = require('express');
 const { pool } = require('./config')
 
 const app = express()
@@ -13,13 +13,13 @@ const getDPs = (req, res) => {
     else {
         switch(req.params.category) {
             case "air": 
-                query = 'SELECT quality, lat, lng FROM Air, DataPoints, Locations WHERE Air.DPID=DataPoints.DPID';
+                query = 'SELECT * FROM Air';
                 break;
             case "rain":
-                query = 'SELECT rainfall, lat, lng FROM Rain, DataPoints, Locations WHERE Rain.DPID=DataPoints.DPID';
+                query = 'SELECT * FROM Rain';
                 break;
             case "temp":
-                query = 'SELECT * FROM temperature';
+                query = 'SELECT * FROM Temperature';
                 break;
         }
 
@@ -54,13 +54,13 @@ const getDepDPs = (req, res) => {
     else {
         switch(req.query.category) {
             case "air": 
-                query = `SELECT quality, lat, lng FROM Air, DataPoints, Locations WHERE Air.DPID=DataPoints.DPID AND DataPoints.time=`+`'`+req.query.time+`'`;
+                query = `SELECT * FROM Air WHERE Air.time=`+`'`+req.query.time+`'`;
                 break;
             case "rain":
-                query = `SELECT quality, lat, lng FROM Rain, DataPoints, Locations WHERE Air.DPID=DataPoints.DPID AND DataPoints.time=`+`'`+req.query.time+`'`;
+                query = `SELECT * FROM Rain WHERE Rain.time=`+`'`+req.query.time+`'`;
                 break;
             case "temp":
-                query = `SELECT quality, lat, lng FROM Temperature, DataPoints, Locations WHERE Air.DPID=DataPoints.DPID AND DataPoints.time=`+`'`+req.query.time+`'`;
+                query = `SELECT * FROM Temperature WHERE Temperature.time=`+`'`+req.query.time+`'`;
                 break;
         }
 
