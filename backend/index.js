@@ -23,8 +23,9 @@ const getDPs = (req, res) => {
                 break;
         }
         
-        const year = String(req.year) + "-01-01";
-
+        let year = String(req.params.year) + "-01-01";
+        console.log(year)
+        console.log(query)
         pool.query(query, [year], (err, result) => {
             if (err) {
                 res.status(500).send("Internal Server Error")
