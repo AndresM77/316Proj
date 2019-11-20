@@ -45,11 +45,11 @@ CREATE TABLE Campaign (
 
 CREATE TABLE Pledges (
 	username VARCHAR(32) PRIMARY KEY REFERENCES Users(username) NOT NULL,
-	campaign OID REFERENCES Campaign(uuid) NOT NULL
+	campaign OID REFERENCES Campaign(OID) NOT NULL
 );
 
 CREATE TABLE Posts (
-	campaign OID PRIMARY KEY REFERENCES Campaign(uuid) NOT NULL,
+	campaign OID PRIMARY KEY REFERENCES Campaign(OID) NOT NULL,
 	name VARCHAR(32) NOT NULL,
 	description VARCHAR(64) NOT NULL,
 	time DATE NOT NULL
@@ -57,5 +57,5 @@ CREATE TABLE Posts (
 
 CREATE TABLE Likes (
 	username VARCHAR(32) PRIMARY KEY REFERENCES Users(username) NOT NULL,
-	campaign OID REFERENCES Campaign(uuid) NOT NULL
+	campaign OID REFERENCES Campaign(OID) NOT NULL
 );
