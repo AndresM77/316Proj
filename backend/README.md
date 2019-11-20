@@ -1,12 +1,10 @@
 ## Notice
-Google Cloud PostgreSQL service is up and running. To gain access to it, please comment your google email in slack channel. The ip address is 35.227.52.28, but you will need to whitelist your public ip in google cloud console to gain access. In the future, connecting through SSL is the right way to go.
+Database is stored in remote Duke VCM and broadcasted to public internet
 
-## Test
-I temporarily put the database on my Duke VCM and "tunneled" through the firewall. Now you can test two api's by the following address:
-
+API calls available:
 ```bash
-http://frank.colab.duke.edu:3002/api/v1/dps/temp
-http://frank.colab.duke.edu:3002/api/v1/categories
+http://frank.colab.duke.edu:3002/api/v1/dps/[category]/[year]  #category is one of [temp, air], year is one within 1900-2016
+http://frank.colab.duke.edu:3002/api/v1/[categories]  #categories is one of [temp, air, rain]
 ```
 
 ## Setup Backend
