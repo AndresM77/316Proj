@@ -16,16 +16,15 @@ const getDPs = (req, res) => {
                 query = 'SELECT * FROM Air';
                 break;
             case "rain":
-                query = 'SELECT rainfall, lat, lng FROM Rain WHERE Rain.DPID=DataPoints.DPID';
+                query = 'SELECT rainfall, country FROM Rain WHERE Rain.time=$1';
                 break;
             case "temp":
                 query = 'SELECT temperature, country FROM Temperature WHERE Temperature.time = $1';
                 break;
         }
         
-        let year = String(req.params.year) + "-01-01";
-        console.log(year)
-        console.log(query)
+        const year = String(req.params.year) + "-01-01";
+
         pool.query(query, [year], (err, result) => {
             if (err) {
                 res.status(500).send("Internal Server Error")
