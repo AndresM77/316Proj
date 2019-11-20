@@ -62,16 +62,8 @@ function parseTemperature(csv) {
 
     Object.values(aggregate_data).forEach(data_point => {
         let dpid = uuidv4();
-        let CID = '43c505fb-b51e-4ad4-a735-38e48e2dfb93';
-        let LID = 'c20c3de9-d693-4838-a6f4-3974a8d87194';
-        pool.query("INSERT INTO temperature(dpid, cid, temperature) \
-            VALUES($1, $2, $3)", [dpid, CID, data_point.Temperature], function(err) {
-                if(err) {
-                    console.log(err);
-                }
-        });
-        pool.query("INSERT INTO datapoints(dpid, time, lid) \
-            VALUES($1, $2, $3)", [dpid, new Date(data_point.Year).toISOString(), LID], function(err) {
+        pool.query("INSERT INTO temperature(dpid, time, country, temperature) \
+            VALUES($1, $2, $3)", [dpid, new Date(data_point.Year).toISOString(), data_point.ISO3, data_point.Temperature], function(err) {
                 if(err) {
                     console.log(err);
                 }
@@ -98,16 +90,8 @@ function parseRainfall(csv) {
 
     Object.values(aggregate_data).forEach(data_point => {
         let dpid = uuidv4();
-        let CID = '43c505fb-b51e-4ad4-a735-38e48e2dfb93';
-        let LID = 'c20c3de9-d693-4838-a6f4-3974a8d87194';
-        pool.query("INSERT INTO rain(dpid, cid, rainfall) \
-            VALUES($1, $2, $3)", [dpid, CID, data_point.Rainfall], function(err) {
-                if(err) {
-                    console.log(err);
-                }
-        });
-        pool.query("INSERT INTO datapoints(dpid, time, lid) \
-            VALUES($1, $2, $3)", [dpid, new Date(data_point.Year).toISOString(), LID], function(err) {
+        pool.query("INSERT INTO rain(dpid, time, country, temperature) \
+            VALUES($1, $2, $3)", [dpid, new Date(data_point.Year).toISOString(), data_point.ISO3, data_point.Rainfall], function(err) {
                 if(err) {
                     console.log(err);
                 }
