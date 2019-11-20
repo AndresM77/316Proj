@@ -23,7 +23,7 @@ const getDPs = (req, res) => {
                 break;
         }
 
-        pool.query(query, [req.time+'-01-01'], (err, result) => {
+        pool.query(query, ['1983-01-01'], (err, result) => {
             if (err) {
                 res.status(500).send("Internal Server Error")
             }
