@@ -68,8 +68,8 @@ export default class MapChart extends React.Component {
         <div style={{ position: "absolute", bottom: "10vh", left: "4vw", width: "300px" }}>
           <DataTypeSelect handleCategoryChange={this.handleCategoryChange} />
           <YearSlider
-            startYear={1900}
-            endYear={2015}
+            startYear={1901}
+            endYear={2016}
             handleYearChange={this.handleYearChange}
           />
         </div>
