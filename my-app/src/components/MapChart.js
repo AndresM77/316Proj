@@ -16,21 +16,9 @@ export default class MapChart extends React.Component {
     this.state = {
       selectedYear: "",
       selectedCategory: "",
-      points: this.data,
       selectedPoints: []
     };
   }
-
-  data = [
-    { id: 1, country: "USA", val: 10, category: "rain", year: 2015},
-    { id: 1, country: "RUS", val: 20, category: "rain", year: 2015},
-    { id: 2, country: "USA", val: 15, category: "temp", year: 2015},
-    { id: 3, country: "USA", val: 1, category: "rain", year: 1900},
-    { id: 4, country: "USA", val: 4, category: "temp", year: 1900},
-    { id: 4, country: "EST", val: 16, category: "temp", year: 1900},
-    { id: 5, country: "RUS", val: 16 },
-    { id: 6, country: "ISR", val: 5 }
-  ];
 
   minValue = 5; // based on the data array above
   maxValue = 20; // based on the data array above
@@ -56,27 +44,22 @@ export default class MapChart extends React.Component {
 
   handleTooltipContent = (name, measurement) => {
     let display_string =  `${name}: ${measurement}`
-    const ending_values = {"rain": " mm", "temp": " °C"}
+    const ending_values = {"rain": " mm", "temp": " °C", "air": " ppm"}
     display_string += ending_values[this.state.selectedCategory]
     return display_string
   }
 
-  filterDataPoints = () => {
-    const filteredByYear = this.filterByYear(this.state.points);
-    const filteredByYearAndCategory = this.filterByCategory(filteredByYear);
-    this.setState({
-      selectedPoints: filteredByYearAndCategory
-    });
-  };
-
-  filterByCategory = points => {
-    return points.filter(
-      point => point.category === this.state.selectedCategory
-    );
-  };
-
-  filterByYear = points => {
-    return points.filter(point => point.year === this.state.selectedYear);
+  filterDataPoints = async() => {
+    let points = []
+    if(this.state.selectedCategory && this.state.selectedYear) {
+      points = await fetch(`http://frank.colab.duke.edu:3002/api/v1/dps/${this.state.selectedCategory}/${this.state.selectedYear}`)
+      .catch(e => {
+        console.log(e);
+        return;
+      })
+    }
+    const json = points.length === 0 ? [] : await points.json();
+    this.setState({selectedPoints: json});
   };
 
   render() {
@@ -112,6 +95,10 @@ export default class MapChart extends React.Component {
                   const country = this.state.selectedPoints.find(
                     p => p.country === geo.properties.ISO_A3
                   );
+                  let measurement;
+                  if (this.state.selectedCategory === "temp") measurement = "temperature";
+                  else if (this.state.selectedCategory === "air") measurement = "quality";
+                  else if (this.state.selectedCategory === "rain") measurement = "rainfall";        
                   return (
                     <Geography
                       key={geo.properties.ISO_A3 + i}
@@ -119,7 +106,8 @@ export default class MapChart extends React.Component {
                       geography={geo}
                       onMouseEnter={() => {
                         const { NAME } = geo.properties;
-                        if(country) this.props.setTooltipContent(this.handleTooltipContent(NAME, country.val));
+                        
+                        if(country) this.props.setTooltipContent(this.handleTooltipContent(NAME, country[measurement]));
                       }}
                       onMouseLeave={() => {
                         this.props.setTooltipContent("");
@@ -127,7 +115,7 @@ export default class MapChart extends React.Component {
                       style={{
                         default: {
                           fill: country
-                            ? this.customScale(country.val)
+                            ? this.customScale(country[measurement])
                             : "#ECEFF1",
                           stroke: "black",
                           strokeWidth: 0.75,
@@ -135,7 +123,7 @@ export default class MapChart extends React.Component {
                         },
                         hover: {
                           fill: country
-                            ? this.customScale(country.val)
+                            ? this.customScale(country[measurement])
                             : "#ECEFF1",
                           stroke: "black",
                           strokeWidth: 0.75,
@@ -143,7 +131,7 @@ export default class MapChart extends React.Component {
                         },
                         pressed: {
                           fill: country
-                            ? this.customScale(country.val)
+                            ? this.customScale(country[measurement])
                             : "#ECEFF1",
                           stroke: "black",
                           strokeWidth: 0.75,
