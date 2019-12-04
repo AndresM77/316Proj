@@ -28,13 +28,6 @@ CREATE TABLE Users (
 	last_name VARCHAR(32) NOT NULL
 );
 
-CREATE TABLE Nonprofits (
-	OID uuid PRIMARY KEY,
-	name VARCHAR(32) NOT NULL,
-	description VARCHAR(64) NOT NULL
-	-- CID uuid REFERENCES Categories(CID) NOT NULL
-);
-
 CREATE TABLE Campaign (
 	CID uuid PRIMARY KEY,
 	name VARCHAR(32) NOT NULL,

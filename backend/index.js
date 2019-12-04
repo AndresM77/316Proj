@@ -63,29 +63,6 @@ const getCategories = (req, res) => {
     }
 }
 
-const getNonprofits = (req, res) => {
-    pool.query('SELECT name, description FROM Nonprofits', (err, result) => {
-        if (err) {
-            res.status(500).send("Internal Server Error")
-        }
-        res.status(200).json(result.rows);
-    })
-}
-
-const getNonprofitCategories = (req, res) => {
-    if(!req.query.cid) {
-        res.status(400).send("CID is required");
-    }
-    else {
-        pool.query(`SELECT name, description FROM Nonprofits WHERE CID =`+`'`+req.query.cid+`'`, (err, result) => {
-            if (err) {
-                res.status(500).send("Internal Server Error")
-            }
-            res.status(200).json(result.rows);
-        })
-    }
-}
-
 const getUsers = (req, res) => {
     pool.query('SELECT username FROM Users', (err, result) => {
         if (err) {
@@ -104,18 +81,11 @@ const getCampaign = (req, res) => {
   })
 }
 
-const getLikes = (req, res) => {
-  if(!req.query.cid) {
-      res.status(400).send("CID is required");
-  }
-  else {
-      pool.query(`SELECT name, description FROM Likes WHERE CID =`+`'`+req.query.cid+`'`, (err, result) => {
-          if (err) {
-              res.status(500).send("Internal Server Error")
-          }
-          res.status(200).json(result.rows);
-      })
-  }
+const postCampaign = (req, res, next) {
+  pool.query('INSERT INTO Campaign(CID, name, description, goal, paylink) VALUES ('+req.body.CID+','+req.body.name+','+req.body.description+','+req.body.goal+','+req.body.paylink+')', function(error, results, fields) {
+    if(error) throw error;
+    res.send(JSON.stringify(results));
+  })
 }
 
 const getLikes = (req, res) => {
@@ -132,6 +102,13 @@ const getLikes = (req, res) => {
   }
 }
 
+const postLikes = (req, res, next) {
+  pool.query('INSERT INTO Likes(username, CID) VALUES ('+req.body.username+','+req.body.CID+')', function(error, results, fields) {
+    if(error) throw error;
+    res.send(JSON.stringify(results));
+  })
+}
+
 const getPledges = (req, res) => {
   if(!req.query.cid) {
       res.status(400).send("CID is required");
@@ -144,6 +121,13 @@ const getPledges = (req, res) => {
           res.status(200).json(result.rows);
       })
   }
+}
+
+const postPledges = (req, res, next) {
+  pool.query('INSERT INTO Pledges(username, val, CID) VALUES ('+req.body.username+','+req.body.val+','+req.body.CID+')', function(error, results, fields) {
+    if(error) throw error;
+    res.send(JSON.stringify(results));
+  })
 }
 
 const getPosts = (req, res) => {
@@ -160,15 +144,24 @@ const getPosts = (req, res) => {
   }
 }
 
+const postPosts = (req, res, next) {
+  pool.query('INSERT INTO Posts(CID, name, description, time) VALUES ('+req.body.CID+','+req.body.name+','+req.body.description+','+req.body.time+')', function(error, results, fields) {
+    if(error) throw error;
+    res.send(JSON.stringify(results));
+  })
+}
+
 app.route("/api/v1/:categories").get(getCategories);
 app.route('/api/v1/dps/:category/:year').get(getDPs);
-app.route("/api/v1/nonprofits").get(getNonprofits);
-app.route("/api/v1/nonprofits/categories").get(getNonprofitCategories);
 app.route("/api/v1/users").get(getUsers);
 app.route("/api/v1/campaign").get(getCampaign);
+app.route("/api/v1/campaign").post(postCampaign);
 app.route("/api/v1/likes").get(getLikes);
+app.route("/api/v1/likes").post(postLikes);
 app.route("/api/v1/pledges").get(getPledges);
+app.route("/api/v1/pledges").post(postPledges);
 app.route("/api/v1/posts").get(getPosts);
+app.route("/api/v1/posts").post(postPosts);
 
 app.listen(process.env.PORT || 3002, () => {
     console.log('Server listening')
