@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-class Donate extends Component {
+class Campaign extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -35,7 +35,7 @@ class Donate extends Component {
     } else {
       return (
         <div>
-        <div><h2 className="titleItem">Donate</h2></div>
+        <div><h2 className="titleItem">Campaign</h2></div>
         <ul>
           {disasters.map((dis, i) => (
             <li key={i}>
@@ -49,4 +49,4 @@ class Donate extends Component {
   }
   }
 
-export default Donate;
+export default Campaign;

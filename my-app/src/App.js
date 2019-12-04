@@ -8,7 +8,7 @@ import {Switch, Route} from 'react-router-dom';
 //Import Pages
 import Home from './components/pages/Home';
 import News from './components/pages/News';
-import Donate from './components/pages/Donate';
+import Campaign from './components/pages/Campaign';
 import NotFoundPage from './components/pages/NotFoundPage';
 import Contacts from './components/pages/Contacts';
 import SignUp from './components/pages/Signup';
@@ -23,9 +23,9 @@ class App extends Component{
           <Route exact path="/" component={Home}/>
           <Route path="/news" component={News}/>
           <Route path="/contacts" component={Contacts}/>
-          <Route path="/donate" component={Donate}/>
           <Route path="/signup" component={SignUp}/>
           <Route path="/login" component={Login}/>
+          <Route path="/campaign" component={Campaign}/>
           <Route path="/404" component={NotFoundPage}/>
         </Switch>
         <footer>Made with 🌎 by Adam, Ryan, Joe, Andres, Ethan, and Frank</footer>

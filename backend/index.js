@@ -19,7 +19,7 @@ const getDPs = (req, res) => {
     }
     else {
         switch(req.params.category) {
-            case "air": 
+            case "air":
                 query = 'SELECT * FROM Air';
                 break;
             case "rain":
@@ -29,7 +29,7 @@ const getDPs = (req, res) => {
                 query = 'SELECT temperature, country FROM Temperature WHERE Temperature.time = $1';
                 break;
         }
-        
+
         const year = String(req.params.year) + "-01-01";
 
         pool.query(query, [year], (err, result) => {
@@ -48,7 +48,7 @@ const getCategories = (req, res) => {
     }
     else {
         switch(req.params.categories) {
-            case "air": 
+            case "air":
                 query = 'SELECT * FROM Air';
                 break;
             case "rain":
@@ -68,29 +68,6 @@ const getCategories = (req, res) => {
     }
 }
 
-const getNonprofits = (req, res) => {
-    pool.query('SELECT name, description FROM Nonprofits', (err, result) => {
-        if (err) {
-            res.status(500).send("Internal Server Error")
-        }
-        res.status(200).json(result.rows);
-    })
-}
-
-const getNonprofitCategories = (req, res) => {
-    if(!req.query.cid) {
-        res.status(400).send("CID is required");
-    }
-    else {
-        pool.query(`SELECT name, description FROM Nonprofits WHERE CID =`+`'`+req.query.cid+`'`, (err, result) => {
-            if (err) {
-                res.status(500).send("Internal Server Error")
-            }
-            res.status(200).json(result.rows);
-        })
-    }
-}
-
 const getUsers = (req, res) => {
     pool.query('SELECT username FROM Users', (err, result) => {
         if (err) {
@@ -98,6 +75,101 @@ const getUsers = (req, res) => {
         }
         res.status(200).json(result.rows);
     })
+}
+
+const getCampaign = (req, res) => {
+  pool.query('SELECT name, description, goal, paylink FROM Campaign', (err, result) => {
+      if (err) {
+          res.status(500).send("Internal Server Error")
+      }
+      res.status(200).json(result.rows);
+  })
+}
+
+const addCampaign = (req, res) => {
+  pool.query(`INSERT INTO Campaign(CID, name, description, goal, paylink) \
+              VALUES ('${req.body.CID}', '${req.body.name}', '${req.body.description}', '${req.body.goal}', '${req.body.paylink}')`,
+              (err, result) => {
+                  if(err) {
+                      res.status(500).send(err);
+                  }
+                  res.status(200).send();
+              })
+}
+
+const getLikes = (req, res) => {
+  if(!req.query.cid) {
+      res.status(400).send("CID is required");
+  }
+  else {
+      pool.query(`SELECT username FROM Likes WHERE CID =`+`'`+req.query.cid+`'`, (err, result) => {
+          if (err) {
+              res.status(500).send("Internal Server Error")
+          }
+          res.status(200).json(result.rows);
+      })
+  }
+}
+
+const addLikes = (req, res) => {
+  pool.query(`INSERT INTO Likes(username, CID) \
+              VALUES ('${req.body.username}','${req.body.CID}')`,
+              (err, result) => {
+                  if(err) {
+                      res.status(500).send(err);
+                  }
+                  res.status(200).send();
+              })
+}
+
+const getPledges = (req, res) => {
+  if(!req.query.cid) {
+      res.status(400).send("CID is required");
+  }
+  else {
+      pool.query(`SELECT username, val FROM Pledges WHERE CID =`+`'`+req.query.cid+`'`, (err, result) => {
+          if (err) {
+              res.status(500).send("Internal Server Error")
+          }
+          res.status(200).json(result.rows);
+      })
+  }
+}
+
+const addPledges = (req, res) => {
+  pool.query(`INSERT INTO Pledges(username, val, CID) \
+              VALUES ('${req.body.username}', '${req.body.val}', '${req.body.CID}')`,
+              (err, result) => {
+                  if(err) {
+                      res.status(500).send(err);
+                  }
+                  res.status(200).send();
+              })
+}
+
+const getPosts = (req, res) => {
+  if(!req.query.cid) {
+      res.status(400).send("CID is required");
+  }
+  else {
+      pool.query(`SELECT name, description, time FROM Posts WHERE CID =`+`'`+req.query.cid+`'`, (err, result) => {
+          if (err) {
+              res.status(500).send("Internal Server Error")
+          }
+          res.status(200).json(result.rows);
+      })
+  }
+}
+
+const addPosts = (req, res) => {
+  pool.query(`INSERT INTO Posts(CID, name, description, time) \
+              VALUES ('${req.body.CID}', '${req.body.name}', '${req.body.description}', '${req.body.time}')`,
+              (err, result) => {
+                  if(err) {
+                      res.status(500).send(err);
+                  }
+                  res.status(200).send();
+              })
 }
 
 const addUser = (req, res) => {
@@ -152,13 +224,18 @@ const checkUsername = (req, res) => {
 
 app.route("/api/v1/:categories").get(getCategories);
 app.route('/api/v1/dps/:category/:year').get(getDPs);
-app.route("/api/v1/nonprofits").get(getNonprofits);
-app.route("/api/v1/nonprofits/categories").get(getNonprofitCategories);
 app.route("/api/v1/users").get(getUsers);
 app.route("/api/v1/users").post(addUser);
 app.route("/api/v1/users/validate/email").post(checkEmail);
 app.route("/api/v1/users/validate/username").post(checkUsername);
-// app.route("/api/v1/users").post(getUsers);
+app.route("/api/v1/campaign").get(getCampaign);
+app.route("/api/v1/campaign").post(addCampaign);
+app.route("/api/v1/likes").get(getLikes);
+app.route("/api/v1/likes").post(addLikes);
+app.route("/api/v1/pledges").get(getPledges);
+app.route("/api/v1/pledges").post(addPledges);
+app.route("/api/v1/posts").get(getPosts);
+app.route("/api/v1/posts").post(addPosts);
 
 app.listen(process.env.PORT || 3002, () => {
     console.log('Server listening')
@@ -177,7 +254,7 @@ app.listen(process.env.PORT || 3002, () => {
 //     }
 //     else {
 //         switch(req.query.category) {
-//             case "air": 
+//             case "air":
 //                 query = `SELECT * FROM Air WHERE Air.time=`+`'`+req.query.time+`'`;
 //                 break;
 //             case "rain":
