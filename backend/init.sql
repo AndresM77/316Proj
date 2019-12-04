@@ -36,7 +36,7 @@ CREATE TABLE Nonprofits (
 );
 
 CREATE TABLE Campaign (
-	ID uuid PRIMARY KEY,
+	CID uuid PRIMARY KEY,
 	name VARCHAR(32) NOT NULL,
 	description VARCHAR(64) NOT NULL,
 	goal DECIMAL(100) NOT NULL,
@@ -45,11 +45,12 @@ CREATE TABLE Campaign (
 
 CREATE TABLE Pledges (
 	username VARCHAR(32) PRIMARY KEY REFERENCES Users(username) NOT NULL,
-	campaign uuid REFERENCES Campaign(ID) NOT NULL
+	val DECIMAL(100) NOT NULL,
+	CID uuid REFERENCES Campaign(CID) NOT NULL
 );
 
 CREATE TABLE Posts (
-	campaign uuid PRIMARY KEY REFERENCES Campaign(ID) NOT NULL,
+	CID uuid PRIMARY KEY REFERENCES Campaign(CID) NOT NULL,
 	name VARCHAR(32) NOT NULL,
 	description VARCHAR(64) NOT NULL,
 	time DATE NOT NULL
@@ -57,5 +58,5 @@ CREATE TABLE Posts (
 
 CREATE TABLE Likes (
 	username VARCHAR(32) PRIMARY KEY REFERENCES Users(username) NOT NULL,
-	campaign uuid REFERENCES Campaign(ID) NOT NULL
+	CID uuid REFERENCES Campaign(CID) NOT NULL
 );
