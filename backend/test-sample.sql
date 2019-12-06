@@ -1,7 +1,9 @@
 -- Populating Database --
 
 INSERT INTO Users(username, email, first_name, last_name)
-	VALUES ('test1', 'bar@foo.com', 'firstName', 'lastName');
+	VALUES
+	('test1', 'bar@foo.com', 'firstName', 'lastName'),
+	('test2', 'test@gmail.com', 'Bob's, 'Burgers');
 
 INSERT INTO Locations(LID, lat, lng, city, state, country)
 	VALUES ('c20c3de9-d693-4838-a6f4-3974a8d87194', 6.001427, -78.938232, 'Durham', 'North Carolina', 'USA');
@@ -29,6 +31,18 @@ INSERT INTO Temperature(DPID, CID, temperature)
 
 INSERT INTO Rain(DPID, CID, rainfall)
 	VALUES ('780b7ce4-ac78-4fad-90bb-94935a3a8907', '433ab55d-63ec-418c-a6a8-fd90dc74d1b1', 55.5);
+
+INSERT INTO Campaign(CID, name, description, goal, paylink, sponsor)
+	VALUES ('cdcc7e99-0ef1-41ae-a1bc-3e3f618ddde9', 'Fundraiser', 'Save the trees', 1000, 'https://www.gofundme.com/', 'test1');
+
+INSERT INTO Pledges(username, val, CID)
+	VALUES ('test2', 50,'cdcc7e99-0ef1-41ae-a1bc-3e3f618ddde9');
+
+INSERT INTO Posts(CID, poster, description, time)
+	VALUES ('cdcc7e99-0ef1-41ae-a1bc-3e3f618ddde9', 'test2', 'Nice Campaign', '2019-9-10');
+
+INSERT INTO Likes (username, CID)
+	VALUES ('test2', 'cdcc7e99-0ef1-41ae-a1bc-3e3f618ddde9');
 
 
 -- Test Queries for Database --
