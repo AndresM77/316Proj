@@ -88,7 +88,7 @@ export default class MapChart extends React.Component {
             <ZoomableGroup zoom={1}>
             <Geographies
               geography={
-                "https://raw.githubusercontent.com/zcreativelabs/react-simple-maps/master/topojson-maps/world-110m.json"
+                "https://raw.githubusercontent.com/Frankgeng/react-simple-maps/master/topojson-maps/world-110m.json"
               }
             >
               {({ geographies }) =>
