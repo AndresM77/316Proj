@@ -34,7 +34,8 @@ CREATE TABLE Campaign (
 	name VARCHAR(32) NOT NULL,
 	description VARCHAR(64) NOT NULL,
 	goal DECIMAL(100) NOT NULL,
-	paylink VARCHAR(64) NOT NULL
+	paylink VARCHAR(64) NOT NULL,
+	sponsor VARCHAR(32) NOT NULL
 );
 
 CREATE TABLE Pledges (
@@ -45,7 +46,7 @@ CREATE TABLE Pledges (
 
 CREATE TABLE Posts (
 	CID uuid PRIMARY KEY REFERENCES Campaign(CID) NOT NULL,
-	name VARCHAR(32) NOT NULL,
+	poster VARCHAR(32) REFERENCES Users(username) NOT NULL,
 	description VARCHAR(64) NOT NULL,
 	time DATE NOT NULL
 );
