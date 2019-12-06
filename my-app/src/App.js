@@ -11,6 +11,8 @@ import News from './components/pages/News';
 import Campaign from './components/pages/Campaign';
 import NotFoundPage from './components/pages/NotFoundPage';
 import Contacts from './components/pages/Contacts';
+import SignUp from './components/pages/Signup';
+import Login from './components/pages/Login';
 
 class App extends Component{
   render() {
@@ -21,6 +23,8 @@ class App extends Component{
           <Route exact path="/" component={Home}/>
           <Route path="/news" component={News}/>
           <Route path="/contacts" component={Contacts}/>
+          <Route path="/signup" component={SignUp}/>
+          <Route path="/login" component={Login}/>
           <Route path="/campaign" component={Campaign}/>
           <Route path="/404" component={NotFoundPage}/>
         </Switch>

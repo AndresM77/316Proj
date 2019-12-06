@@ -1,7 +1,12 @@
 const express = require('express');
 const { pool } = require('./config')
+const cors = require('cors');
+
 
 const app = express()
+app.use(express.json())    // <==== parse request body as JSON
+app.use(cors())
+
 
 const getDPs = (req, res) => {
     // const category = req.query.category;
@@ -167,9 +172,62 @@ const addPosts = (req, res) => {
               })
 }
 
+const addUser = (req, res) => {
+    pool.query(`INSERT INTO Users (username, password, email, first_name, last_name) \
+                values ('${req.body.username}', '${req.body.password}', '${req.body.email}', '${req.body.firstName}', '${req.body.lastName}')`,
+                (err, result) => {
+                    if(err) {
+                        res.status(500).send(err);
+                    }
+                    res.status(200).send()
+                })
+}
+
+const checkEmail = (req, res) => {
+    pool.query(`SELECT COUNT(*) from Users \
+                where email='${req.body.email}'`,
+                (err, result) => {
+                    if(err) {
+                        res.status(500).send(err);
+                    }
+                    if(result.rows[0].count == 1) {
+                        res.status(200).send({ "result": false })
+                    } else {
+                        res.status(200).send({ "result": true })
+                    }
+                })
+}
+
+const checkUsername = (req, res) => {
+    pool.query(`SELECT COUNT(*) from Users \
+                where username='${req.body.username}'`,
+                (err, result) => {
+                    if(err) {
+                        res.status(500).send(err);
+                    }
+                    if(result.rows[0].count == 1) {
+                        res.status(200).send({ "result": false })
+                    } else {
+                        res.status(200).send({ "result": true })
+                    }
+                })
+}
+
+// const getUsers = (req, res) => {
+//     pool.query(`SELECT * FROM Users`, (err, result) => {
+//         if (err) {
+//             res.status(500).send("Internal Server Error")
+//         }
+//         res.status(200).json(result.rows);
+//     })
+// }
+
 app.route("/api/v1/:categories").get(getCategories);
 app.route('/api/v1/dps/:category/:year').get(getDPs);
 app.route("/api/v1/users").get(getUsers);
+app.route("/api/v1/users").post(addUser);
+app.route("/api/v1/users/validate/email").post(checkEmail);
+app.route("/api/v1/users/validate/username").post(checkUsername);
 app.route("/api/v1/campaign").get(getCampaign);
 app.route("/api/v1/campaign").post(addCampaign);
 app.route("/api/v1/likes").get(getLikes);
