@@ -58,6 +58,7 @@ export default class MapChart extends React.Component {
         return;
       })
     }
+    console.log(this.state.selectedCategory, this.state.selectedYear);
     const json = points.length === 0 ? [] : await points.json();
     this.setState({selectedPoints: json});
   };
