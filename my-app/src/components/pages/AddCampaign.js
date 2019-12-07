@@ -8,10 +8,10 @@ const MY_NAMESPACE = '9BBA0079-D29E-450B-ADAE-C940D364E47D';
 
 async function sendToServer(values) {
     let CID = uuidv5(values.description, MY_NAMESPACE);
-    console.log(values);
     values.CID = CID;
+    console.log(values);
     try {
-        await fetch("/api/v1/campaign", {
+        await fetch("http://frank.colab.duke.edu:3002/api/v1/campaign", {
             method: "POST",
             mode: "cors",
             body: JSON.stringify(values),

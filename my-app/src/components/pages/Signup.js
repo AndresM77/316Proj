@@ -7,7 +7,7 @@ const cookies = new Cookies();
 
 async function sendToServer(values) {
     try {
-        await fetch("/api/v1/users", {
+        await fetch("http://frank.colab.duke.edu:3002/api/v1/users", {
             method: "POST",
             mode: "cors",
             body: JSON.stringify(values),
@@ -43,7 +43,7 @@ async function validateUsername(name, instance) {
     }
 
     try {
-        const result = await fetch("/api/v1/users/validate/username", {
+        const result = await fetch("http://frank.colab.duke.edu:3002/api/v1/users/validate/username", {
             method: "POST",
             mode: "cors",
             body: JSON.stringify({username: name}),
@@ -73,7 +73,7 @@ async function validateEmail(name, instance) {
     }
 
     try {
-        const result = await fetch("/api/v1/users/validate/username", {
+        const result = await fetch("http://frank.colab.duke.edu:3002/api/v1/users/validate/username", {
             method: "POST",
             mode: "cors",
             body: JSON.stringify({username: name}),

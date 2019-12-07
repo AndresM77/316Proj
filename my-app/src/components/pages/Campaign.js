@@ -17,19 +17,25 @@ export default class Campaign extends Component {
   }
 
   componentDidMount() {
-    // fetch("http://frank.colab.duke.edu:3002/api/v1/campaign/")
-    //   .then(res => res.json())
-    //   .then(data =>
-    //       this.setState({
-    //         isLoaded: true,
-    //         data: data.data
-    //       }))
-    //   .catch(err => {
-    //     this.setState({
-    //       isLoaded: true,
-    //       error: err
-    //     })
-    //   })
+    fetch("http://frank.colab.duke.edu:3002/api/v1/campaign", {
+      method: "GET",
+      mode: "cors"
+    })
+      .then(res => res.json())
+      .then(data =>
+          // this.setState({
+          //   isLoaded: true,
+          //   data: data.data
+          // })
+          console.log(JSON.stringify(data))
+        )
+      .catch(err => {
+        this.setState({
+          isLoaded: true,
+          error: err
+        })
+      })
+      
     const testCampaigns = [
       {
         id: 1,
@@ -59,7 +65,7 @@ export default class Campaign extends Component {
         goal: 500,
         paylink: "https://www.youtube.com"
       }
-    ];
+    ]
 
     const likes = [1, 4];
 
@@ -94,8 +100,8 @@ export default class Campaign extends Component {
   render() {
     if(this.state.moveToAdd) return <Redirect to="/addcampaign" />;
     const { error, isLoaded, data, likes } = this.state;
-    console.log(data);
-    console.log(likes);
+    // console.log(data);
+    // console.log(likes);
     if (error) {
       return <div>Error: {error.message}</div>;
     } else if (!isLoaded) {
@@ -110,7 +116,7 @@ export default class Campaign extends Component {
           <div style={{ width: "100%" }}>
             {data != null ? (
               data.map(campaign => (
-                <div className="campaign-card">
+                <div key={campaign.id} className="campaign-card">
                   <h1>{campaign.name}</h1>
                   <div className="campaign-card-text">
                     <h2>{campaign.description}</h2>
