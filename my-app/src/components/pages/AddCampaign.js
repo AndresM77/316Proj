@@ -2,12 +2,16 @@ import React from 'react';
 import { useForm, useField } from "react-form";
 import Cookies from "universal-cookie";
 const cookies = new Cookies();
+const uuidv5 = require('uuid/v5');
 
-
+const MY_NAMESPACE = '9BBA0079-D29E-450B-ADAE-C940D364E47D';
 
 async function sendToServer(values) {
+    let CID = uuidv5(values.description, MY_NAMESPACE);
+    values.CID = CID;
+    console.log(values);
     try {
-        await fetch("http://frank.colab.duke.edu:3002/api/v1/users", {
+        await fetch("http://frank.colab.duke.edu:3002/api/v1/campaign", {
             method: "POST",
             mode: "cors",
             body: JSON.stringify(values),
@@ -26,79 +30,56 @@ async function validateName(name, instance) {
         return "A name is required";
     }
 
-    if(name.length > 32) {
+    if(name.length > 50) {
         return "Name is too long";
     }
 
     return false;
 }
 
-async function validateUsername(name, instance) {
-    if(!name) {
-        return "A username is required";
+async function validateDescription(description, instance) {
+    if(!description) {
+        return "A description is required";
     }
 
-    if(name.length > 32) {
-        return "Name is too long";
-    }
-
-    try {
-        const result = await fetch("http://frank.colab.duke.edu:3002/api/v1/users/validate/username", {
-            method: "POST",
-            mode: "cors",
-            body: JSON.stringify({username: name}),
-            headers: {
-                "Content-Type": "application/json"
-            }
-        })
-        const json = await result.json()
-
-        if(!json.result) {
-            return "That username is taken.";
-        }
-    } catch (e) {
-        console.error(e)
+    if(description.length > 200) {
+        return "Description is too long";
     }
 
     return false;
 }
 
-async function validateEmail(name, instance) {
-    if(!name) {
+async function validateNumber(number, instance) {
+    if(!number) {
+        return "A goal is required";
+    }
+
+    if(isNaN(number)) {
+        return "Goal is not a number";
+    }
+
+    return false;
+}
+
+async function validateLink(link, instance) {
+    if(!link) {
         return "An email is required";
     }
 
-    if(name.length > 32) {
-        return "Name is too long";
-    }
-
-    try {
-        const result = await fetch("http://frank.colab.duke.edu:3002/api/v1/users/validate/username", {
-            method: "POST",
-            mode: "cors",
-            body: JSON.stringify({username: name}),
-            headers: {
-                "Content-Type": "application/json"
-            }
-        })
-        const json = await result.json()
-
-        if(!json.result) {
-            return "That email is taken.";
-        }
-    } catch (e) {
-        console.error(e)
+    const regexp =  /^(?:(?:https?|ftp):\/\/)?(?:(?!(?:10|127)(?:\.\d{1,3}){3})(?!(?:169\.254|192\.168)(?:\.\d{1,3}){2})(?!172\.(?:1[6-9]|2\d|3[0-1])(?:\.\d{1,3}){2})(?:[1-9]\d?|1\d\d|2[01]\d|22[0-3])(?:\.(?:1?\d{1,2}|2[0-4]\d|25[0-5])){2}(?:\.(?:[1-9]\d?|1\d\d|2[0-4]\d|25[0-4]))|(?:(?:[a-z\u00a1-\uffff0-9]-*)*[a-z\u00a1-\uffff0-9]+)(?:\.(?:[a-z\u00a1-\uffff0-9]-*)*[a-z\u00a1-\uffff0-9]+)*(?:\.(?:[a-z\u00a1-\uffff]{2,})))(?::\d{2,5})?(?:\/\S*)?$/;
+    if (!regexp.test(link)) {
+        return "A valid link is required";
     }
 
     return false;
 }
 
 
-function FirstNameField() {
+function TitleField() {
     const {
         meta: { error, isTouched, isValidating },
         getInputProps
-    } = useField("firstName", {
+    } = useField("name", {
         validate: validateName
     });
 
@@ -114,12 +95,12 @@ function FirstNameField() {
     )
 }
 
-function LastNameField() {
+function DescriptionField() {
     const {
         meta: { error, isTouched, isValidating },
         getInputProps
-    } = useField("lastName", {
-        validate: validateName
+    } = useField("description", {
+        validate: validateDescription
     });
 
     return (
@@ -134,12 +115,12 @@ function LastNameField() {
     )
 }
 
-function UsernameField() {
+function GoalField() {
     const {
         meta: { error, isTouched, isValidating },
         getInputProps
-    } = useField("username", {
-        validate: validateUsername
+    } = useField("goal", {
+        validate: validateNumber
     });
 
     return (
@@ -154,12 +135,12 @@ function UsernameField() {
     )
 }
 
-function PasswordField() {
+function PaylinkField() {
     const {
         meta: { error, isTouched, isValidating },
         getInputProps
-    } = useField("password", {
-        validate: validateName
+    } = useField("paylink", {
+        validate: validateLink
     });
 
     return (
@@ -174,65 +155,39 @@ function PasswordField() {
     )
 }
 
-function EmailField() {
-    const {
-        meta: { error, isTouched, isValidating },
-        getInputProps
-    } = useField("email", {
-        validate: validateEmail
-    });
-
-    return (
-        <>
-            <input {...getInputProps()} />{" "}
-            {isValidating ? (
-                <em>Validating...</em>
-            ) : isTouched && error ? (
-                <em>{error}</em>
-            ) : null}
-        </>
-    )
-}
-
-const SignUp = () => {
+const AddCampaign = () => {
         const {
             Form,
             meta: { isSubmitting, canSubmit}
         } = useForm({
             onSubmit: async (values, instance) => {
                 await sendToServer(values);
-                await cookies.set("climateAction", values.username);
-                window.location.replace("/");
+                window.location.replace("/campaign");
             }
         })
 
         return (
             <div>
-                <div><h2 className="titleItem">Sign Up</h2></div>
+                <div><h2 className="titleItem">Add Campaign</h2></div>
                 <Form>
                     <div>
                         <label>
-                            First Name: <FirstNameField />
+                            Title: <TitleField />
                         </label>
                     </div>
                     <div>
                         <label>
-                            Last Name: <LastNameField />
+                            Description: <DescriptionField />
                         </label>
                     </div>
                     <div>
                         <label>
-                            Username: <UsernameField />
+                            Goal: <GoalField />
                         </label>
                     </div>
                     <div>
                         <label>
-                            Password: <PasswordField />
-                        </label>
-                    </div>
-                    <div>
-                        <label>
-                            Email: <EmailField />
+                            Pay Link: <PaylinkField />
                         </label>
                     </div>
                     <div>
@@ -249,4 +204,4 @@ const SignUp = () => {
         )
     }
 
-export default SignUp;
+export default AddCampaign;

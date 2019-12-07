@@ -1,0 +1,41 @@
+.campaign-card {
+    height: 280px;
+    width: 20%;
+    border-style: solid;
+    float: left;
+    margin: 2.5%;
+    position: relative;
+    border-radius: 25px;
+}
+
+.campaign-card-text {
+    font-size: 20px;
+    position: absolute;
+    bottom: 0;
+}
+
+.campaign-card-like {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    margin-right: 3%;
+    margin-bottom: 3%;
+}
+
+.campaign-card-like:hover {
+    cursor: pointer;
+}
+
+.campaign-card-liked {
+    color: #2191FB
+}
+
+.button-container {
+    width: 20%;
+    float: left;
+    margin: 2.5%;
+}
+
+i {
+    font-size: 30px !important;
+}
