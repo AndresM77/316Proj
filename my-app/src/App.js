@@ -13,6 +13,7 @@ import NotFoundPage from './components/pages/NotFoundPage';
 import Contacts from './components/pages/Contacts';
 import SignUp from './components/pages/Signup';
 import Login from './components/pages/Login';
+import AddCampaign from "./components/pages/AddCampaign";
 
 class App extends Component{
   render() {
@@ -27,6 +28,7 @@ class App extends Component{
           <Route path="/login" component={Login}/>
           <Route path="/campaign" component={Campaign}/>
           <Route path="/404" component={NotFoundPage}/>
+          <Route path="/addcampaign" component={AddCampaign}/>
         </Switch>
         <footer>Made with 🌎 by Adam, Ryan, Joe, Andres, Ethan, and Frank</footer>
     </div>

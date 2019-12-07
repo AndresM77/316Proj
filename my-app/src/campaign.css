@@ -27,7 +27,13 @@
 }
 
 .campaign-card-liked {
-    color: blue
+    color: #2191FB
+}
+
+.button-container {
+    width: 20%;
+    float: left;
+    margin: 2.5%;
 }
 
 i {
