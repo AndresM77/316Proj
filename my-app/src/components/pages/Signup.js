@@ -73,7 +73,7 @@ async function validateEmail(name, instance) {
     }
 
     try {
-        const result = await fetch("/api/v1/users/validate/username", {
+        const result = await fetch("/api/v1/users/validate/email", {
             method: "POST",
             mode: "cors",
             body: JSON.stringify({username: name}),
