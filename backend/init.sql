@@ -1,7 +1,7 @@
 CREATE TABLE Air (
 	DPID uuid PRIMARY KEY,
-	lat FLOAT(10,8),
-	lng FLOAT(10,8),
+	lat FLOAT,
+	lng FLOAT,
 	countryID char(3) REFERENCES Country(countryID),
 	quality FLOAT NOT NULL
 );
