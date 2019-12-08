@@ -6,7 +6,7 @@ const cookies = new Cookies();
 
 async function sendToServer(values) {
     try {
-        await fetch("http://frank.colab.duke.edu:3002/api/v1/users/login", {
+        await fetch("https://frank.colab.duke.edu:3002/api/v1/users/login", {
             method: "POST",
             mode: "cors",
             body: JSON.stringify(values),
