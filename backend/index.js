@@ -1,4 +1,6 @@
 const express = require('express');
+const https = require('https');
+const fs = require('fs');
 const { pool } = require('./config')
 const cors = require('cors');
 
@@ -10,6 +12,7 @@ app.use(cors())
 
 const getDPs = (req, res) => {
     // const category = req.query.category;
+    console.log("in DPs")
     let query = "";
     if(!req.params.category) {
         res.status(400).send("category is required");
@@ -69,7 +72,7 @@ const getCategories = (req, res) => {
 }
 
 const getUsers = (req, res) => {
-    pool.query('SELECT username FROM Users', (err, result) => {
+    pool.query('SELECT * FROM Users', (err, result) => {
         if (err) {
             res.status(500).send("Internal Server Error")
         }
@@ -78,17 +81,17 @@ const getUsers = (req, res) => {
 }
 
 const getCampaign = (req, res) => {
-  pool.query('SELECT name, description, goal, paylink FROM Campaign', (err, result) => {
-      if (err) {
-          res.status(500).send("Internal Server Error")
-      }
-      res.status(200).json(result.rows);
-  })
+    pool.query('SELECT CID, name, description, goal, paylink FROM Campaign', (err, result) => {
+        if (err) {
+            res.status(500).send("Internal Server Error")
+        }
+        res.status(200).json(result.rows);
+    })
 }
 
 const addCampaign = (req, res) => {
-  pool.query(`INSERT INTO Campaign(CID, name, description, goal, paylink) \
-              VALUES ('${req.body.CID}', '${req.body.name}', '${req.body.description}', '${req.body.goal}', '${req.body.paylink}')`,
+    pool.query(`INSERT INTO Campaign(CID, name, description, paylink, creator) \
+        VALUES ('${req.body.CID}', '${req.body.name}', '${req.body.description}', '${req.body.paylink}', '${req.body.username})`,
               (err, result) => {
                   if(err) {
                       res.status(500).send(err);
@@ -111,8 +114,23 @@ const getLikes = (req, res) => {
   }
 }
 
+const getUserLikes = (req, res) => {
+    if(!req.query.username) {
+        res.status(400).send("username is required");
+    }
+    else {
+        pool.query(`SELECT CID FROM Likes WHERE username = `+`'`+req.query.username+`'`, (err, result) => {
+            if(err) {
+                res.status(500).send("Internal Server Error")
+            }
+            res.status(200).json(result.rows);
+        })
+    }
+}
+
 const addLikes = (req, res) => {
-  pool.query(`INSERT INTO Likes(username, CID) \
+    console.log(req.body.username, req.body.CID);
+    pool.query(`INSERT INTO Likes(username, CID) \
               VALUES ('${req.body.username}','${req.body.CID}')`,
               (err, result) => {
                   if(err) {
@@ -120,6 +138,23 @@ const addLikes = (req, res) => {
                   }
                   res.status(200).send();
               })
+}
+
+const removeLikes = (req, res) => {
+    if(!req.query.username) {
+        res.status(400).send("username is required");
+    }
+    if(!req.query.CID) {
+        res.status(400).send("CID required");
+    }
+    else {
+        pool.query(`DELETE * FROM Likes WHERE username = `+`'`+req.query.username+`'` + `and CID = `+`'`+req.query.CID+`'`, (err, result) => {
+            if(err) {
+                res.status(500).send("Internal Server Error")
+            }
+            res.status(200).send();
+        })
+    } 
 }
 
 const getPledges = (req, res) => {
@@ -201,7 +236,6 @@ const checkEmail = (req, res) => {
 const checkUsername = (req, res) => {
     pool.query(`SELECT COUNT(*) from users where username='${req.body.username}'`,
                 (err, result) => {
-                    console.log(result);
                     if(err) {
                         res.status(500).send(err);
                     }
@@ -228,18 +262,28 @@ app.route("/api/v1/users").get(getUsers);
 app.route("/api/v1/users").post(addUser);
 app.route("/api/v1/users/validate/email").post(checkEmail);
 app.route("/api/v1/users/validate/username").post(checkUsername);
-app.route("/api/v1/campaign").get(getCampaign);
+app.route("/api/v1/campaign/:get").get(getCampaign);
 app.route("/api/v1/campaign").post(addCampaign);
-app.route("/api/v1/likes").get(getLikes);
+app.route("/api/v1/likes/:get").get(getLikes);
 app.route("/api/v1/likes").post(addLikes);
 app.route("/api/v1/pledges").get(getPledges);
 app.route("/api/v1/pledges").post(addPledges);
 app.route("/api/v1/posts").get(getPosts);
 app.route("/api/v1/posts").post(addPosts);
+app.route("/api/v1/likes/user").get(getUserLikes);
 
-app.listen(process.env.PORT || 3002, () => {
+// app.listen(process.env.PORT || 3002, () => {
+//     console.log('Server listening')
+//   })
+
+https.createServer({
+    key: fs.readFileSync('/etc/letsencrypt/live/frank.colab.duke.edu/privkey.pem'),
+    cert: fs.readFileSync('/etc/letsencrypt/live/frank.colab.duke.edu/fullchain.pem'),
+    passphrase: ''
+}, app).listen(process.env.PORT || 3002, () => {
     console.log('Server listening')
   })
+
 
 
 // const getDepDPs = (req, res) => {

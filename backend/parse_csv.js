@@ -45,7 +45,7 @@ function ReadFilesFromDirectory(directory) {
 }
 
 function parseTemperature(csv) {
-    var csv_no_space = csv.replace("- Celsius", "").replace(/ /g, "");
+    var csv_no_space = csv.replace("- (Celsius)", "").replace(/ /g, "");
     var data = $.csv.toObjects(csv_no_space);
     var aggregate_data = {};
     for(var i=0;i<data.length;i++){ // for each obj
@@ -102,7 +102,7 @@ function parseRainfall(csv) {
     })
 }
 
-var directory_path = ["./files/Rain1"]
+var directory_path = [".files/Temps1"]
 
 var i;
 for (i = 0; i < directory_path.length; i++) {
