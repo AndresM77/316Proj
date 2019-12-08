@@ -65,13 +65,21 @@ export default class MapChart extends React.Component {
   render() {
     let minColor;
     let maxColor;
+    let minValue;
+    let maxValue;
     if(this.state.selectedCategory === "air"){
+      minValue = 0;
+      maxValue = 800;
       minColor = "#82ed86";
       maxColor = "#CC0617";
     } else if(this.state.selectedCategory === "temp"){
+      minValue = -20;
+      maxValue = 30;
       minColor = "#CFD8DC";
       maxColor = "#C94242";
     } else {
+      minValue = 0
+      maxValue = 783;
       minColor = "#E66232";
       maxColor = "#214ADE";
     }
