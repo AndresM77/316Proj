@@ -12,7 +12,6 @@ app.use(cors())
 
 const getDPs = (req, res) => {
     // const category = req.query.category;
-<<<<<<< HEAD
     try {
         let query = "";
         if(!req.params.category) {
@@ -54,15 +53,6 @@ const getDPs = (req, res) => {
         }
     } catch(error) {
         res.status(500).send("Internal Server Error")
-=======
-    console.log("in DPs")
-    let query = "";
-    if(!req.params.category) {
-        res.status(400).send("category is required");
-    }
-    else if(!req.params.year) {
-        res.status(400).send("time is required");
->>>>>>> Updated Index.js
     }
 }
 
