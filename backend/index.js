@@ -12,6 +12,7 @@ app.use(cors())
 
 const getDPs = (req, res) => {
     // const category = req.query.category;
+<<<<<<< HEAD
     try {
         let query = "";
         if(!req.params.category) {
@@ -53,6 +54,15 @@ const getDPs = (req, res) => {
         }
     } catch(error) {
         res.status(500).send("Internal Server Error")
+=======
+    console.log("in DPs")
+    let query = "";
+    if(!req.params.category) {
+        res.status(400).send("category is required");
+    }
+    else if(!req.params.year) {
+        res.status(400).send("time is required");
+>>>>>>> Updated Index.js
     }
 }
 
@@ -142,6 +152,7 @@ const addCampaign = (req, res) => {
     }
 }
 
+<<<<<<< HEAD
 const getLikes = (req, res) => {
     try {
         if(!req.query.cid) {
@@ -158,6 +169,15 @@ const getLikes = (req, res) => {
     } catch(error) {
         res.status(500).send("Internal Server Error")
     }
+=======
+const getCampaign = (req, res) => {
+    pool.query('SELECT CID, name, description, goal, paylink FROM Campaign', (err, result) => {
+        if (err) {
+            res.status(500).send("Internal Server Error")
+        }
+        res.status(200).json(result.rows);
+    })
+>>>>>>> Updated Index.js
 }
 
 const getUserLikes = (req, res) => {
@@ -175,6 +195,20 @@ const getUserLikes = (req, res) => {
         }
     } catch(error) {
         res.status(500).send("Internal Server Error")
+    }
+}
+
+const getUserLikes = (req, res) => {
+    if(!req.query.username) {
+        res.status(400).send("username is required");
+    }
+    else {
+        pool.query(`SELECT CID FROM Likes WHERE username = `+`'`+req.query.username+`'`, (err, result) => {
+            if(err) {
+                res.status(500).send("Internal Server Error")
+            }
+            res.status(200).json(result.rows);
+        })
     }
 }
 
@@ -439,7 +473,7 @@ const checkLogin = (req, res) => {
 // }
 
 app.route("/api/v1/:categories").get(getCategories);
-app.route('/api/v1/dps/:category/:year').get(getDPs);
+app.route('/api/v1/dps/:category/:year').get(getCampaign);
 app.route("/api/v1/users").get(getUsers);
 app.route("/api/v1/users").post(addUser);
 app.route("/api/v1/users/login").post(checkLogin);
@@ -456,6 +490,7 @@ app.route("/api/v1/posts").post(addPosts);
 app.route("/api/v1/likes/user").get(getUserLikes);
 app.route("/api/v1/likes/remove").post(removeLikes);
 
+<<<<<<< HEAD
 // app.listen(process.env.PORT || 3002, () => {
 //     console.log('Server listening')
 //   })
@@ -465,6 +500,9 @@ https.createServer({
     cert: fs.readFileSync('/etc/letsencrypt/live/frank.colab.duke.edu/fullchain.pem'),
     passphrase: ''
 }, app).listen(process.env.PORT || 3002, () => {
+=======
+app.listen(process.env.PORT || 443, () => {
+>>>>>>> Updated Index.js
     console.log('Server listening')
   })
 
