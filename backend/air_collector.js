@@ -26,7 +26,7 @@ async function getData() {
         let dpid = uuidv5(String(lat)+String(long), MY_NAMESPACE);
         pool.query(`UPDATE Air \
                     SET dpid = $1, lat = $2, lng = $3, countryid = 'XXX', quality = $4 \
-                    WHERE lat = $2, lng = $3`, [dpid, lat, long, value], (err) => {
+                    WHERE lat = $2 AND lng = $3`, [dpid, lat, long, value], (err) => {
                         if(err) {
                             console.log(err);
                         }
