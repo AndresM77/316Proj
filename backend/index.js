@@ -26,10 +26,10 @@ const getDPs = (req, res) => {
                     query = 'SELECT * FROM Air';
                     break;
                 case "rain":
-                    query = 'SELECT rainfall, country FROM Rain WHERE Rain.time=$1';
+                    query = 'SELECT rainfall, countryID FROM Rain WHERE Rain.time=$1';
                     break;
                 case "temp":
-                    query = 'SELECT temperature, country FROM Temperature WHERE Temperature.time = $1';
+                    query = 'SELECT temperature, countryID FROM Temperature WHERE Temperature.time = $1';
                     break;
             }
 
@@ -39,10 +39,13 @@ const getDPs = (req, res) => {
                 if (err) {
                     res.status(500).send("Internal Server Error")
                 }
-                res.status(200).json(result.rows);
+                if(!result) res.status(200).send();
+                else {
+                    res.status(200).json(result.rows);
+                }
             })
         }
-    } catch {
+    } catch(error) {
         res.status(500).send("Internal Server Error")
     }
 }
@@ -59,10 +62,10 @@ const getCategories = (req, res) => {
                     query = 'SELECT * FROM Air';
                     break;
                 case "rain":
-                    query = 'SELECT rainfall, country FROM Rain';
+                    query = 'SELECT rainfall, countryID FROM Rain';
                     break;
                 case "temp":
-                    query = 'SELECT temperature, country FROM Temperature';
+                    query = 'SELECT temperature, countryID FROM Temperature';
                     break;
             }
 
@@ -73,7 +76,7 @@ const getCategories = (req, res) => {
                 res.status(200).json(result.rows);
             })
         }
-    } catch {
+    } catch(error) {
         res.status(500).send("Internal Server Error")
     }
 }
@@ -86,7 +89,7 @@ const getUsers = (req, res) => {
             }
             res.status(200).json(result.rows);
         })
-    } catch {
+    } catch(error) {
         res.status(500).send("Internal Server Error")
     }
 }
@@ -99,7 +102,7 @@ const getCampaign = (req, res) => {
             }
             res.status(200).json(result.rows);
         })
-    } catch {
+    } catch(error) {
         res.status(500).send("Internal Server Error")
     }
 }
@@ -131,7 +134,7 @@ const addCampaign = (req, res) => {
                             res.status(200).send();
                         })
         }
-    } catch {
+    } catch(error) {
         res.status(500).send("Internal Server Error")
     }
 }
@@ -149,7 +152,7 @@ const getLikes = (req, res) => {
                 res.status(200).json(result.rows);
             })
         }
-    } catch {
+    } catch(error) {
         res.status(500).send("Internal Server Error")
     }
 }
@@ -184,7 +187,7 @@ const addLikes = (req, res) => {
                     }
                     res.status(200).send();
                 })
-    } catch {
+    } catch(error) {
         res.status(500).send("Internal Server Error")
     }
 }
@@ -219,7 +222,7 @@ const getPledges = (req, res) => {
                 res.status(200).json(result.rows);
             })
         }
-    } catch {
+    } catch(error) {
         res.status(500).send("Internal Server Error")
     }
 }
@@ -245,7 +248,7 @@ const addPledges = (req, res) => {
                     res.status(200).send();
                 })
         }
-    } catch {
+    } catch(error) {
         res.status(500).send("Internal Server Error")
     }
 }
@@ -263,7 +266,7 @@ const getPosts = (req, res) => {
                 res.status(200).json(result.rows);
             })
         }
-    } catch {
+    } catch(error) {
         res.status(500).send("Internal Server Error")
     }
 }
@@ -293,7 +296,7 @@ const addPosts = (req, res) => {
                     res.status(200).send();
                 })
             }
-    } catch {
+    } catch(error) {
         res.status(500).send("Internal Server Error")
     }
 }
@@ -335,7 +338,7 @@ const addUser = (req, res) => {
                         res.status(200).send({ "result": true })
                     })
             }
-    } catch {
+    } catch(error) {
         res.status(500).send("Internal Server Error")
     }
 }
@@ -359,7 +362,7 @@ const checkEmail = (req, res) => {
                         }
                     })
         }
-    } catch {
+    } catch(error) {
         res.status(500).send("Internal Server Error")
     }
 }
@@ -382,7 +385,7 @@ const checkUsername = (req, res) => {
                             }
                         })
             }
-    } catch {
+    } catch(error) {
         res.status(500).send("Internal Server Error")
     }
 }
@@ -409,7 +412,7 @@ const checkLogin = (req, res) => {
                             }
                         })
             }
-    } catch {
+    } catch(error) {
         res.status(500).send("Internal Server Error")
     }
 }
