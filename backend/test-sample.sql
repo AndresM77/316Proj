@@ -44,6 +44,13 @@ INSERT INTO Posts(CID, poster, description, time)
 INSERT INTO Likes (username, CID)
 	VALUES ('test2', 'cdcc7e99-0ef1-41ae-a1bc-3e3f618ddde9');
 
+INSERT INTO Country (country, name)
+	VALUES
+	('USA', 'United States of America'),
+	('AFG', 'Afghanistan'),
+	('ALB', 'Albania'),
+	('DZA', 'ALgeria');
+
 
 -- Test Queries for Database --
 

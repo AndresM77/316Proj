@@ -202,7 +202,7 @@ const SignUp = () => {
             onSubmit: async (values, instance) => {
                 await sendToServer(values);
                 await cookies.set("climateAction", values.username);
-                window.location.replace("/");
+                // window.location.replace("/");
             }
         })
 

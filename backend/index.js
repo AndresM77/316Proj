@@ -199,9 +199,9 @@ const checkEmail = (req, res) => {
 }
 
 const checkUsername = (req, res) => {
-    pool.query(`SELECT COUNT(*) from users \
-                where username='${req.body.username}'`,
+    pool.query(`SELECT COUNT(*) from users where username='${req.body.username}'`,
                 (err, result) => {
+                    console.log(result);
                     if(err) {
                         res.status(500).send(err);
                     }
@@ -226,8 +226,8 @@ app.route("/api/v1/:categories").get(getCategories);
 app.route('/api/v1/dps/:category/:year').get(getDPs);
 app.route("/api/v1/users").get(getUsers);
 app.route("/api/v1/users").post(addUser);
-app.route("/api/v1/users/validate/:email").post(checkEmail);
-app.route("/api/v1/users/validate/:username").post(checkUsername);
+app.route("/api/v1/users/validate/email").post(checkEmail);
+app.route("/api/v1/users/validate/username").post(checkUsername);
 app.route("/api/v1/campaign").get(getCampaign);
 app.route("/api/v1/campaign").post(addCampaign);
 app.route("/api/v1/likes").get(getLikes);

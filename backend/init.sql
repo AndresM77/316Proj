@@ -3,7 +3,7 @@ CREATE TABLE Air (
 	lat DECIMAL(10,8),
 	lng DECIMAL(10,8),
 	time DATE NOT NULL,
-	country char(3),
+	country char(3) NOT NULL,
 	quality FLOAT NOT NULL
 );
 
@@ -19,6 +19,17 @@ CREATE TABLE Rain (
 	time DATE NOT NULL,
 	country char(3) NOT NULL,
 	rainfall FLOAT NOT NULL
+);
+
+CREATE TABLE Country (
+	country char(3) PRIMARY KEY,
+	name VARCHAR(32) NOT NULL
+);
+
+CREATE TABLE Favorites (
+	country char(3) REFERENCES Country(country) NOT NULL,
+	username VARCHAR(32) REFERENCES Users(username) NOT NULL,
+	PRIMARY KEY (country, username)
 );
 
 CREATE TABLE Users (
