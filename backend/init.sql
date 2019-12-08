@@ -3,23 +3,28 @@ CREATE TABLE Air (
 	lat DECIMAL(10,8),
 	lng DECIMAL(10,8),
 	time DATE NOT NULL,
-	country char(3),
+	country char(3) REFERENCES Country(country) NOT NULL,
 	quality FLOAT NOT NULL
 );
 
 CREATE TABLE Temperature (
 	DPID uuid PRIMARY KEY,
 	time DATE NOT NULL,
-	country char(3) NOT NULL,
+	country char(3) REFERENCES Country(country) NOT NULL,
 	temperature FLOAT NOT NULL
 );
 
 CREATE TABLE Rain (
 	DPID uuid PRIMARY KEY,
 	time DATE NOT NULL,
-	country char(3) NOT NULL,
+	country char(3) REFERENCES Country(country) NOT NULL,
 	rainfall FLOAT NOT NULL
 );
+
+CREATE TABLE Country (
+	country char(3) PRIMARY KEY,
+	name VARCHAR(32) NOT NULL
+)
 
 CREATE TABLE Users (
 	username VARCHAR(32) PRIMARY KEY,
