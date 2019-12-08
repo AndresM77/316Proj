@@ -246,6 +246,23 @@ const removeLikes = (req, res) => {
     
 }
 
+const removeLikes = (req, res) => {
+    if(!req.query.username) {
+        res.status(400).send("username is required");
+    }
+    if(!req.query.CID) {
+        res.status(400).send("CID required");
+    }
+    else {
+        pool.query(`DELETE * FROM Likes WHERE username = `+`'`+req.query.username+`'` + `and CID = `+`'`+req.query.CID+`'`, (err, result) => {
+            if(err) {
+                res.status(500).send("Internal Server Error")
+            }
+            res.status(200).send();
+        })
+    } 
+}
+
 const getPledges = (req, res) => {
     try {
         if(!req.query.cid) {
@@ -463,7 +480,7 @@ const checkLogin = (req, res) => {
 // }
 
 app.route("/api/v1/:categories").get(getCategories);
-app.route('/api/v1/dps/:category/:year').get(getCampaign);
+app.route('/api/v1/dps/:category/:year').get(getDPs);
 app.route("/api/v1/users").get(getUsers);
 app.route("/api/v1/users").post(addUser);
 app.route("/api/v1/users/login").post(checkLogin);
@@ -481,6 +498,9 @@ app.route("/api/v1/likes/user").get(getUserLikes);
 app.route("/api/v1/likes/remove").post(removeLikes);
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> index.js
 // app.listen(process.env.PORT || 3002, () => {
 //     console.log('Server listening')
 //   })
@@ -490,9 +510,12 @@ https.createServer({
     cert: fs.readFileSync('/etc/letsencrypt/live/frank.colab.duke.edu/fullchain.pem'),
     passphrase: ''
 }, app).listen(process.env.PORT || 3002, () => {
+<<<<<<< HEAD
 =======
 app.listen(process.env.PORT || 443, () => {
 >>>>>>> Updated Index.js
+=======
+>>>>>>> index.js
     console.log('Server listening')
   })
 
