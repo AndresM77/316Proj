@@ -1,4 +1,4 @@
--- Populating Database --
+Populating Database --
 
 INSERT INTO Users(username, email, first_name, last_name)
 	VALUES
@@ -38,7 +38,7 @@ INSERT INTO Campaign(CID, name, description, goal, paylink, sponsor)
 INSERT INTO Likes (username, CID)
 	VALUES ('test2', 'cdcc7e99-0ef1-41ae-a1bc-3e3f618ddde9');
 
-INSERT INTO Country (country, name)
+INSERT INTO Country (name, countryID)
 	VALUES
 	('Albania',	'ALB'),
 	('Algeria',	'DZA'),
@@ -97,7 +97,7 @@ INSERT INTO Country (country, name)
 	('Curaçao',	'CUW'),
 	('Cyprus',	'CYP'),
 	('Czechia',	'CZE'),
-	('Côte d\'Ivoire',	'CIV'),
+	('Côte d Ivoire',	'CIV'),
 	('Denmark',	'DNK'),
 	('Djibouti',	'DJI'),
 	('Dominica',	'DMA'),
@@ -156,11 +156,11 @@ INSERT INTO Country (country, name)
 	('Kazakhstan',	'KAZ'),
 	('Kenya',	'KEN'),
 	('Kiribati',	'KIR'),
-	('Korea (the Democratic People\'s Republic of)',	'PRK'),
+	('Korea (the Democratic Peoples Republic of)',	'PRK'),
 	('Korea (the Republic of)',	'KOR'),
 	('Kuwait',	'KWT'),
 	('Kyrgyzstan',	'KGZ'),
-	('Lao People\'s Democratic Republic (the)',	'LAO'),
+	('Lao Peoples Democratic Republic (the)',	'LAO'),
 	('Latvia', 'LVA'),
 	('Lebanon',	'LBN'),
 	('Lesotho',	'LSO'),
@@ -251,7 +251,7 @@ INSERT INTO Country (country, name)
 	('Sri Lanka',	'LKA'),
 	('Sudan (the)',	'SDN'),
 	('Suriname',	'SUR'),
-	('Svalbard and Jan Mayen',	'SJM')
+	('Svalbard and Jan Mayen',	'SJM'),
 	('Sweden',	'SWE'),
 	('Switzerland',	'CHE'),
 	('Syrian Arab Republic',	'SYR'),

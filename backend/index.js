@@ -12,7 +12,6 @@ app.use(cors())
 
 const getDPs = (req, res) => {
     // const category = req.query.category;
-    console.log("in DPs")
     let query = "";
     if(!req.params.category) {
         res.status(400).send("category is required");
@@ -26,10 +25,10 @@ const getDPs = (req, res) => {
                 query = 'SELECT * FROM Air';
                 break;
             case "rain":
-                query = 'SELECT rainfall, country FROM Rain WHERE Rain.time=$1';
+                query = 'SELECT rainfall, countryID FROM Rain WHERE Rain.time=$1';
                 break;
             case "temp":
-                query = 'SELECT temperature, country FROM Temperature WHERE Temperature.time = $1';
+                query = 'SELECT temperature, countryID FROM Temperature WHERE Temperature.time = $1';
                 break;
         }
 
