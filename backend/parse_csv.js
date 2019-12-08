@@ -20,7 +20,7 @@ function ReadFile(file) {
             console.log(err);
             return;
         }
-        if(csv.indexOf("Temperature - Celsius") >= 0) {
+        if(csv.indexOf("Temperature - (Celsius)") >= 0) {
             parseTemperature(csv);
         } else if (csv.indexOf("Rainfall - (MM)") >= 0) {
             parseRainfall(csv);
@@ -64,7 +64,7 @@ function parseTemperature(csv) {
     console.log(aggregate_data)
     Object.values(aggregate_data).forEach(data_point => {
        
-        let dpid = uuidv5(String(data_point.Year), MY_NAMESPACE);
+        let dpid = uuidv5(String(data_point.Year) + String(data_point.ISO3), MY_NAMESPACE);
         pool.query("INSERT INTO temperature(dpid, time, country, temperature) \
             VALUES($1, $2, $3, $4)", [dpid, new Date(data_point.Year).toISOString(), data_point.ISO3, data_point.Temperature], function(err) {
                 if(err) {
@@ -92,7 +92,7 @@ function parseRainfall(csv) {
     })
 
     Object.values(aggregate_data).forEach(data_point => {
-        let dpid = uuidv5(String(data_point.Year), MY_NAMESPACE);
+        let dpid = uuidv5(String(data_point.Year) + String(data_point.ISO3), MY_NAMESPACE);
         pool.query("INSERT INTO rain(dpid, time, country, rainfall) \
             VALUES($1, $2, $3, $4)", [dpid, new Date(data_point.Year).toISOString(), data_point.ISO3, data_point.Rainfall], function(err) {
                 if(err) {
@@ -102,11 +102,9 @@ function parseRainfall(csv) {
     })
 }
 
-var directory_path = ["./files/Temps1", "./files/Temps2", "./files/Rain1", "./files/Rain2"]
+var directory_path = ["./files/Rain1"]
 
 var i;
 for (i = 0; i < directory_path.length; i++) {
     ReadFilesFromDirectory(directory_path[i]);
 }
-
-
