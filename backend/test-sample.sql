@@ -178,95 +178,95 @@ INSERT INTO Country (country, name)
 ('Iceland',	'ISL'),
 ('India',	'IND'),
 ('Indonesia',	'IDN'),
-(Iran (Islamic Republic of)	IR	IRN	364
-Iraq	IQ	IRQ	368
-Ireland	IE	IRL	372
-Isle of Man	IM	IMN	833
-Israel	IL	ISR	376
-Italy	IT	ITA	380
-Jamaica	JM	JAM	388
-Japan	JP	JPN	392
-Jersey	JE	JEY	832
-Jordan	JO	JOR	400
-Kazakhstan	KZ	KAZ	398
-Kenya	KE	KEN	404
-Kiribati	KI	KIR	296
-Korea (the Democratic People's Republic of)	KP	PRK	408
-Korea (the Republic of)	KR	KOR	410
-Kuwait	KW	KWT	414
-Kyrgyzstan	KG	KGZ	417
-Lao People's Democratic Republic (the)	LA	LAO	418
-Latvia	LV	LVA	428
-Lebanon	LB	LBN	422
-Lesotho	LS	LSO	426
-Liberia	LR	LBR	430
-Libya	LY	LBY	434
-Liechtenstein	LI	LIE	438
-Lithuania	LT	LTU	440
-Luxembourg	LU	LUX	442
-Macao	MO	MAC	446
-Madagascar	MG	MDG	450
-Malawi	MW	MWI	454
-Malaysia	MY	MYS	458
-Maldives	MV	MDV	462
-Mali	ML	MLI	466
-Malta	MT	MLT	470
-Marshall Islands (the)	MH	MHL	584
-Martinique	MQ	MTQ	474
-Mauritania	MR	MRT	478
-Mauritius	MU	MUS	480
-Mayotte	YT	MYT	175
-Mexico	MX	MEX	484
-Micronesia (Federated States of)	FM	FSM	583
-Moldova (the Republic of)	MD	MDA	498
-Monaco	MC	MCO	492
-Mongolia	MN	MNG	496
-Montenegro	ME	MNE	499
-Montserrat	MS	MSR	500
-Morocco	MA	MAR	504
-Mozambique	MZ	MOZ	508
-Myanmar	MM	MMR	104
-Namibia	NA	NAM	516
-Nauru	NR	NRU	520
-Nepal	NP	NPL	524
-Netherlands (the)	NL	NLD	528
-New Caledonia	NC	NCL	540
-New Zealand	NZ	NZL	554
-Nicaragua	NI	NIC	558
-Niger (the)	NE	NER	562
-Nigeria	NG	NGA	566
-Niue	NU	NIU	570
-Norfolk Island	NF	NFK	574
-Northern Mariana Islands (the)	MP	MNP	580
-Norway	NO	NOR	578
-Oman	OM	OMN	512
-Pakistan	PK	PAK	586
-Palau	PW	PLW	585
-Palestine, State of	PS	PSE	275
-Panama	PA	PAN	591
-Papua New Guinea	PG	PNG	598
-Paraguay	PY	PRY	600
-Peru	PE	PER	604
-Philippines (the)	PH	PHL	608
-Pitcairn	PN	PCN	612
-Poland	PL	POL	616
-Portugal	PT	PRT	620
-Puerto Rico	PR	PRI	630
-Qatar	QA	QAT	634
-Republic of North Macedonia	MK	MKD	807
-Romania	RO	ROU	642
-Russian Federation (the)	RU	RUS	643
-Rwanda	RW	RWA	646
-Réunion	RE	REU	638
-Saint Barthélemy	BL	BLM	652
-Saint Helena, Ascension and Tristan da Cunha	SH	SHN	654
-Saint Kitts and Nevis	KN	KNA	659
-Saint Lucia	LC	LCA	662
-Saint Martin (French part)	MF	MAF	663
-Saint Pierre and Miquelon	PM	SPM	666
-Saint Vincent and the Grenadines	VC	VCT	670
-Samoa	WS	WSM	882
-San Marino	SM	SMR	674
+('Iran (Islamic Republic of)',	'IRN'),
+('Iraq',	'IRQ'),
+('Ireland',	'IRL'),
+('Isle of Man',	'IMN'),
+('Israel',	'ISR'),
+('Italy',	'ITA'),
+('Jamaica',	'JAM'),
+('Japan',	'JPN'),
+('Jersey',	'JEY'),
+('Jordan', 'JOR'),
+('Kazakhstan',	'KAZ'),
+('Kenya',	'KEN'),
+('Kiribati',	'KIR'),
+('Korea (the Democratic People\'s Republic of)',	'PRK'),
+('Korea (the Republic of)',	'KOR'),
+('Kuwait',	'KWT'),
+('Kyrgyzstan',	'KGZ'),
+('Lao People\'s Democratic Republic (the)',	'LAO'),
+('Latvia', 'LVA'),
+('Lebanon',	'LBN'),
+('Lesotho',	'LSO'),
+('Liberia',	'LBR'),
+('Libya',	'LBY'),
+('Liechtenstein',	'LIE'),
+('Lithuania', 'LTU'),
+('Luxembourg',	'LUX'),
+('Macao',	'MAC'),
+('Madagascar',	'MDG'),
+('Malawi',	'MWI'),
+('Malaysia',	'MYS'),
+('Maldives',	'MDV'),
+('Mali',	'MLI'),
+('Malta',	'MLT'),
+('Marshall Islands (the)', 'MHL'),
+('Martinique',	'MTQ'),
+('Mauritania',	'MRT'),
+('Mauritius',	'MUS'),
+('Mayotte', 'MYT'),
+('Mexico',	'MEX'),
+('Micronesia (Federated States of)', 'FSM'),
+('Moldova (the Republic of)',	'MDA'),
+('Monaco',	'MCO'),
+('Mongolia',	'MNG'),
+('Montenegro', 'MNE'),
+('Montserrat', 'MSR'),
+('Morocco',	'MAR'),
+('Mozambique', 'MOZ'),
+('Myanmar',	'MMR'),
+('Namibia',	'NAM'),
+('Nauru',	'NRU'),
+('Nepal',	'NPL'),
+('Netherlands (the)',	'NLD'),
+('New Caledonia',	'NCL'),
+('New Zealand',	'NZL'),
+('Nicaragua', 'NIC'),
+('Niger (the)',	'NER'),
+('Nigeria', 'NGA'),
+('Niue', 	'NIU'),
+('Norfolk Island',	'NFK'),
+('Northern Mariana Islands (the)',	'MNP'),
+('Norway', 'NOR'),
+('Oman',	'OMN'),
+('Pakistan',	'PAK'),
+('Palau',	'PLW'),
+('Palestine, State of',	'PSE'),
+('Panama',	'PAN'),
+('Papua New Guinea',	'PNG'),
+('Paraguay',	'PRY'),
+('Peru',	'PER'),
+('Philippines (the)',	'PHL'),
+('Pitcairn',	'PCN'),
+('Poland',	'POL'),
+('Portugal',	'PRT'),
+('Puerto Rico',	'PRI'),
+('Qatar',	'QAT'),
+('Republic of North Macedonia',	'MKD'),
+('Romania',	'ROU'),
+('Russian Federation (the)',	'RUS'),
+('Rwanda',	'RWA'),
+('Réunion',	'REU'),
+('Saint Barthélemy',	'BLM'),
+('Saint Helena, Ascension and Tristan da Cunha',	'SHN'),
+('Saint Kitts and Nevis',	'KNA'),
+('Saint Lucia',	'LCA'),
+('Saint Martin (French part)',	'MAF'),
+('Saint Pierre and Miquelon',	'SPM'),
+('Saint Vincent and the Grenadines',	'VCT'),
+('Samoa',	'WSM'),
+('San Marino',	'SMR'),
 Sao Tome and Principe	ST	STP	678
 Saudi Arabia	SA	SAU	682
 Senegal	SN	SEN	686
