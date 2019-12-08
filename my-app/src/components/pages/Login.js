@@ -1,6 +1,7 @@
 import React from 'react';
 import { useForm, useField } from "react-form";
 import Cookies from "universal-cookie";
+import validatePassword from "./Signup"
 const cookies = new Cookies();
 
 async function sendToServer(values) {
@@ -8,13 +9,13 @@ async function sendToServer(values) {
     return values;
   }
 
-async function validateName(name, instance) {
+async function validateUsername(name, instance) {
     if(!name) {
-        return "A name is required";
+        return "Username is required";
     }
 
     if(name.length > 32) {
-        return "Name is too long";
+        return "Username entered is too long";
     }
 
     return false;
@@ -25,7 +26,7 @@ function UsernameField() {
         meta: { error, isTouched, isValidating },
         getInputProps
     } = useField("username", {
-        validate: validateName
+        validate: validateUsername
     });
 
     return (
@@ -45,12 +46,12 @@ function PasswordField() {
         meta: { error, isTouched, isValidating },
         getInputProps
     } = useField("password", {
-        validate: validateName
+        validate: validatePassword
     });
 
     return (
         <>
-            <input {...getInputProps()} />{" "}
+            <input type="password" {...getInputProps()} />{" "}
             {isValidating ? (
                 <em>Validating...</em>
             ) : isTouched && error ? (

@@ -23,11 +23,35 @@ async function sendToServer(values) {
 
 async function validateName(name, instance) {
     if(!name) {
-        return "A name is required";
+        return "A first name is required";
     }
 
     if(name.length > 32) {
-        return "Name is too long";
+        return "First name is too long";
+    }
+
+    return false;
+}
+
+async function validatePassword(name, instance) {
+    if(!name) {
+        return "A password is required";
+    }
+
+    if(name.length > 32) {
+        return "Password is too long";
+    }
+
+    return false;
+}
+
+async function validateLastName(name, instance) {
+    if(!name) {
+        return "A last name is required";
+    }
+
+    if(name.length > 32) {
+        return "Last name is too long";
     }
 
     return false;
@@ -119,7 +143,7 @@ function LastNameField() {
         meta: { error, isTouched, isValidating },
         getInputProps
     } = useField("lastName", {
-        validate: validateName
+        validate: validateLastName
     });
 
     return (
@@ -159,12 +183,12 @@ function PasswordField() {
         meta: { error, isTouched, isValidating },
         getInputProps
     } = useField("password", {
-        validate: validateName
+        validate: validatePassword
     });
 
     return (
         <>
-            <input {...getInputProps()} />{" "}
+            <input type="password" {...getInputProps()} />{" "}
             {isValidating ? (
                 <em>Validating...</em>
             ) : isTouched && error ? (
