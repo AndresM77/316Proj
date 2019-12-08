@@ -23,12 +23,9 @@ export default class MapChart extends React.Component {
   minValue = 5; // based on the data array above
   maxValue = 20; // based on the data array above
 
-  minColor = "#CFD8DC";
-  maxColor = "#37474F";
-
   customScale = scaleLinear()
-    .domain([this.minValue, this.maxValue])
-    .range([this.minColor, this.maxColor]);
+  .domain([this.minValue, this.maxValue])
+  .range([this.minColor, this.maxColor]);
 
   componentDidMount() {
     this.setState({ selectedYear: 2015 }, this.filterDataPoints);
@@ -41,6 +38,8 @@ export default class MapChart extends React.Component {
   handleCategoryChange = category => {
     this.setState({ selectedCategory: category.value }, this.filterDataPoints);
   };
+
+
 
   handleTooltipContent = (name, measurement) => {
     let display_string =  `${name}: ${measurement}`
@@ -64,15 +63,29 @@ export default class MapChart extends React.Component {
   };
 
   render() {
+    let minColor;
+    let maxColor;
+    if(this.state.selectedCategory === "air"){
+      minColor = "#82ed86";
+      maxColor = "#CC0617";
+    } else if(this.state.selectedCategory === "temp"){
+      minColor = "#CFD8DC";
+      maxColor = "#C94242";
+    } else {
+      minColor = "#E66232";
+      maxColor = "#214ADE";
+    }
+    
+
     return (
       <div>
         <div style={{ position: "absolute", bottom: "10vh", left: "4vw", width: "300px" }}>
           <DataTypeSelect handleCategoryChange={this.handleCategoryChange} />
-          <YearSlider
-            startYear={1901}
-            endYear={2016}
-            handleYearChange={this.handleYearChange}
-          />
+          {this.state.selectedCategory !== "air" ? <YearSlider
+              startYear={1901}
+              endYear={2016}
+              handleYearChange={this.handleYearChange}
+            /> : <> </>}
         </div>
         <div>
           <ComposableMap
