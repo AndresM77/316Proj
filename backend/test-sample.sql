@@ -49,7 +49,280 @@ INSERT INTO Country (country, name)
 	('USA', 'United States of America'),
 	('AFG', 'Afghanistan'),
 	('ALB', 'Albania'),
-	('DZA', 'ALgeria');
+	('DZA', 'ALgeria'),
+	('ASM', 'American Samoa'),
+	('AND', 'Andorra'),
+	('AGO', 'Angola'),
+	('AIA', 'Anguilla'),
+	('ATA', 'Antartica'),
+	('ATG', 'Antigua and Barbuda'),
+	('ARG', 'Argentina'),
+	('ARM', 'Armenia'),
+	('ABW', 'Aruba'),
+	('AUS', 'Australia'),
+	('AUT', 'Austria'),
+	('AZE', 'Azerbaijan'),
+	('BHS', 'Bahamas'),
+	('BHR', 'Bahrain'),
+	('BGD', 'Bangladesh'),
+	('BRB', 'Barbados'),
+	('BLR', 'Belarus'),
+	('BEL', 'Belgium'),
+	('BLZ', 'Belize'),
+	('BEN', 'Benin'),
+	('BMU', 'Bermuda'),
+	('BTN', 'Bhutan'),
+	('BOL', 'Bolivia'),
+	('BES',);
+	('Afghanistan', 'AFG'),
+('Albania',	'ALB'),
+('Algeria',	'DZA'),
+('American Samoa', 'ASM'),
+('Andorra', 'AND'),
+('Angola',	'AGO'),
+('Anguilla',	'AIA'),
+('Antarctica',	'ATA'),
+('Antigua and Barbuda',	'ATG'),
+('Argentina',	'ARG'),
+('Armenia',	'ARM'),
+('Aruba',	'ABW'),
+('Australia',	'AUS'),
+('Austria',	'AUT'),
+('Azerbaijan',	'AZE'),
+('Bahamas (the)',	'BHS'),
+('Bahrain',	'BHR'),
+('Bangladesh',	'BGD'),
+('Barbados',	'BRB'),
+('Belarus',	'BLR'),
+('Belgium',	'BEL'),
+('Belize',	'BLZ'),
+('Benin',	'BEN'),
+('Bermuda',	'BMU'),
+('Bhutan',	'BTN'),
+('Bolivia (Plurinational State of)', 'BOL'),
+('Bonaire, Sint Eustatius and Saba',	'BES'),
+('Bosnia and Herzegovina', 'BIH'),
+('Botswana',	'BWA'),
+('Bouvet Island',	'BVT'),
+('Brazil',	'BRA'),
+('British Indian Ocean Territory (the)',	'IOT'),
+('Brunei Darussalam',	'BRN'),
+('Bulgaria',	'BGR'),
+('Burkina Faso',	'BFA'),
+('Burundi',	'BDI'),
+('Cabo Verde',	'CPV'),
+('Cambodia',	'KHM'),
+('Cameroon',	'CMR'),
+('Canada',	'CAN'),
+('Cayman Islands (the)',	'CYM'),
+('Central African Republic (the)',	'CAF'),
+('Chad',	'TCD'),
+('Chile',	'CHL'),
+('China',	'CHN'),
+('Christmas Island',	'CXR'),
+('Cocos (Keeling) Islands (the)',	'CCK'),
+('Colombia',	'COL'),
+('Comoros (the)', 'COM'),
+('Congo (the Democratic Republic of the)',	'COD'),
+('Congo (the)',	'COG'),
+('Cook Islands (the)', 'COK'),
+('Costa Rica', 'CRI'),
+('Croatia',	'HRV'),
+('Cuba',	'CUB'),
+('Curaçao',	'CUW'),
+('Cyprus',	'CYP'),
+('Czechia',	'CZE'),
+('Côte d\'Ivoire',	'CIV'),
+('Denmark',	'DNK'),
+('Djibouti',	'DJI'),
+('Dominica',	'DMA'),
+('Dominican Republic (the)',	'DOM'),
+('Ecuador',	'ECU'),
+('Egypt',	'EGY'),
+('El Salvador',	'SLV'),
+('Equatorial Guinea',	'GNQ'),
+('Eritrea',	'ERI'),
+('Estonia',	'EST'),
+('Eswatini',	'SWZ'),
+('Ethiopia',	'ETH'),
+('Falkland Islands (the) [Malvinas]',	'FLK'),
+('Faroe Islands (the)',	'FRO'),
+('Fiji',	'FJI'),
+('Finland',	'FIN'),
+('France',	'FRA'),
+('French Guiana',	'GUF'),
+('French Polynesia',	'PYF'),
+('French Southern Territories (the)',	'ATF'),
+('Gabon',	'GAB'),
+('Gambia (the)', 'GMB'),
+('Georgia',	'GEO'),
+('Germany',	'DEU'),
+('Ghana',	'GHA'),
+('Gibraltar',	'GIB'),
+('Greece',	'GRC'),
+('Greenland',	'GRL'),
+('Grenada',	'GRD'),
+('Guadeloupe',	'GLP'),
+('Guam',	'GUM'),
+('Guatemala',	'GTM'),
+('Guernsey',	'GGY'),
+('Guinea',	'GIN'),
+('Guinea-Bissau',	'GNB'),
+('Guyana',	'GUY'),
+('Haiti', 'HTI'),
+('Heard Island and McDonald Islands',	'HMD'),
+('Holy See (the)',	'VAT'),
+('Honduras', 'HND'),
+('Hong Kong',	'HKG'),
+('Hungary',	'HUN'),
+('Iceland',	'ISL'),
+('India',	'IND'),
+('Indonesia',	'IDN'),
+(Iran (Islamic Republic of)	IR	IRN	364
+Iraq	IQ	IRQ	368
+Ireland	IE	IRL	372
+Isle of Man	IM	IMN	833
+Israel	IL	ISR	376
+Italy	IT	ITA	380
+Jamaica	JM	JAM	388
+Japan	JP	JPN	392
+Jersey	JE	JEY	832
+Jordan	JO	JOR	400
+Kazakhstan	KZ	KAZ	398
+Kenya	KE	KEN	404
+Kiribati	KI	KIR	296
+Korea (the Democratic People's Republic of)	KP	PRK	408
+Korea (the Republic of)	KR	KOR	410
+Kuwait	KW	KWT	414
+Kyrgyzstan	KG	KGZ	417
+Lao People's Democratic Republic (the)	LA	LAO	418
+Latvia	LV	LVA	428
+Lebanon	LB	LBN	422
+Lesotho	LS	LSO	426
+Liberia	LR	LBR	430
+Libya	LY	LBY	434
+Liechtenstein	LI	LIE	438
+Lithuania	LT	LTU	440
+Luxembourg	LU	LUX	442
+Macao	MO	MAC	446
+Madagascar	MG	MDG	450
+Malawi	MW	MWI	454
+Malaysia	MY	MYS	458
+Maldives	MV	MDV	462
+Mali	ML	MLI	466
+Malta	MT	MLT	470
+Marshall Islands (the)	MH	MHL	584
+Martinique	MQ	MTQ	474
+Mauritania	MR	MRT	478
+Mauritius	MU	MUS	480
+Mayotte	YT	MYT	175
+Mexico	MX	MEX	484
+Micronesia (Federated States of)	FM	FSM	583
+Moldova (the Republic of)	MD	MDA	498
+Monaco	MC	MCO	492
+Mongolia	MN	MNG	496
+Montenegro	ME	MNE	499
+Montserrat	MS	MSR	500
+Morocco	MA	MAR	504
+Mozambique	MZ	MOZ	508
+Myanmar	MM	MMR	104
+Namibia	NA	NAM	516
+Nauru	NR	NRU	520
+Nepal	NP	NPL	524
+Netherlands (the)	NL	NLD	528
+New Caledonia	NC	NCL	540
+New Zealand	NZ	NZL	554
+Nicaragua	NI	NIC	558
+Niger (the)	NE	NER	562
+Nigeria	NG	NGA	566
+Niue	NU	NIU	570
+Norfolk Island	NF	NFK	574
+Northern Mariana Islands (the)	MP	MNP	580
+Norway	NO	NOR	578
+Oman	OM	OMN	512
+Pakistan	PK	PAK	586
+Palau	PW	PLW	585
+Palestine, State of	PS	PSE	275
+Panama	PA	PAN	591
+Papua New Guinea	PG	PNG	598
+Paraguay	PY	PRY	600
+Peru	PE	PER	604
+Philippines (the)	PH	PHL	608
+Pitcairn	PN	PCN	612
+Poland	PL	POL	616
+Portugal	PT	PRT	620
+Puerto Rico	PR	PRI	630
+Qatar	QA	QAT	634
+Republic of North Macedonia	MK	MKD	807
+Romania	RO	ROU	642
+Russian Federation (the)	RU	RUS	643
+Rwanda	RW	RWA	646
+Réunion	RE	REU	638
+Saint Barthélemy	BL	BLM	652
+Saint Helena, Ascension and Tristan da Cunha	SH	SHN	654
+Saint Kitts and Nevis	KN	KNA	659
+Saint Lucia	LC	LCA	662
+Saint Martin (French part)	MF	MAF	663
+Saint Pierre and Miquelon	PM	SPM	666
+Saint Vincent and the Grenadines	VC	VCT	670
+Samoa	WS	WSM	882
+San Marino	SM	SMR	674
+Sao Tome and Principe	ST	STP	678
+Saudi Arabia	SA	SAU	682
+Senegal	SN	SEN	686
+Serbia	RS	SRB	688
+Seychelles	SC	SYC	690
+Sierra Leone	SL	SLE	694
+Singapore	SG	SGP	702
+Sint Maarten (Dutch part)	SX	SXM	534
+Slovakia	SK	SVK	703
+Slovenia	SI	SVN	705
+Solomon Islands	SB	SLB	090
+Somalia	SO	SOM	706
+South Africa	ZA	ZAF	710
+South Georgia and the South Sandwich Islands	GS	SGS	239
+South Sudan	SS	SSD	728
+Spain	ES	ESP	724
+Sri Lanka	LK	LKA	144
+Sudan (the)	SD	SDN	729
+Suriname	SR	SUR	740
+Svalbard and Jan Mayen	SJ	SJM	744
+Sweden	SE	SWE	752
+Switzerland	CH	CHE	756
+Syrian Arab Republic	SY	SYR	760
+Taiwan (Province of China)	TW	TWN	158
+Tajikistan	TJ	TJK	762
+Tanzania, United Republic of	TZ	TZA	834
+Thailand	TH	THA	764
+Timor-Leste	TL	TLS	626
+Togo	TG	TGO	768
+Tokelau	TK	TKL	772
+Tonga	TO	TON	776
+Trinidad and Tobago	TT	TTO	780
+Tunisia	TN	TUN	788
+Turkey	TR	TUR	792
+Turkmenistan	TM	TKM	795
+Turks and Caicos Islands (the)	TC	TCA	796
+Tuvalu	TV	TUV	798
+Uganda	UG	UGA	800
+Ukraine	UA	UKR	804
+United Arab Emirates (the)	AE	ARE	784
+United Kingdom of Great Britain and Northern Ireland (the)	GB	GBR	826
+United States Minor Outlying Islands (the)	UM	UMI	581
+United States of America (the)	US	USA	840
+Uruguay	UY	URY	858
+Uzbekistan	UZ	UZB	860
+Vanuatu	VU	VUT	548
+Venezuela (Bolivarian Republic of)	VE	VEN	862
+Viet Nam	VN	VNM	704
+Virgin Islands (British)	VG	VGB	092
+Virgin Islands (U.S.)	VI	VIR	850
+Wallis and Futuna	WF	WLF	876
+Western Sahara	EH	ESH	732
+Yemen	YE	YEM	887
+Zambia	ZM	ZMB	894
+Zimbabwe	ZW	ZWE	716
+Åland Islands	AX	ALA	248
 
 
 -- Test Queries for Database --
