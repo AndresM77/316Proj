@@ -20,12 +20,12 @@ export default class MapChart extends React.Component {
     };
   }
 
-  minValue = 5; // based on the data array above
-  maxValue = 20; // based on the data array above
+  // minValue = 5; // based on the data array above
+  // maxValue = 20; // based on the data array above
 
-  customScale = scaleLinear()
-  .domain([this.minValue, this.maxValue])
-  .range([this.minColor, this.maxColor]);
+  // customScale = scaleLinear()
+  // .domain([this.minValue, this.maxValue])
+  // .range([this.state.minColor, this.maxColor]);
 
   componentDidMount() {
     this.setState({ selectedYear: 2015 }, this.filterDataPoints);
@@ -75,7 +75,13 @@ export default class MapChart extends React.Component {
       minColor = "#E66232";
       maxColor = "#214ADE";
     }
-    
+
+    const minValue = 5; // based on the data array above
+    const maxValue = 20; // based on the data array above
+
+  const customScale = scaleLinear()
+  .domain([minValue, maxValue])
+  .range([minColor, maxColor]);
 
     return (
       <div>
@@ -129,7 +135,7 @@ export default class MapChart extends React.Component {
                       style={{
                         default: {
                           fill: country
-                            ? this.customScale(country[measurement])
+                            ? customScale(country[measurement])
                             : "#ECEFF1",
                           stroke: "black",
                           strokeWidth: 0.75,
@@ -137,7 +143,7 @@ export default class MapChart extends React.Component {
                         },
                         hover: {
                           fill: country
-                            ? this.customScale(country[measurement])
+                            ? customScale(country[measurement])
                             : "#ECEFF1",
                           stroke: "black",
                           strokeWidth: 0.75,
@@ -145,7 +151,7 @@ export default class MapChart extends React.Component {
                         },
                         pressed: {
                           fill: country
-                            ? this.customScale(country[measurement])
+                            ? customScale(country[measurement])
                             : "#ECEFF1",
                           stroke: "black",
                           strokeWidth: 0.75,
