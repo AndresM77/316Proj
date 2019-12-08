@@ -6,7 +6,7 @@ const cookies = new Cookies();
 
 async function sendToServer(values) {
     try {
-        await fetch("https://frank.colab.duke.edu:3002/api/v1/users/login", {
+        let res = await fetch("http://localhost:3002/api/v1/users/login", {
             method: "POST",
             mode: "cors",
             body: JSON.stringify(values),
@@ -14,10 +14,17 @@ async function sendToServer(values) {
                 "Content-Type": "application/json"
             }
         })
+        if(res.status == 200) {
+            let data = res.json()
+            return data;
+        } else {
+            return false;
+        }
+
     } catch (e) {
         console.error(e)
     }
-    return values;
+    return false;
   }
 
 async function validateUsername(name, instance) {
@@ -78,8 +85,14 @@ const Login = () => {
         meta: { isSubmitting, canSubmit}
     } = useForm({
         onSubmit: async (values, instance) => {
-            await sendToServer(values);
-            await cookies.set("climateAction", values.username);
+            let result = await sendToServer(values);
+            if(!result) {
+                alert('Login. Wrong username or password.')
+            } else if (result.result) {
+                await cookies.set("climateAction", values.username);
+            } else {
+                alert('Login. Wrong username or password.')
+            }
             window.location.replace("/");
         }
     })
