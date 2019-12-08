@@ -1,7 +1,5 @@
 import React from 'react';
 import { useForm, useField } from "react-form";
-import Cookies from "universal-cookie";
-const cookies = new Cookies();
 const uuidv5 = require('uuid/v5');
 
 const MY_NAMESPACE = '9BBA0079-D29E-450B-ADAE-C940D364E47D';
@@ -19,7 +17,9 @@ async function sendToServer(values) {
                 "Content-Type": "application/json"
             }
         })
+        .then(res => console.log(res))
     } catch (e) {
+        console.log("error")
         console.error(e)
     }
     return values;
@@ -162,7 +162,7 @@ const AddCampaign = () => {
         } = useForm({
             onSubmit: async (values, instance) => {
                 await sendToServer(values);
-                window.location.replace("/campaign");
+                // window.location.replace("/campaign");
             }
         })
 

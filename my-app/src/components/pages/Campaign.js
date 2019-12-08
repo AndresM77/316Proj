@@ -15,15 +15,16 @@ export default class Campaign extends Component {
       isLoaded: false,
       data: [],
       likes: [],
-      moveToAdd: false
+      moveToAdd: false,
+      loggedIn: false
     };
   }
 
-  componentDidMount() {
-    fetch("http://frank.colab.duke.edu:3002/api/v1/campaign", {
+  async componentDidMount() {
+    await fetch("http://frank.colab.duke.edu:3002/api/v1/users", {
       method: "GET",
-      mode: "cors"
-    })
+      mode: "cors",
+  })
       .then(res => res.json())
       .then(data =>
           // this.setState({
@@ -33,11 +34,20 @@ export default class Campaign extends Component {
           console.log(JSON.stringify(data))
         )
       .catch(err => {
+        console.log(err);
         this.setState({
           isLoaded: true,
           error: err
         })
       })
+    
+    const username = cookies.get("climateAction");
+    if(username) {
+      this.setState({
+        loggedIn: true,
+        username
+      })
+    }
       
     const testCampaigns = [
       {
@@ -82,6 +92,7 @@ export default class Campaign extends Component {
   clickLike(id) {
     let likes = this.state.likes;
     const index = likes.indexOf(id);
+    if(!this.state.loggedIn) return;
     if (index > -1) {
       likes.splice(index, 1);
     } else {
