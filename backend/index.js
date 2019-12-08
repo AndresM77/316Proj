@@ -113,31 +113,10 @@ const getCampaign = (req, res) => {
     }
 }
 
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
-<<<<<<< HEAD
-const getCampaign = (req, res) => {
-    try {
-        pool.query('SELECT name, description, goal, paylink FROM Campaign', (err, result) => {
-            if (err) {
-                res.status(500).send("Internal Server Error")
-            }
-            res.status(200).json(result.rows);
-        })
-    } catch {
-=======
->>>>>>> Debugging add campaign endpoint
 const addCampaign = (req, res) => {
     try {
         if(!req.body.CID) {
             res.status(400).send("CID is required");
-=======
-const getUsers = (req, res) => {
-    pool.query('SELECT * FROM Users', (err, result) => {
-        if (err) {
-            res.status(500).send("Internal Server Error")
->>>>>>> Debugging add campaign endpoint
         }
         else if(!req.body.name) {
             res.status(400).send("name is required");
@@ -177,58 +156,8 @@ const getLikes = (req, res) => {
             })
         }
     } catch(error) {
-<<<<<<< HEAD
-=======
->>>>>>> 2907d36c5ddaf346b50b77e8b53f8203f4cc69ca
         res.status(500).send("Internal Server Error")
     }
-}
-
-<<<<<<< HEAD
-const addCampaign = (req, res) => {
-<<<<<<< HEAD
-    try {
-        if(!req.params.CID) {
-            res.status(400).send("CID is required");
-        }
-        else if(!req.params.name) {
-            res.status(400).send("name is required");
-        }
-        else if(!req.params.description) {
-            res.status(400).send("description is required");
-        }
-        else if(!req.params.goal) {
-            res.status(400).send("goal is required");
-        }
-        else if(!req.params.paylink) {
-            res.status(400).send("paylink is required");
-        }
-        else {
-            pool.query(`INSERT INTO Campaign(CID, name, description, goal, paylink) \
-                        VALUES ('${req.body.CID}', '${req.body.name}', '${req.body.description}', '${req.body.goal}', '${req.body.paylink}')`,
-                        (err, result) => {
-                            if(err) {
-                                res.status(500).send(err);
-                            }
-                            res.status(200).send();
-                        })
-        }
-    } catch {
->>>>>>> Debugging add campaign endpoint
-        res.status(500).send("Internal Server Error")
-    }
-=======
-    console.log("CID:" + `${req.body.CID}`+ ", name: ", + `${req.body.name}`+  ", description: " + `${req.body.description}`+  
-    ", goal: " + `${req.body.goal}` + ", paylink: " + `${req.body.paylink}`);
-    pool.query(`INSERT INTO Campaign(CID, name, description, goal, paylink) \
-              VALUES ('${req.body.CID}', '${req.body.name}', '${req.body.description}', '${req.body.goal}', '${req.body.paylink}')`,
-              (err, result) => {
-                  if(err) {
-                      res.status(500).send(err);
-                  }
-                  res.status(200).send();
-              })
->>>>>>> Debugging add campaign endpoint
 }
 
 const getUserLikes = (req, res) => {
@@ -452,7 +381,6 @@ const checkEmail = (req, res) => {
 }
 
 const checkUsername = (req, res) => {
-<<<<<<< HEAD
     try {
         if(!req.body.username) {
             res.status(400).send("username is required");
@@ -499,19 +427,6 @@ const checkLogin = (req, res) => {
     } catch(error) {
         res.status(500).send("Internal Server Error")
     }
-=======
-    pool.query(`SELECT COUNT(*) from users where username='${req.body.username}'`,
-                (err, result) => {
-                    if(err) {
-                        res.status(500).send(err);
-                    }
-                    if(result.rows[0].count == 1) {
-                        res.status(200).send({ "result": false })
-                    } else {
-                        res.status(200).send({ "result": true })
-                    }
-                })
->>>>>>> Debugging add campaign endpoint
 }
 
 // const getUsers = (req, res) => {
