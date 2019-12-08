@@ -22,7 +22,7 @@ async function getData() {
         let lat =  e.g[0];
         let long = e.g[1];
         let value = parseFloat(e.a);
-        if(isNaN(value)) continue;
+        if(isNaN(value)) return;
         let dpid = uuidv5(String(lat)+String(long), MY_NAMESPACE);
         pool.query(`INSERT INTO Air(DPID, lat, lng, countryID, quality)\
                     VALUES($1, $2, $3, 'XXX', $4)`, [dpid, lat, long, value], (err) => {
