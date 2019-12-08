@@ -267,62 +267,62 @@ INSERT INTO Country (country, name)
 ('Saint Vincent and the Grenadines',	'VCT'),
 ('Samoa',	'WSM'),
 ('San Marino',	'SMR'),
-Sao Tome and Principe	ST	STP	678
-Saudi Arabia	SA	SAU	682
-Senegal	SN	SEN	686
-Serbia	RS	SRB	688
-Seychelles	SC	SYC	690
-Sierra Leone	SL	SLE	694
-Singapore	SG	SGP	702
-Sint Maarten (Dutch part)	SX	SXM	534
-Slovakia	SK	SVK	703
-Slovenia	SI	SVN	705
-Solomon Islands	SB	SLB	090
-Somalia	SO	SOM	706
-South Africa	ZA	ZAF	710
-South Georgia and the South Sandwich Islands	GS	SGS	239
-South Sudan	SS	SSD	728
-Spain	ES	ESP	724
-Sri Lanka	LK	LKA	144
-Sudan (the)	SD	SDN	729
-Suriname	SR	SUR	740
-Svalbard and Jan Mayen	SJ	SJM	744
-Sweden	SE	SWE	752
-Switzerland	CH	CHE	756
-Syrian Arab Republic	SY	SYR	760
-Taiwan (Province of China)	TW	TWN	158
-Tajikistan	TJ	TJK	762
-Tanzania, United Republic of	TZ	TZA	834
-Thailand	TH	THA	764
-Timor-Leste	TL	TLS	626
-Togo	TG	TGO	768
-Tokelau	TK	TKL	772
-Tonga	TO	TON	776
-Trinidad and Tobago	TT	TTO	780
-Tunisia	TN	TUN	788
-Turkey	TR	TUR	792
-Turkmenistan	TM	TKM	795
-Turks and Caicos Islands (the)	TC	TCA	796
-Tuvalu	TV	TUV	798
-Uganda	UG	UGA	800
-Ukraine	UA	UKR	804
-United Arab Emirates (the)	AE	ARE	784
-United Kingdom of Great Britain and Northern Ireland (the)	GB	GBR	826
-United States Minor Outlying Islands (the)	UM	UMI	581
-United States of America (the)	US	USA	840
-Uruguay	UY	URY	858
-Uzbekistan	UZ	UZB	860
-Vanuatu	VU	VUT	548
-Venezuela (Bolivarian Republic of)	VE	VEN	862
-Viet Nam	VN	VNM	704
-Virgin Islands (British)	VG	VGB	092
-Virgin Islands (U.S.)	VI	VIR	850
-Wallis and Futuna	WF	WLF	876
-Western Sahara	EH	ESH	732
-Yemen	YE	YEM	887
-Zambia	ZM	ZMB	894
-Zimbabwe	ZW	ZWE	716
-Åland Islands	AX	ALA	248
+('Sao Tome and Principe',	'STP'),
+('Saudi Arabia',	'SAU'),
+('Senegal',	'SEN'),
+('Serbia',	'SRB'),
+('Seychelles',	'SYC'),
+('Sierra Leone', 'SLE'),
+('Singapore',	'SGP'),
+('Sint Maarten (Dutch part)', 'SXM'),
+('Slovakia',	'SVK'),
+('Slovenia', 'SVN'),
+('Solomon Islands', 'SLB'),
+('Somalia',	'SOM'),
+('South Africa',	'ZAF'),
+('South Georgia and the South Sandwich Islands', 'SGS'),
+('South Sudan',	'SSD'),
+('Spain',	'ESP'),
+('Sri Lanka',	'LKA'),
+('Sudan (the)',	'SDN'),
+('Suriname',	'SUR'),
+('Svalbard and Jan Mayen',	'SJM')
+('Sweden',	'SWE'),
+('Switzerland',	'CHE'),
+('Syrian Arab Republic',	'SYR'),
+('Taiwan (Province of China)',	'TWN'),
+('Tajikistan',	'TJK'),
+('Tanzania, United Republic of',	'TZA'),
+('Thailand', 'THA'),
+('Timor-Leste',	'TLS'),
+('Togo',	'TGO'),
+('Tokelau',	'TKL'),
+('Tonga',	'TON'),
+('Trinidad and Tobago',	'TTO'),
+('Tunisia',	'TUN'),
+('Turkey',	'TUR'),
+('Turkmenistan', 'TKM'),
+('Turks and Caicos Islands (the)',	'TCA'),
+('Tuvalu',	'TUV'),
+('Uganda',	'UGA'),
+('Ukraine',	'UKR'),
+('United Arab Emirates (the)',	'ARE'),
+('United Kingdom of Great Britain and Northern Ireland (the)',	'GBR'),
+('United States Minor Outlying Islands (the)',	'UMI'),
+('United States of America (the)',	'USA'),
+('Uruguay', 'URY'),
+('Uzbekistan',	'UZB'),
+('Vanuatu',	'VUT'),
+('Venezuela (Bolivarian Republic of)',	'VEN'),
+('Viet Nam', 'VNM'),
+('Virgin Islands (British)',	'VGB'),
+('Virgin Islands (U.S.)', 'VIR'),
+('Wallis and Futuna',	'WLF'),
+('Western Sahara',	'ESH'),
+('Yemen',	'YEM'),
+('Zambia',	'ZMB'),
+('Zimbabwe', 'ZWE'),
+('Åland Islands', 'ALA')
 
 
 -- Test Queries for Database --
