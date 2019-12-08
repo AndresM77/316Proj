@@ -1,7 +1,7 @@
 CREATE TABLE Air (
 	DPID uuid PRIMARY KEY,
-	lat DECIMAL(10,8),
-	lng DECIMAL(10,8),
+	lat FLOAT(10,8),
+	lng FLOAT(10,8),
 	countryID char(3) REFERENCES Country(countryID),
 	quality FLOAT NOT NULL
 );
@@ -51,3 +51,6 @@ CREATE TABLE Likes (
 	username VARCHAR(32) PRIMARY KEY REFERENCES Users(username) NOT NULL,
 	CID uuid REFERENCES Campaign(CID) NOT NULL
 );
+
+INSERT INTO Country(name, countryID)
+VALUES ("random", "XXX");
