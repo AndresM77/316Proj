@@ -52,7 +52,7 @@ export default class MapChart extends React.Component {
   filterDataPoints = async() => {
     let points = []
     if(this.state.selectedCategory && this.state.selectedYear) {
-      points = await fetch(`http://frank.colab.duke.edu:3002/api/v1/dps/${this.state.selectedCategory}/${this.state.selectedYear}`)
+      points = await fetch(`https://frank.colab.duke.edu:3002/api/v1/dps/${this.state.selectedCategory}/${this.state.selectedYear}`)
       .catch(e => {
         console.log(e);
         return;
@@ -94,7 +94,7 @@ export default class MapChart extends React.Component {
               {({ geographies }) =>
                 geographies.map((geo, i) => {
                   const country = this.state.selectedPoints.find(
-                    p => p.country === geo.properties.ISO_A3
+                    p => p.countryid === geo.properties.ISO_A3
                   );
                   let measurement;
                   if (this.state.selectedCategory === "temp") measurement = "temperature";

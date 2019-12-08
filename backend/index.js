@@ -283,13 +283,23 @@ const addUser = (req, res) => {
             res.status(400).send("lastName is required");
         }
         else {
+            pool.query(`SELECT COUNT(*) from users where username='${req.body.username.toLowerCase()}'`,
+                        (err, result) => {
+                            if(err) {
+                                res.status(500).send(err);
+                            }
+                            if(result.rows[0].count >= 1) {
+                                res.status(200).send({ "result": false })
+                            }
+            })
+
             pool.query(`INSERT INTO Users (username, password, email, first_name, last_name) \
                     values ('${req.body.username.toLowerCase()}', '${req.body.password}', '${req.body.email.toLowerCase()}', '${req.body.firstName}', '${req.body.lastName}')`,
                     (err, result) => {
                         if(err) {
                             res.status(500).send(err);
                         }
-                        res.status(200).send()
+                        res.status(200).send({ "result": true })
                     })
             }
     } catch {
@@ -353,15 +363,16 @@ const checkLogin = (req, res) => {
             res.status(400).send("password is required");
         }
         else {
-            pool.query(`SELECT COUNT(*) from users where username='${req.body.username.toLowerCase()} and password='${req.body.password}'`,
+            pool.query(`SELECT COUNT(*) from users where username='${req.body.username.toLowerCase()}' and password='${req.body.password}'`,
                         (err, result) => {
                             if(err) {
                                 res.status(500).send(err);
                             }
+                            console.log(result.rows);
                             if(result.rows[0].count == 1) {
-                                res.status(200).send({ "result": false })
-                            } else {
                                 res.status(200).send({ "result": true })
+                            } else {
+                                res.status(200).send({ "result": false })
                             }
                         })
             }
