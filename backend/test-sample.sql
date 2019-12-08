@@ -35,12 +35,6 @@ INSERT INTO Rain(DPID, CID, rainfall)
 INSERT INTO Campaign(CID, name, description, goal, paylink, sponsor)
 	VALUES ('cdcc7e99-0ef1-41ae-a1bc-3e3f618ddde9', 'Fundraiser', 'Save the trees', 1000, 'https://www.gofundme.com/', 'test1');
 
-INSERT INTO Pledges(username, val, CID)
-	VALUES ('test2', 50,'cdcc7e99-0ef1-41ae-a1bc-3e3f618ddde9');
-
-INSERT INTO Posts(CID, poster, description, time)
-	VALUES ('cdcc7e99-0ef1-41ae-a1bc-3e3f618ddde9', 'test2', 'Nice Campaign', '2019-9-10');
-
 INSERT INTO Likes (username, CID)
 	VALUES ('test2', 'cdcc7e99-0ef1-41ae-a1bc-3e3f618ddde9');
 

@@ -29,7 +29,7 @@ CREATE TABLE Country (
 CREATE TABLE Favorites (
 	countryID char(3) REFERENCES Country(countryID) NOT NULL,
 	username VARCHAR(32) REFERENCES Users(username) NOT NULL,
-	FOREIGN KEY (countryID, username)
+	PRIMARY KEY (countryID, username)
 );
 
 CREATE TABLE Users (
@@ -45,10 +45,10 @@ CREATE TABLE Campaign (
 	name VARCHAR(32) NOT NULL,
 	description VARCHAR(64) NOT NULL,
 	paylink VARCHAR(64) NOT NULL,
-	creator VARCHAR(32) REFERENCES User(username) NOT NULL
+	creator uuid REFERENCES User(username) NOT NULL
 );
 
 CREATE TABLE Likes (
-	username VARCHAR(32) FOREIGN KEY REFERENCES Users(username) NOT NULL,
+	username VARCHAR(32) PRIMARY KEY REFERENCES Users(username) NOT NULL,
 	CID uuid REFERENCES Campaign(CID) NOT NULL
 );
