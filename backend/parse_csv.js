@@ -102,8 +102,11 @@ function parseRainfall(csv) {
     })
 }
 
-var directory_path = "./files"
+var directory_path = ["./files/Temps1", "./files/Temps2", "./files/Rain1", "./files/Rain2"]
 
-ReadFilesFromDirectory(directory_path);
+var i;
+for (i = 0; i < directory_path.length; i++) {
+    ReadFilesFromDirectory(directory_path[i]);
+}
 
 
