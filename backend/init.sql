@@ -44,7 +44,7 @@ CREATE TABLE Campaign (
 	name VARCHAR(32) NOT NULL UNIQUE,
 	description VARCHAR(64) NOT NULL,
 	paylink VARCHAR(64) NOT NULL,
-	creator uuid REFERENCES Users(username) NOT NULL
+	creator VARCHAR(32) REFERENCES Users(username) NOT NULL
 );
 
 CREATE TABLE Likes (
