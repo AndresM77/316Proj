@@ -5,7 +5,18 @@ import validatePassword from "./Signup"
 const cookies = new Cookies();
 
 async function sendToServer(values) {
-    await new Promise(resolve => setTimeout(resolve, 500));
+    try {
+        await fetch("http://frank.colab.duke.edu:3002/api/v1/users/login", {
+            method: "POST",
+            mode: "cors",
+            body: JSON.stringify(values),
+            headers: {
+                "Content-Type": "application/json"
+            }
+        })
+    } catch (e) {
+        console.error(e)
+    }
     return values;
   }
 
@@ -76,6 +87,7 @@ const Login = () => {
     return (
         <div>
             <div><h2 className="titleItem">Log In</h2></div>
+            <div className="form">
             <Form>
                 <div>
                     <label>
@@ -97,6 +109,7 @@ const Login = () => {
                     <em>{isSubmitting ? "Submitting..." : null}</em>
                 </div>
             </Form>
+            </div>
         </div>
     )
 }

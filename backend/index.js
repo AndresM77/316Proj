@@ -208,7 +208,7 @@ const addPosts = (req, res) => {
 
 const addUser = (req, res) => {
     pool.query(`INSERT INTO Users (username, password, email, first_name, last_name) \
-                values ('${req.body.username}', '${req.body.password}', '${req.body.email}', '${req.body.firstName}', '${req.body.lastName}')`,
+                values ('${req.body.username.toLowerCase()}', '${req.body.password}', '${req.body.email.toLowerCase()}', '${req.body.firstName}', '${req.body.lastName}')`,
                 (err, result) => {
                     if(err) {
                         res.status(500).send(err);
@@ -233,7 +233,22 @@ const checkEmail = (req, res) => {
 }
 
 const checkUsername = (req, res) => {
-    pool.query(`SELECT COUNT(*) from users where username='${req.body.username}'`,
+    console.log("test")
+    pool.query(`SELECT COUNT(*) from users where username='${req.body.username.toLowerCase()}'`,
+                (err, result) => {
+                    if(err) {
+                        res.status(500).send(err);
+                    }
+                    if(result.rows[0].count == 1) {
+                        res.status(200).send({ "result": false })
+                    } else {
+                        res.status(200).send({ "result": true })
+                    }
+                })
+}
+
+const checkLogin = (req, res) => {
+    pool.query(`SELECT COUNT(*) from users where username='${req.body.username.toLowerCase()} and password='${req.body.password}'`,
                 (err, result) => {
                     if(err) {
                         res.status(500).send(err);
@@ -259,6 +274,7 @@ app.route("/api/v1/:categories").get(getCategories);
 app.route('/api/v1/dps/:category/:year').get(getDPs);
 app.route("/api/v1/users").get(getUsers);
 app.route("/api/v1/users").post(addUser);
+app.route("/api/v1/users/login").post(checkLogin);
 app.route("/api/v1/users/validate/email").post(checkEmail);
 app.route("/api/v1/users/validate/username").post(checkUsername);
 app.route("/api/v1/campaign/:get").get(getCampaign);

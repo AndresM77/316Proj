@@ -7,7 +7,7 @@ const cookies = new Cookies();
 
 async function sendToServer(values) {
     try {
-        await fetch("http://frank.colab.duke.edu:3002/api/v1/users", {
+        await fetch("/api/v1/users", {
             method: "POST",
             mode: "cors",
             body: JSON.stringify(values),
@@ -224,7 +224,8 @@ const SignUp = () => {
             meta: { isSubmitting, canSubmit}
         } = useForm({
             onSubmit: async (values, instance) => {
-                await sendToServer(values);
+                let result = await sendToServer(values);
+                console.log(result)
                 await cookies.set("climateAction", values.username);
                 // window.location.replace("/");
             }
@@ -233,6 +234,7 @@ const SignUp = () => {
         return (
             <div>
                 <div><h2 className="titleItem">Sign Up</h2></div>
+                <div className="form">
                 <Form>
                     <div>
                         <label>
@@ -269,6 +271,7 @@ const SignUp = () => {
                         <em>{isSubmitting ? "Submitting..." : null}</em>
                     </div>
                 </Form>
+                </div>
             </div>
         )
     }
