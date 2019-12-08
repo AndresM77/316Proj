@@ -24,8 +24,9 @@ async function getData() {
         let value = parseFloat(e.a);
         if(isNaN(value)) return;
         let dpid = uuidv5(String(lat)+String(long), MY_NAMESPACE);
-        pool.query(`INSERT INTO Air(DPID, lat, lng, countryID, quality)\
-                    VALUES($1, $2, $3, 'XXX', $4)`, [dpid, lat, long, value], (err) => {
+        pool.query(`UPDATE Air \
+                    SET dpid = $1, lat = $2, lng = $3, countryid = 'XXX', quality = $4 \
+                    WHERE lat = $2, lng = $3`, [dpid, lat, long, value], (err) => {
                         if(err) {
                             console.log(err);
                         }
@@ -35,3 +36,4 @@ async function getData() {
     });
 }
 getData()
+

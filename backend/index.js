@@ -16,14 +16,6 @@ const getDPs = (req, res) => {
         let query = "";
         if(!req.params.category) {
             res.status(400).send("category is required");
-<<<<<<< HEAD
-        }
-        else if(!req.params.year) {
-            res.status(400).send("time is required");
-        }
-        else {
-            switch(req.params.category) {
-=======
         }
         else if(!req.params.year) {
             res.status(400).send("time is required");
@@ -66,30 +58,10 @@ const getCategories = (req, res) => {
         }
         else {
             switch(req.params.categories) {
->>>>>>> 2907d36c5ddaf346b50b77e8b53f8203f4cc69ca
                 case "air":
                     query = 'SELECT * FROM Air';
                     break;
                 case "rain":
-<<<<<<< HEAD
-                    query = 'SELECT rainfall, country FROM Rain WHERE Rain.time=$1';
-                    break;
-                case "temp":
-                    query = 'SELECT temperature, country FROM Temperature WHERE Temperature.time = $1';
-                    break;
-            }
-
-            const year = String(req.params.year) + "-01-01";
-
-            pool.query(query, [year], (err, result) => {
-                if (err) {
-                    res.status(500).send("Internal Server Error")
-                }
-                res.status(200).json(result.rows);
-            })
-        }
-    } catch {
-=======
                     query = 'SELECT rainfall, countryID FROM Rain';
                     break;
                 case "temp":
@@ -118,76 +90,23 @@ const getUsers = (req, res) => {
             res.status(200).json(result.rows);
         })
     } catch(error) {
->>>>>>> 2907d36c5ddaf346b50b77e8b53f8203f4cc69ca
         res.status(500).send("Internal Server Error")
     }
 }
 
-<<<<<<< HEAD
-const getCategories = (req, res) => {
-    try {
-        let query = "";
-        if(!req.params.categories) {
-            res.status(400).send("category is required");
-        }
-        else {
-            switch(req.params.categories) {
-                case "air":
-                    query = 'SELECT * FROM Air';
-                    break;
-                case "rain":
-                    query = 'SELECT rainfall, country FROM Rain';
-                    break;
-                case "temp":
-                    query = 'SELECT temperature, country FROM Temperature';
-                    break;
-            }
-
-            pool.query(query, (err, result) => {
-                if (err) {
-                    res.status(500).send("Internal Server Error")
-                }
-                res.status(200).json(result.rows);
-            })
-        }
-    } catch {
-        res.status(500).send("Internal Server Error")
-    }
-}
-
-const getUsers = (req, res) => {
-    try {
-        pool.query('SELECT username FROM Users', (err, result) => {
-=======
 const getCampaign = (req, res) => {
     try {
         pool.query('SELECT name, description, goal, paylink FROM Campaign', (err, result) => {
->>>>>>> 2907d36c5ddaf346b50b77e8b53f8203f4cc69ca
             if (err) {
                 res.status(500).send("Internal Server Error")
             }
             res.status(200).json(result.rows);
         })
-<<<<<<< HEAD
-    } catch {
-=======
     } catch(error) {
->>>>>>> 2907d36c5ddaf346b50b77e8b53f8203f4cc69ca
         res.status(500).send("Internal Server Error")
     }
 }
 
-<<<<<<< HEAD
-const getCampaign = (req, res) => {
-    try {
-        pool.query('SELECT name, description, goal, paylink FROM Campaign', (err, result) => {
-            if (err) {
-                res.status(500).send("Internal Server Error")
-            }
-            res.status(200).json(result.rows);
-        })
-    } catch {
-=======
 const addCampaign = (req, res) => {
     try {
         if(!req.params.CID) {
@@ -234,59 +153,10 @@ const getLikes = (req, res) => {
             })
         }
     } catch(error) {
->>>>>>> 2907d36c5ddaf346b50b77e8b53f8203f4cc69ca
         res.status(500).send("Internal Server Error")
     }
 }
 
-<<<<<<< HEAD
-const addCampaign = (req, res) => {
-    try {
-        if(!req.params.CID) {
-            res.status(400).send("CID is required");
-        }
-        else if(!req.params.name) {
-            res.status(400).send("name is required");
-        }
-        else if(!req.params.description) {
-            res.status(400).send("description is required");
-        }
-        else if(!req.params.goal) {
-            res.status(400).send("goal is required");
-        }
-        else if(!req.params.paylink) {
-            res.status(400).send("paylink is required");
-        }
-        else {
-            pool.query(`INSERT INTO Campaign(CID, name, description, goal, paylink) \
-                        VALUES ('${req.body.CID}', '${req.body.name}', '${req.body.description}', '${req.body.goal}', '${req.body.paylink}')`,
-                        (err, result) => {
-                            if(err) {
-                                res.status(500).send(err);
-                            }
-                            res.status(200).send();
-                        })
-        }
-    } catch {
-        res.status(500).send("Internal Server Error")
-    }
-}
-
-const getLikes = (req, res) => {
-    try {
-        if(!req.query.cid) {
-            res.status(400).send("CID is required");
-        }
-        else {
-            pool.query(`SELECT username FROM Likes WHERE CID =`+`'`+req.query.cid+`'`, (err, result) => {
-                if (err) {
-                    res.status(500).send("Internal Server Error")
-                }
-                res.status(200).json(result.rows);
-            })
-        }
-    } catch {
-=======
 const getUserLikes = (req, res) => {
     if(!req.query.username) {
         res.status(400).send("username is required");
@@ -318,32 +188,10 @@ const addLikes = (req, res) => {
                     res.status(200).send();
                 })
     } catch(error) {
->>>>>>> 2907d36c5ddaf346b50b77e8b53f8203f4cc69ca
         res.status(500).send("Internal Server Error")
     }
 }
 
-<<<<<<< HEAD
-const addLikes = (req, res) => {
-    try {
-    if(!req.query.cid) {
-        res.status(400).send("CID is required");
-    }
-    if(!req.query.username) {
-        res.status(400).send("CID is required");
-    }
-    pool.query(`INSERT INTO Likes(username, CID) \
-                VALUES ('${req.body.username}','${req.body.CID}')`,
-                (err, result) => {
-                    if(err) {
-                        res.status(500).send(err);
-                    }
-                    res.status(200).send();
-                })
-    } catch {
-        res.status(500).send("Internal Server Error")
-    }
-=======
 const removeLikes = (req, res) => {
     if(!req.query.username) {
         res.status(400).send("username is required");
@@ -359,7 +207,6 @@ const removeLikes = (req, res) => {
             res.status(200).send();
         })
     } 
->>>>>>> 2907d36c5ddaf346b50b77e8b53f8203f4cc69ca
 }
 
 const getPledges = (req, res) => {
@@ -375,11 +222,7 @@ const getPledges = (req, res) => {
                 res.status(200).json(result.rows);
             })
         }
-<<<<<<< HEAD
-    } catch {
-=======
     } catch(error) {
->>>>>>> 2907d36c5ddaf346b50b77e8b53f8203f4cc69ca
         res.status(500).send("Internal Server Error")
     }
 }
@@ -405,11 +248,7 @@ const addPledges = (req, res) => {
                     res.status(200).send();
                 })
         }
-<<<<<<< HEAD
-    } catch {
-=======
     } catch(error) {
->>>>>>> 2907d36c5ddaf346b50b77e8b53f8203f4cc69ca
         res.status(500).send("Internal Server Error")
     }
 }
@@ -427,11 +266,7 @@ const getPosts = (req, res) => {
                 res.status(200).json(result.rows);
             })
         }
-<<<<<<< HEAD
-    } catch {
-=======
     } catch(error) {
->>>>>>> 2907d36c5ddaf346b50b77e8b53f8203f4cc69ca
         res.status(500).send("Internal Server Error")
     }
 }
@@ -461,11 +296,7 @@ const addPosts = (req, res) => {
                     res.status(200).send();
                 })
             }
-<<<<<<< HEAD
-    } catch {
-=======
     } catch(error) {
->>>>>>> 2907d36c5ddaf346b50b77e8b53f8203f4cc69ca
         res.status(500).send("Internal Server Error")
     }
 }
@@ -507,11 +338,7 @@ const addUser = (req, res) => {
                         res.status(200).send({ "result": true })
                     })
             }
-<<<<<<< HEAD
-    } catch {
-=======
     } catch(error) {
->>>>>>> 2907d36c5ddaf346b50b77e8b53f8203f4cc69ca
         res.status(500).send("Internal Server Error")
     }
 }
@@ -535,11 +362,7 @@ const checkEmail = (req, res) => {
                         }
                     })
         }
-<<<<<<< HEAD
-    } catch {
-=======
     } catch(error) {
->>>>>>> 2907d36c5ddaf346b50b77e8b53f8203f4cc69ca
         res.status(500).send("Internal Server Error")
     }
 }
@@ -562,11 +385,7 @@ const checkUsername = (req, res) => {
                             }
                         })
             }
-<<<<<<< HEAD
-    } catch {
-=======
     } catch(error) {
->>>>>>> 2907d36c5ddaf346b50b77e8b53f8203f4cc69ca
         res.status(500).send("Internal Server Error")
     }
 }
@@ -593,11 +412,7 @@ const checkLogin = (req, res) => {
                             }
                         })
             }
-<<<<<<< HEAD
-    } catch {
-=======
     } catch(error) {
->>>>>>> 2907d36c5ddaf346b50b77e8b53f8203f4cc69ca
         res.status(500).send("Internal Server Error")
     }
 }
