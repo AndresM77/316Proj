@@ -21,17 +21,16 @@ export default class Campaign extends Component {
   }
 
   async componentDidMount() {
-    await fetch("http://frank.colab.duke.edu:3002/api/v1/users", {
+    await fetch("https://frank.colab.duke.edu:3002/api/v1/campaign/get", {
       method: "GET",
       mode: "cors",
   })
       .then(res => res.json())
       .then(data =>
-          // this.setState({
-          //   isLoaded: true,
-          //   data: data.data
-          // })
-          console.log(JSON.stringify(data))
+          this.setState({
+            isLoaded: true,
+            data: data
+          })
         )
       .catch(err => {
         console.log(err);
@@ -48,45 +47,6 @@ export default class Campaign extends Component {
         username
       })
     }
-      
-    const testCampaigns = [
-      {
-        id: 1,
-        name: "Test Campaign 1",
-        description: "This is a test campaign",
-        goal: 1000,
-        paylink: "https://www.google.com"
-      },
-      {
-        id: 2,
-        name: "Test Campaign 2",
-        description: "This is another test campaign",
-        goal: 500,
-        paylink: "https://www.youtube.com"
-      },
-      {
-        id: 3,
-        name: "Test Campaign 2",
-        description: "This is another test campaign",
-        goal: 500,
-        paylink: "https://www.youtube.com"
-      },
-      {
-        id: 4,
-        name: "Test Campaign 2",
-        description: "This is another test campaign",
-        goal: 500,
-        paylink: "https://www.youtube.com"
-      }
-    ]
-
-    const likes = [1, 4];
-
-    this.setState({
-      data: testCampaigns,
-      isLoaded: true,
-      likes
-    });
   }
 
   clickLike(id) {
@@ -94,14 +54,45 @@ export default class Campaign extends Component {
     const index = likes.indexOf(id);
     if(!this.state.loggedIn) return;
     if (index > -1) {
-      likes.splice(index, 1);
+      this.removeLike(id);
     } else {
-      likes.push(id);
+      this.addLike(id);
     }
 
     this.setState({
       likes
     });
+  }
+
+  removeLike(id) {
+    return;
+  }
+
+  async addLike(id) {
+    const values = {CID: id, username: this.state.username}
+    try {
+      await fetch("http://frank.colab.duke.edu:3002/api/v1/campaign", {
+          method: "POST",
+          mode: "cors",
+          body: JSON.stringify(values),
+          headers: {
+              "Content-Type": "application/json"
+          }
+      })
+    } catch (e) {
+        console.error(e)
+    }
+  }
+
+  async getLikes() {
+    let likes;
+    if(this.state.username) {
+      await fetch(`https://frank.colab.duke.edu:3002/api/v1/likes/user?username=${this.state.username}`)
+      .then(res => res.json())
+      .then(data => 
+        likes = data)    } else {
+      likes = [];
+    }    
   }
 
   handleAddButtonClick() {
@@ -130,14 +121,15 @@ export default class Campaign extends Component {
           <div style={{ width: "100%" }}>
             {data != null ? (
               data.map(campaign => (
-                <div key={campaign.id} className="campaign-card">
+                <div key={campaign.cid} className="campaign-card">
                   <h1>{campaign.name}</h1>
                   <div className="campaign-card-text">
                     <h2>{campaign.description}</h2>
                   </div>
                   <div
                     onClick={() => {
-                      this.clickLike(campaign.id);
+                      console.log(campaign);
+                      this.clickLike(campaign.cid);
                     }}
                     className="campaign-card-like"
                   >
@@ -157,7 +149,7 @@ export default class Campaign extends Component {
               <div>There is No Data</div>
             )}
             <div className="button-container">
-              <div style={{ margin: "auto", width: "60px", height: "60px" }}>
+              <div style={{margin: "110px 0", display: "inline-block", width: "60px", height: "60px" }}>
                 <button
                   style={{
                     outline: "none",

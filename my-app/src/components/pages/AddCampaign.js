@@ -1,15 +1,23 @@
 import React from 'react';
 import { useForm, useField } from "react-form";
+import Cookies from "universal-cookie";
 const uuidv5 = require('uuid/v5');
+
+const cookies = new Cookies();
 
 const MY_NAMESPACE = '9BBA0079-D29E-450B-ADAE-C940D364E47D';
 
 async function sendToServer(values) {
     let CID = uuidv5(values.description, MY_NAMESPACE);
     values.CID = CID;
-    console.log(values);
+    const username = cookies.get("climateAction");
+    if(!username) {
+        alert('Must be logged in');
+    } else {
+        values.creator = username;
+    }
     try {
-        await fetch("http://frank.colab.duke.edu:3002/api/v1/campaign", {
+        await fetch("https://frank.colab.duke.edu:3002/api/v1/campaign", {
             method: "POST",
             mode: "cors",
             body: JSON.stringify(values),
@@ -162,7 +170,7 @@ const AddCampaign = () => {
         } = useForm({
             onSubmit: async (values, instance) => {
                 await sendToServer(values);
-                // window.location.replace("/campaign");
+                window.location.replace("/campaign");
             }
         })
 

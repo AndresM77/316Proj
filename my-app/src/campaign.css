@@ -32,8 +32,10 @@
 
 .button-container {
     width: 20%;
+    height: 280px;
     float: left;
     margin: 2.5%;
+    text-align: center;
 }
 
 i {
