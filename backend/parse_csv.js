@@ -20,7 +20,7 @@ function ReadFile(file) {
             console.log(err);
             return;
         }
-        if(csv.indexOf("Temperature - Celsius") >= 0) {
+        if(csv.indexOf("Temperature - (Celsius)") >= 0) {
             parseTemperature(csv);
         } else if (csv.indexOf("Rainfall - (MM)") >= 0) {
             parseRainfall(csv);
@@ -45,7 +45,7 @@ function ReadFilesFromDirectory(directory) {
 }
 
 function parseTemperature(csv) {
-    var csv_no_space = csv.replace("- Celsius", "").replace(/ /g, "");
+    var csv_no_space = csv.replace("- (Celsius)", "").replace(/ /g, "");
     var data = $.csv.toObjects(csv_no_space);
     var aggregate_data = {};
     for(var i=0;i<data.length;i++){ // for each obj
@@ -64,8 +64,8 @@ function parseTemperature(csv) {
     console.log(aggregate_data)
     Object.values(aggregate_data).forEach(data_point => {
        
-        let dpid = uuidv5(String(data_point.Year), MY_NAMESPACE);
-        pool.query("INSERT INTO temperature(dpid, time, country, temperature) \
+        let dpid = uuidv5(String(data_point.Year) + String(data_point.ISO3), MY_NAMESPACE);
+        pool.query("INSERT INTO temperature(dpid, time, countryID, temperature) \
             VALUES($1, $2, $3, $4)", [dpid, new Date(data_point.Year).toISOString(), data_point.ISO3, data_point.Temperature], function(err) {
                 if(err) {
                     console.log(err);
@@ -92,8 +92,8 @@ function parseRainfall(csv) {
     })
 
     Object.values(aggregate_data).forEach(data_point => {
-        let dpid = uuidv5(String(data_point.Year), MY_NAMESPACE);
-        pool.query("INSERT INTO rain(dpid, time, country, rainfall) \
+        let dpid = uuidv5(String(data_point.Year) + String(data_point.ISO3), MY_NAMESPACE);
+        pool.query("INSERT INTO rain(dpid, time, countryID, rainfall) \
             VALUES($1, $2, $3, $4)", [dpid, new Date(data_point.Year).toISOString(), data_point.ISO3, data_point.Rainfall], function(err) {
                 if(err) {
                     console.log(err);
@@ -102,8 +102,9 @@ function parseRainfall(csv) {
     })
 }
 
-var directory_path = "./files"
+var directory_path = ["./files/Temps1"]
 
-ReadFilesFromDirectory(directory_path);
-
-
+var i;
+for (i = 0; i < directory_path.length; i++) {
+    ReadFilesFromDirectory(directory_path[i]);
+}
