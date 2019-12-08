@@ -149,4 +149,12 @@ footer {
   left: 1vw;
   font-size: 50px;
 }
+
+.form {
+  text-align: center;
+}
+
+.form label {
+  text-align: left;
+}
 /*# sourceMappingURL=App.css.map */
