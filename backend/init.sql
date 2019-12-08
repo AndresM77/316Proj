@@ -21,7 +21,7 @@ CREATE TABLE Rain (
 );
 
 CREATE TABLE Country (
-	name VARCHAR(32) NOT NULL,
+	name VARCHAR(32) NOT NULL UNIQUE,
 	countryID char(3) PRIMARY KEY
 );
 
@@ -41,7 +41,7 @@ CREATE TABLE Users (
 
 CREATE TABLE Campaign (
 	CID uuid PRIMARY KEY,
-	name VARCHAR(32) NOT NULL,
+	name VARCHAR(32) NOT NULL UNIQUE,
 	description VARCHAR(64) NOT NULL,
 	paylink VARCHAR(64) NOT NULL,
 	creator uuid REFERENCES User(username) NOT NULL
