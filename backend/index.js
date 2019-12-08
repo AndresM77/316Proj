@@ -12,105 +12,146 @@ app.use(cors())
 
 const getDPs = (req, res) => {
     // const category = req.query.category;
-    let query = "";
-    if(!req.params.category) {
-        res.status(400).send("category is required");
-    }
-    else if(!req.params.year) {
-        res.status(400).send("time is required");
-    }
-    else {
-        switch(req.params.category) {
-            case "air":
-                query = 'SELECT * FROM Air';
-                break;
-            case "rain":
-                query = 'SELECT rainfall, countryID FROM Rain WHERE Rain.time=$1';
-                break;
-            case "temp":
-                query = 'SELECT temperature, countryID FROM Temperature WHERE Temperature.time = $1';
-                break;
+    try {
+        let query = "";
+        if(!req.params.category) {
+            res.status(400).send("category is required");
         }
-
-        const year = String(req.params.year) + "-01-01";
-
-        pool.query(query, [year], (err, result) => {
-            if (err) {
-                res.status(500).send("Internal Server Error")
+        else if(!req.params.year) {
+            res.status(400).send("time is required");
+        }
+        else {
+            switch(req.params.category) {
+                case "air":
+                    query = 'SELECT * FROM Air';
+                    break;
+                case "rain":
+                    query = 'SELECT rainfall, country FROM Rain WHERE Rain.time=$1';
+                    break;
+                case "temp":
+                    query = 'SELECT temperature, country FROM Temperature WHERE Temperature.time = $1';
+                    break;
             }
-            res.status(200).json(result.rows);
-        })
+
+            const year = String(req.params.year) + "-01-01";
+
+            pool.query(query, [year], (err, result) => {
+                if (err) {
+                    res.status(500).send("Internal Server Error")
+                }
+                res.status(200).json(result.rows);
+            })
+        }
+    } catch {
+        res.status(500).send("Internal Server Error")
     }
 }
 
 const getCategories = (req, res) => {
-    let query = "";
-    if(!req.params.categories) {
-        res.status(400).send("category is required");
-    }
-    else {
-        switch(req.params.categories) {
-            case "air":
-                query = 'SELECT * FROM Air';
-                break;
-            case "rain":
-                query = 'SELECT rainfall, country FROM Rain';
-                break;
-            case "temp":
-                query = 'SELECT temperature, country FROM Temperature';
-                break;
+    try {
+        let query = "";
+        if(!req.params.categories) {
+            res.status(400).send("category is required");
         }
+        else {
+            switch(req.params.categories) {
+                case "air":
+                    query = 'SELECT * FROM Air';
+                    break;
+                case "rain":
+                    query = 'SELECT rainfall, country FROM Rain';
+                    break;
+                case "temp":
+                    query = 'SELECT temperature, country FROM Temperature';
+                    break;
+            }
 
-        pool.query(query, (err, result) => {
+            pool.query(query, (err, result) => {
+                if (err) {
+                    res.status(500).send("Internal Server Error")
+                }
+                res.status(200).json(result.rows);
+            })
+        }
+    } catch {
+        res.status(500).send("Internal Server Error")
+    }
+}
+
+const getUsers = (req, res) => {
+    try {
+        pool.query('SELECT username FROM Users', (err, result) => {
             if (err) {
                 res.status(500).send("Internal Server Error")
             }
             res.status(200).json(result.rows);
         })
+    } catch {
+        res.status(500).send("Internal Server Error")
     }
 }
 
-const getUsers = (req, res) => {
-    pool.query('SELECT * FROM Users', (err, result) => {
-        if (err) {
-            res.status(500).send("Internal Server Error")
-        }
-        res.status(200).json(result.rows);
-    })
-}
-
 const getCampaign = (req, res) => {
-    pool.query('SELECT CID, name, description, goal, paylink FROM Campaign', (err, result) => {
-        if (err) {
-            res.status(500).send("Internal Server Error")
-        }
-        res.status(200).json(result.rows);
-    })
+    try {
+        pool.query('SELECT name, description, goal, paylink FROM Campaign', (err, result) => {
+            if (err) {
+                res.status(500).send("Internal Server Error")
+            }
+            res.status(200).json(result.rows);
+        })
+    } catch {
+        res.status(500).send("Internal Server Error")
+    }
 }
 
 const addCampaign = (req, res) => {
-    pool.query(`INSERT INTO Campaign(CID, name, description, paylink, creator) \
-        VALUES ('${req.body.CID}', '${req.body.name}', '${req.body.description}', '${req.body.paylink}', '${req.body.username})`,
-              (err, result) => {
-                  if(err) {
-                      res.status(500).send(err);
-                  }
-                  res.status(200).send();
-              })
+    try {
+        if(!req.params.CID) {
+            res.status(400).send("CID is required");
+        }
+        else if(!req.params.name) {
+            res.status(400).send("name is required");
+        }
+        else if(!req.params.description) {
+            res.status(400).send("description is required");
+        }
+        else if(!req.params.goal) {
+            res.status(400).send("goal is required");
+        }
+        else if(!req.params.paylink) {
+            res.status(400).send("paylink is required");
+        }
+        else {
+            pool.query(`INSERT INTO Campaign(CID, name, description, goal, paylink) \
+                        VALUES ('${req.body.CID}', '${req.body.name}', '${req.body.description}', '${req.body.goal}', '${req.body.paylink}')`,
+                        (err, result) => {
+                            if(err) {
+                                res.status(500).send(err);
+                            }
+                            res.status(200).send();
+                        })
+        }
+    } catch {
+        res.status(500).send("Internal Server Error")
+    }
 }
 
 const getLikes = (req, res) => {
-  if(!req.query.cid) {
-      res.status(400).send("CID is required");
-  }
-  else {
-      pool.query(`SELECT username FROM Likes WHERE CID =`+`'`+req.query.cid+`'`, (err, result) => {
-          if (err) {
-              res.status(500).send("Internal Server Error")
-          }
-          res.status(200).json(result.rows);
-      })
-  }
+    try {
+        if(!req.query.cid) {
+            res.status(400).send("CID is required");
+        }
+        else {
+            pool.query(`SELECT username FROM Likes WHERE CID =`+`'`+req.query.cid+`'`, (err, result) => {
+                if (err) {
+                    res.status(500).send("Internal Server Error")
+                }
+                res.status(200).json(result.rows);
+            })
+        }
+    } catch {
+        res.status(500).send("Internal Server Error")
+    }
 }
 
 const getUserLikes = (req, res) => {
@@ -128,15 +169,24 @@ const getUserLikes = (req, res) => {
 }
 
 const addLikes = (req, res) => {
-    console.log(req.body.username, req.body.CID);
+    try {
+    if(!req.query.cid) {
+        res.status(400).send("CID is required");
+    }
+    if(!req.query.username) {
+        res.status(400).send("Username is required");
+    }
     pool.query(`INSERT INTO Likes(username, CID) \
-              VALUES ('${req.body.username}','${req.body.CID}')`,
-              (err, result) => {
-                  if(err) {
-                      res.status(500).send(err);
-                  }
-                  res.status(200).send();
-              })
+                VALUES ('${req.body.username}','${req.body.CID}')`,
+                (err, result) => {
+                    if(err) {
+                        res.status(500).send(err);
+                    }
+                    res.status(200).send();
+                })
+    } catch {
+        res.status(500).send("Internal Server Error")
+    }
 }
 
 const removeLikes = (req, res) => {
@@ -157,108 +207,200 @@ const removeLikes = (req, res) => {
 }
 
 const getPledges = (req, res) => {
-  if(!req.query.cid) {
-      res.status(400).send("CID is required");
-  }
-  else {
-      pool.query(`SELECT username, val FROM Pledges WHERE CID =`+`'`+req.query.cid+`'`, (err, result) => {
-          if (err) {
-              res.status(500).send("Internal Server Error")
-          }
-          res.status(200).json(result.rows);
-      })
-  }
+    try {
+        if(!req.query.cid) {
+            res.status(400).send("CID is required");
+        }
+        else {
+            pool.query(`SELECT username, val FROM Pledges WHERE CID =`+`'`+req.query.cid+`'`, (err, result) => {
+                if (err) {
+                    res.status(500).send("Internal Server Error")
+                }
+                res.status(200).json(result.rows);
+            })
+        }
+    } catch {
+        res.status(500).send("Internal Server Error")
+    }
 }
 
 const addPledges = (req, res) => {
-  pool.query(`INSERT INTO Pledges(username, val, CID) \
-              VALUES ('${req.body.username}', '${req.body.val}', '${req.body.CID}')`,
-              (err, result) => {
-                  if(err) {
-                      res.status(500).send(err);
-                  }
-                  res.status(200).send();
-              })
+    try {
+        if(!req.query.username) {
+            res.status(400).send("username is required");
+        }
+        else if(!req.query.val) {
+            res.status(400).send("val is required");
+        }
+        else if(!req.query.CID) {
+            res.status(400).send("CID is required");
+        }
+        else {
+        pool.query(`INSERT INTO Pledges(username, val, CID) \
+                VALUES ('${req.body.username}', '${req.body.val}', '${req.body.CID}')`,
+                (err, result) => {
+                    if(err) {
+                        res.status(500).send(err);
+                    }
+                    res.status(200).send();
+                })
+        }
+    } catch {
+        res.status(500).send("Internal Server Error")
+    }
 }
 
 const getPosts = (req, res) => {
-  if(!req.query.cid) {
-      res.status(400).send("CID is required");
-  }
-  else {
-      pool.query(`SELECT name, description, time FROM Posts WHERE CID =`+`'`+req.query.cid+`'`, (err, result) => {
-          if (err) {
-              res.status(500).send("Internal Server Error")
-          }
-          res.status(200).json(result.rows);
-      })
-  }
+    try {
+        if(!req.query.cid) {
+            res.status(400).send("CID is required");
+        }
+        else {
+            pool.query(`SELECT name, description, time FROM Posts WHERE CID =`+`'`+req.query.cid+`'`, (err, result) => {
+                if (err) {
+                    res.status(500).send("Internal Server Error")
+                }
+                res.status(200).json(result.rows);
+            })
+        }
+    } catch {
+        res.status(500).send("Internal Server Error")
+    }
 }
 
 const addPosts = (req, res) => {
-  pool.query(`INSERT INTO Posts(CID, name, description, time) \
-              VALUES ('${req.body.CID}', '${req.body.name}', '${req.body.description}', '${req.body.time}')`,
-              (err, result) => {
-                  if(err) {
-                      res.status(500).send(err);
-                  }
-                  res.status(200).send();
-              })
+    try {
+        if(!req.body.CID) {
+            res.status(400).send("password is required");
+        }
+        else if(!req.body.name) {
+            res.status(400).send("email is required");
+        }
+        else if(!req.body.description) {
+            res.status(400).send("description is required");
+        }
+        else if(!req.body.time) {
+            res.status(400).send("time is required");
+        }
+
+        else {
+            pool.query(`INSERT INTO Posts(CID, name, description, time) \
+                VALUES ('${req.body.CID}', '${req.body.name}', '${req.body.description}', '${req.body.time}')`,
+                (err, result) => {
+                    if(err) {
+                        res.status(500).send(err);
+                    }
+                    res.status(200).send();
+                })
+            }
+    } catch {
+        res.status(500).send("Internal Server Error")
+    }
 }
 
 const addUser = (req, res) => {
-    pool.query(`INSERT INTO Users (username, password, email, first_name, last_name) \
-                values ('${req.body.username.toLowerCase()}', '${req.body.password}', '${req.body.email.toLowerCase()}', '${req.body.firstName}', '${req.body.lastName}')`,
-                (err, result) => {
-                    if(err) {
-                        res.status(500).send(err);
-                    }
-                    res.status(200).send()
-                })
+    try {
+        if(!req.body.username) {
+            res.status(400).send("username is required");
+        }
+        else if(!req.body.password) {
+            res.status(400).send("password is required");
+        }
+        else if(!req.body.email) {
+            res.status(400).send("email is required");
+        }
+        else if(!req.body.firstName) {
+            res.status(400).send("firstName is required");
+        }
+        else if(!req.body.lastName) {
+            res.status(400).send("lastName is required");
+        }
+        else {
+            pool.query(`INSERT INTO Users (username, password, email, first_name, last_name) \
+                    values ('${req.body.username.toLowerCase()}', '${req.body.password}', '${req.body.email.toLowerCase()}', '${req.body.firstName}', '${req.body.lastName}')`,
+                    (err, result) => {
+                        if(err) {
+                            res.status(500).send(err);
+                        }
+                        res.status(200).send()
+                    })
+            }
+    } catch {
+        res.status(500).send("Internal Server Error")
+    }
 }
 
 const checkEmail = (req, res) => {
-    pool.query(`SELECT COUNT(*) from Users \
-                where email='${req.body.email}'`,
-                (err, result) => {
-                    if(err) {
-                        res.status(500).send(err);
-                    }
-                    if(result.rows[0].count == 1) {
-                        res.status(200).send({ "result": false })
-                    } else {
-                        res.status(200).send({ "result": true })
-                    }
-                })
+    try {
+        if(!req.body.email) {
+            res.status(400).send("email is required");
+        }
+        else {
+        pool.query(`SELECT COUNT(*) from Users \
+                    where email='${req.body.email}'`,
+                    (err, result) => {
+                        if(err) {
+                            res.status(500).send(err);
+                        }
+                        if(result.rows[0].count == 1) {
+                            res.status(200).send({ "result": false })
+                        } else {
+                            res.status(200).send({ "result": true })
+                        }
+                    })
+        }
+    } catch {
+        res.status(500).send("Internal Server Error")
+    }
 }
 
 const checkUsername = (req, res) => {
-    console.log("test")
-    pool.query(`SELECT COUNT(*) from users where username='${req.body.username.toLowerCase()}'`,
-                (err, result) => {
-                    if(err) {
-                        res.status(500).send(err);
-                    }
-                    if(result.rows[0].count == 1) {
-                        res.status(200).send({ "result": false })
-                    } else {
-                        res.status(200).send({ "result": true })
-                    }
-                })
+    try {
+        if(!req.body.username) {
+            res.status(400).send("username is required");
+        }
+        else {
+            pool.query(`SELECT COUNT(*) from users where username='${req.body.username.toLowerCase()}'`,
+                        (err, result) => {
+                            if(err) {
+                                res.status(500).send(err);
+                            }
+                            if(result.rows[0].count == 1) {
+                                res.status(200).send({ "result": false })
+                            } else {
+                                res.status(200).send({ "result": true })
+                            }
+                        })
+            }
+    } catch {
+        res.status(500).send("Internal Server Error")
+    }
 }
 
 const checkLogin = (req, res) => {
-    pool.query(`SELECT COUNT(*) from users where username='${req.body.username.toLowerCase()} and password='${req.body.password}'`,
-                (err, result) => {
-                    if(err) {
-                        res.status(500).send(err);
-                    }
-                    if(result.rows[0].count == 1) {
-                        res.status(200).send({ "result": false })
-                    } else {
-                        res.status(200).send({ "result": true })
-                    }
-                })
+    try {
+        if(!req.body.username) {
+            res.status(400).send("username is required");
+        }
+        else if(!req.body.password) {
+            res.status(400).send("password is required");
+        }
+        else {
+            pool.query(`SELECT COUNT(*) from users where username='${req.body.username.toLowerCase()} and password='${req.body.password}'`,
+                        (err, result) => {
+                            if(err) {
+                                res.status(500).send(err);
+                            }
+                            if(result.rows[0].count == 1) {
+                                res.status(200).send({ "result": false })
+                            } else {
+                                res.status(200).send({ "result": true })
+                            }
+                        })
+            }
+    } catch {
+        res.status(500).send("Internal Server Error")
+    }
 }
 
 // const getUsers = (req, res) => {
