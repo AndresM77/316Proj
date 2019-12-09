@@ -102,7 +102,7 @@ export default class Campaign extends Component {
       .then(data => 
         likes = data)} else {
       likes = [];
-    }    
+    }
     this.setState({
       likes: likes.map((obj) => obj.cid)
     })
