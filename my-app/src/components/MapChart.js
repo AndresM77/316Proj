@@ -51,12 +51,21 @@ export default class MapChart extends React.Component {
 
   filterDataPoints = async() => {
     let points = []
-    if(this.state.selectedCategory && this.state.selectedYear) {
-      points = await fetch(`https://frank.colab.duke.edu:3002/api/v1/dps/${this.state.selectedCategory}/${this.state.selectedYear}`)
+    if(this.state.selectedCategory == "air") {
+      points = await fetch(`http://localhost:3002/api/v1/dps/${this.state.selectedCategory}/2019`)
       .catch(e => {
         console.log(e);
         return;
       })
+    }
+    else if (this.state.selectedCategory && this.state.selectedYear) {
+      points = await fetch(`http://frank.colab.duke.edu:3002/api/v1/dps/${this.state.selectedCategory}/${this.state.selectedYear}`)
+      .catch(e => {
+        console.log(e);
+        return;
+      })
+    } else {
+      return
     }
     console.log(this.state.selectedCategory, this.state.selectedYear);
     const json = points.length === 0 ? [] : await points.json();

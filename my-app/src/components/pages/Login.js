@@ -101,10 +101,10 @@ const Login = () => {
                 alert('Login. Wrong username or password.')
             } else if (result.result) {
                 await cookies.set("climateAction", values.username);
+                window.location.replace("/");
             } else {
                 alert('Login. Wrong username or password.')
             }
-            window.location.replace("/");
         }
     })
 

@@ -35,15 +35,21 @@ const getDPs = (req, res) => {
 
             const year = String(req.params.year) + "-01-01";
 
-            pool.query(query, [year], (err, result) => {
-                if (err) {
-                    res.status(500).send("Internal Server Error")
-                }
-                if(!result) res.status(200).send();
-                else {
+            if(req.params.category == "air") {
+                pool.query(query, (err, result) => {
+                    if (err) {
+                        res.status(500).send("Internal Server Error")
+                    }
                     res.status(200).json(result.rows);
-                }
-            })
+                })
+            } else {
+                pool.query(query, [year], (err, result) => {
+                    if (err) {
+                        res.status(500).send("Internal Server Error")
+                    }
+                    res.status(200).json(result.rows);
+                })
+            }
         }
     } catch(error) {
         res.status(500).send("Internal Server Error")
