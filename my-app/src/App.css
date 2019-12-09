@@ -107,23 +107,28 @@ html {
 
 .nav li {
   display: inline;
-}
-
-.nav a {
   font-size: 20px;
   font-weight: bold;
   color: #02182B;
   list-style-type: none;
-  text-decoration: none;
   display: block;
   padding: 10px;
+}
+
+.nav li:hover {
+  color: #2191FB;
+}
+
+.nav a {
+  text-decoration: none;
+  color: #02182B;
 }
 
 .nav a:hover {
   color: #2191FB;
 }
 
-.nav #searchbar {
+#searchbar {
   padding-left: 5px;
 }
 
@@ -135,6 +140,8 @@ footer {
   width: 100%;
   text-align: center;
   padding-bottom: 1vh;
+  margin-bottom: 0;
+  height: 2.5vh;
 }
 
 .selector {
@@ -156,5 +163,9 @@ footer {
 
 .form label {
   text-align: left;
+}
+
+.teamItems {
+  margin-left: 2vw;
 }
 /*# sourceMappingURL=App.css.map */

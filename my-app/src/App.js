@@ -19,6 +19,7 @@ class App extends Component{
   render() {
     return(
       <div>
+      <div className="wrapper">
         <Navbar/>
         <Switch>
           <Route exact path="/" component={Home}/>
@@ -30,8 +31,9 @@ class App extends Component{
           <Route path="/404" component={NotFoundPage}/>
           <Route path="/addcampaign" component={AddCampaign}/>
         </Switch>
-        <footer>Made with 🌎 by Adam, Ryan, Joe, Andres, Ethan, and Frank</footer>
-    </div>
+      </div>
+        <footer>Made with <span role="img" aria-label="earth">🌎</span> by Adam, Ryan, Joe, Andres, Ethan, and Frank</footer>
+      </div>
   );
   }
 }

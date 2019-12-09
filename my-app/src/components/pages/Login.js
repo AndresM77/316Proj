@@ -13,7 +13,7 @@ async function sendToServer(values) {
                 "Content-Type": "application/json"
             }
         })
-        if(res.status == 200) {
+        if(res.status === 200) {
             let data = res.json()
             return data;
         } else {

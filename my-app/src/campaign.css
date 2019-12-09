@@ -5,7 +5,13 @@
     float: left;
     margin: 2.5%;
     position: relative;
-    border-radius: 25px;
+    border-radius: 8px;
+    
+}
+
+.campaign-card a {
+    font-size: 20px;
+    color: black;
 }
 
 .campaign-card-title {
@@ -53,9 +59,4 @@ h2 {
 
 i {
     font-size: 30px !important;
-}
-
-a {
-    font-size: 20px;
-    color: black !important;
 }

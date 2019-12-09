@@ -9,7 +9,8 @@ import {
 import "../App.css";
 import DataTypeSelect from "../components/DataTypeSelect";
 import YearSlider from "../components/YearSlider";
-import { scaleLog, scaleLinear, scaleSqrt } from "d3-scale";
+let d3 = require("d3");
+// import { scaleLog, scaleLinear, scaleSqrt } from "d3-scale";
 
 export default class MapChart extends React.Component {
   constructor(props) {
@@ -68,27 +69,45 @@ export default class MapChart extends React.Component {
       let maxValue = 20; // based on the data array above
       let minColor;
       let maxColor;
+      let mediumColor;
+      let mediumValue;
+      let customScale;
+
       if(this.state.selectedCategory === "air"){
-        minColor = "#82ed86";
+        minColor = "#12b819";
+        mediumColor= "#fff200";
         maxColor = "#CC0617";
         minValue = 0;
+        mediumValue = 50;
         maxValue = 800;
+        customScale = d3.scaleLinear()
+        .domain([minValue, mediumValue, maxValue])
+        .range([minColor, mediumColor, maxColor]);
       } else if(this.state.selectedCategory === "temp"){
-        minColor = "#CFD8DC";
-        maxColor = "#C94242";
+        minColor = "#00bfff";
+        maxColor = "#f73b3b";
         minValue = -20;
         maxValue = 30;
+        customScale = d3.scaleSequential()
+        .domain([35, -20])
+        .interpolator(d3.interpolateRdBu);
+        // .range([minColor, maxColor]);
       } else {
-        minColor = "#E66232";
-        maxColor = "#214ADE";
+        minColor = "#ff4d0d";
+        mediumColor = "#ffbfa8";
+        maxColor = "#1447ff";
         minValue = 0;
-        maxValue = 783;
+        mediumValue = 35;
+        maxValue = 275;
+        customScale = d3.scaleLinear()
+        .domain([minValue, mediumValue, maxValue])
+        .range([minColor, mediumColor, maxColor]);
       }
   
 
-    const customScale = scaleLinear()
-    .domain([minValue, maxValue])
-    .range([minColor, maxColor]);
+    // const customScale = scaleLinear()
+    // .domain([minValue, mediumValue, maxValue])
+    // .range([minColor, mediumColor, maxColor]);
   
       return (
         <div>
@@ -172,7 +191,7 @@ export default class MapChart extends React.Component {
               </Geographies>
               {this.state.selectedCategory === "air" ? this.state.selectedPoints.map((element, i) => {
                     return(
-                      <Marker coordinates={[element.lng, element.lat]}
+                      <Marker key={i} coordinates={[element.lng, element.lat]}
                         onMouseEnter={() => {
                           this.props.setTooltipContent(`${element.quality} AQI`);
                         }}

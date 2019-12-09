@@ -148,7 +148,7 @@ export default class Campaign extends Component {
                     <h2>{campaign.description}</h2>
                   </div>
                   <div className="campaign-card-link">
-                    <a href={"https:" + campaign.paylink} target="_blank">Click to Donate!</a>
+                    <a href={"https://" + campaign.paylink} target="_blank" rel="noopener noreferrer">Click to Donate!</a>
                   </div>
                   {/* <script type="text/javascript"> 
                     {this.getCampaignLikes(campaign.cid)}
@@ -174,6 +174,7 @@ export default class Campaign extends Component {
             ) : (
               <div>There is No Data</div>
             )}
+            {cookies.get("climateAction") ?
             <div className="button-container">
               <div style={{margin: "110px 0", display: "inline-block", width: "60px", height: "60px" }}>
                 <button
@@ -189,7 +190,7 @@ export default class Campaign extends Component {
                   <i class="fa fa-plus"></i>
                 </button>
               </div>
-            </div>
+            </div> : <> </>}
           </div>
         </div>
       );

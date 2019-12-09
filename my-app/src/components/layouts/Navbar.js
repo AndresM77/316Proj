@@ -13,7 +13,10 @@ class Navbar extends React.Component {
         <li><a href="/contacts">Contact Us</a></li>
         {cookies.get("climateAction") ? <> </> : <li><a href="/login">Log In</a></li>}
         {cookies.get("climateAction") ? <> </> : <li><a href="/signup">Sign Up</a></li>}
-        {cookies.get("climateAction") ? <li style={{cursor: "pointer"}} onClick={() => cookies.remove("climateAction")}><a href="javascript:window.location.href=window.location.href">Logout</a></li> : <> </>}
+        {cookies.get("climateAction") ? <li style={{cursor: "pointer"}} onClick={() => {
+            cookies.remove("climateAction");
+            window.location.replace("/");
+          }}>Logout</li> : <> </>}
       </ul>
     </div>
     }
