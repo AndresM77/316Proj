@@ -16,7 +16,6 @@ async function sendToServer(values) {
     } else {
         values.creator = username;
     }
-    console.log(values);
     try {
         await fetch("https://frank.colab.duke.edu:3002/api/v1/campaign", {
             method: "POST",
@@ -26,9 +25,7 @@ async function sendToServer(values) {
                 "Content-Type": "application/json"
             }
         })
-        .then(res => console.log(res))
     } catch (e) {
-        console.log("error")
         console.error(e)
     }
     return values;

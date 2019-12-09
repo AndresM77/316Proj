@@ -48,8 +48,9 @@ CREATE TABLE Campaign (
 );
 
 CREATE TABLE Likes (
-	username VARCHAR(32) PRIMARY KEY REFERENCES Users(username) NOT NULL,
-	CID uuid REFERENCES Campaign(CID) NOT NULL
+	username VARCHAR(32) REFERENCES Users(username) NOT NULL,
+	CID uuid REFERENCES Campaign(CID) NOT NULL,
+	PRIMARY KEY (username, CID)
 );
 
 INSERT INTO Country(name, countryID)
