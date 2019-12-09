@@ -96,7 +96,7 @@ const getUsers = (req, res) => {
 
 const getCampaign = (req, res) => {
     try {
-        pool.query('SELECT name, description, goal, paylink FROM Campaign', (err, result) => {
+        pool.query('SELECT * FROM Campaign', (err, result) => {
             if (err) {
                 res.status(500).send("Internal Server Error")
             }
@@ -109,24 +109,21 @@ const getCampaign = (req, res) => {
 
 const addCampaign = (req, res) => {
     try {
-        if(!req.params.CID) {
+        if(!req.body.CID) {
             res.status(400).send("CID is required");
         }
-        else if(!req.params.name) {
+        else if(!req.body.name) {
             res.status(400).send("name is required");
         }
-        else if(!req.params.description) {
+        else if(!req.body.description) {
             res.status(400).send("description is required");
         }
-        else if(!req.params.goal) {
-            res.status(400).send("goal is required");
-        }
-        else if(!req.params.paylink) {
+        else if(!req.body.paylink) {
             res.status(400).send("paylink is required");
         }
         else {
-            pool.query(`INSERT INTO Campaign(CID, name, description, goal, paylink) \
-                        VALUES ('${req.body.CID}', '${req.body.name}', '${req.body.description}', '${req.body.goal}', '${req.body.paylink}')`,
+            pool.query(`INSERT INTO Campaign(CID, name, description, paylink, creator) \
+                        VALUES ('${req.body.CID}', '${req.body.name}', '${req.body.description}', '${req.body.paylink}', '${req.body.creator}')`,
                         (err, result) => {
                             if(err) {
                                 res.status(500).send(err);
