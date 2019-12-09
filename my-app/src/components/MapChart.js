@@ -1,5 +1,6 @@
 import React from "react";
 import {
+  Marker,
   ComposableMap,
   Geographies,
   Geography,
@@ -79,13 +80,12 @@ export default class MapChart extends React.Component {
       maxColor = "#C94242";
     } else {
       minValue = 0
-      maxValue = 783;
+      maxValue = 783
       minColor = "#E66232";
       maxColor = "#214ADE";
     }
 
-    const minValue = 5; // based on the data array above
-    const maxValue = 20; // based on the data array above
+    
 
   const customScale = scaleLinear()
   .domain([minValue, maxValue])
@@ -95,11 +95,11 @@ export default class MapChart extends React.Component {
       <div>
         <div style={{ position: "absolute", bottom: "10vh", left: "4vw", width: "300px" }}>
           <DataTypeSelect handleCategoryChange={this.handleCategoryChange} />
-          {this.state.selectedCategory !== "air" ? <YearSlider
-              startYear={1901}
-              endYear={2016}
-              handleYearChange={this.handleYearChange}
-            /> : <> </>}
+          <YearSlider
+            startYear={1901}
+            endYear={2016}
+            handleYearChange={this.handleYearChange}
+          />
         </div>
         <div>
           <ComposableMap
@@ -121,12 +121,14 @@ export default class MapChart extends React.Component {
               {({ geographies }) =>
                 geographies.map((geo, i) => {
                   const country = this.state.selectedPoints.find(
-                    p => p.countryid === geo.properties.ISO_A3
+                    p => p.country === geo.properties.ISO_A3
                   );
                   let measurement;
                   if (this.state.selectedCategory === "temp") measurement = "temperature";
-                  else if (this.state.selectedCategory === "air") measurement = "quality";
-                  else if (this.state.selectedCategory === "rain") measurement = "rainfall";        
+                  else if (this.state.selectedCategory === "air") {
+                    measurement = "quality";
+                  }
+                  else if (this.state.selectedCategory === "rain") measurement = "rainfall";       
                   return (
                     <Geography
                       key={geo.properties.ISO_A3 + i}
@@ -143,7 +145,7 @@ export default class MapChart extends React.Component {
                       style={{
                         default: {
                           fill: country
-                            ? customScale(country[measurement])
+                            ? this.customScale(country[measurement])
                             : "#ECEFF1",
                           stroke: "black",
                           strokeWidth: 0.75,
@@ -151,7 +153,7 @@ export default class MapChart extends React.Component {
                         },
                         hover: {
                           fill: country
-                            ? customScale(country[measurement])
+                            ? this.customScale(country[measurement])
                             : "#ECEFF1",
                           stroke: "black",
                           strokeWidth: 0.75,
@@ -159,7 +161,7 @@ export default class MapChart extends React.Component {
                         },
                         pressed: {
                           fill: country
-                            ? customScale(country[measurement])
+                            ? this.customScale(country[measurement])
                             : "#ECEFF1",
                           stroke: "black",
                           strokeWidth: 0.75,
@@ -171,7 +173,19 @@ export default class MapChart extends React.Component {
                 })
               }
             </Geographies>
-            </ZoomableGroup>
+            {this.state.selectedCategory === "air" ? this.state.selectedPoints.map((element, i) => {
+                    return(
+                      <Marker coordinates={[element.lng, element.lat]}
+                        onMouseEnter={() => {
+                          this.props.setTooltipContent(`${element.quality} AQI`);
+                        }}
+                        onMouseLeave={() => {
+                          this.props.setTooltipContent("");
+                        }}>
+                        <circle r={2} fill="#F53" />
+                      </Marker>
+                    )}) : <> </>}
+          </ZoomableGroup>
           </ComposableMap>
         </div>
       </div>
