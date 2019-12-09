@@ -10,7 +10,7 @@ class Contacts extends Component {
         <h3> Andres </h3>
         <p> email: am708@duke.edu </p>
         <h3> Ethan </h3>
-        <p> email: </p>
+        <p> email: astrachanethan@gmail.com</p>
         <h3> Frank: </h3>
         <p> email: </p>
         <h3> Joeseph </h3>

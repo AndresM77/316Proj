@@ -33,7 +33,6 @@ export default class Campaign extends Component {
           })
         )
       .catch(err => {
-        console.log(err);
         this.setState({
           isLoaded: true,
           error: err
@@ -47,31 +46,42 @@ export default class Campaign extends Component {
         username
       })
     }
+
+    this.getLikes();
   }
 
-  clickLike(id) {
+  async clickLike(id) {
     let likes = this.state.likes;
     const index = likes.indexOf(id);
+    const values = {CID: id, username: this.state.username}
     if(!this.state.loggedIn) return;
     if (index > -1) {
-      this.removeLike(id);
+      await this.removeLike(values);
     } else {
-      this.addLike(id);
+      await this.addLike(values);
     }
 
-    this.setState({
-      likes
-    });
+    this.getLikes();
   }
 
-  removeLike(id) {
-    return;
-  }
-
-  async addLike(id) {
-    const values = {CID: id, username: this.state.username}
+  async removeLike(values) {
     try {
-      await fetch("http://frank.colab.duke.edu:3002/api/v1/campaign", {
+      await fetch("https://frank.colab.duke.edu:3002/api/v1/likes/remove", {
+          method: "POST",
+          mode: "cors",
+          body: JSON.stringify(values),
+          headers: {
+              "Content-Type": "application/json"
+          }
+      })
+    } catch (e) {
+        console.error(e)
+    }
+  }
+
+  async addLike(values) {
+    try {
+      await fetch("https://frank.colab.duke.edu:3002/api/v1/likes", {
           method: "POST",
           mode: "cors",
           body: JSON.stringify(values),
@@ -90,13 +100,24 @@ export default class Campaign extends Component {
       await fetch(`https://frank.colab.duke.edu:3002/api/v1/likes/user?username=${this.state.username}`)
       .then(res => res.json())
       .then(data => 
-        likes = data)    } else {
+        likes = data)} else {
       likes = [];
     }    
+    this.setState({
+      likes: likes.map((obj) => obj.cid)
+    })
+  }
+
+  async getCampaignLikes(id) {
+    // let likes;
+    // await fetch(`https://frank.colab.duke.edu:3002/api/v1/likes/get?cid=${id}`)
+    // .then(res => res.json())
+    // .then(data => likes = data)
+    // const count = likes.length();
+    document.write(1);
   }
 
   handleAddButtonClick() {
-    console.log("button is clicked");
     this.setState({
       moveToAdd: true
     })
@@ -105,8 +126,6 @@ export default class Campaign extends Component {
   render() {
     if(this.state.moveToAdd) return <Redirect to="/addcampaign" />;
     const { error, isLoaded, data, likes } = this.state;
-    // console.log(data);
-    // console.log(likes);
     if (error) {
       return <div>Error: {error.message}</div>;
     } else if (!isLoaded) {
@@ -122,18 +141,25 @@ export default class Campaign extends Component {
             {data != null ? (
               data.map(campaign => (
                 <div key={campaign.cid} className="campaign-card">
-                  <h1>{campaign.name}</h1>
+                  <div className="campaign-card-title">
+                    <h1>{campaign.name}</h1>
+                  </div>
                   <div className="campaign-card-text">
                     <h2>{campaign.description}</h2>
                   </div>
+                  <div className="campaign-card-link">
+                    <a href={"https:" + campaign.paylink} target="_blank">Click to Donate!</a>
+                  </div>
+                  {/* <script type="text/javascript"> 
+                    {this.getCampaignLikes(campaign.cid)}
+                  </script> */}
                   <div
                     onClick={() => {
-                      console.log(campaign);
                       this.clickLike(campaign.cid);
                     }}
                     className="campaign-card-like"
                   >
-                    {likes.indexOf(campaign.id) > -1 ? (
+                    {likes.indexOf(campaign.cid) > -1 ? (
                       <div className="campaign-card-liked">
                         <i class="fa fa-thumbs-up"></i>
                       </div>
