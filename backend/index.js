@@ -183,22 +183,6 @@ const getUserLikes = (req, res) => {
     } catch(error) {
         res.status(500).send("Internal Server Error")
     }
-=======
->>>>>>> Added HTTPS
-}
-
-const getUserLikes = (req, res) => {
-    if(!req.query.username) {
-        res.status(400).send("username is required");
-    }
-    else {
-        pool.query(`SELECT CID FROM Likes WHERE username = `+`'`+req.query.username+`'`, (err, result) => {
-            if(err) {
-                res.status(500).send("Internal Server Error")
-            }
-            res.status(200).json(result.rows);
-        })
-    }
 }
 
 const addLikes = (req, res) => {

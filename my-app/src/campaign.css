@@ -8,10 +8,19 @@
     border-radius: 25px;
 }
 
+.campaign-card-title {
+    margin: 3px 5px 0px 10px
+}
+
 .campaign-card-text {
-    font-size: 20px;
+    margin: 20px 5px 0px 10px
+}
+
+.campaign-card-link {
     position: absolute;
     bottom: 0;
+    left: 0;
+    margin: 0px 3% 2%
 }
 
 .campaign-card-like {
@@ -38,6 +47,15 @@
     text-align: center;
 }
 
+h2 {
+    font-size: 25px;
+}
+
 i {
     font-size: 30px !important;
+}
+
+a {
+    font-size: 20px;
+    color: black !important;
 }

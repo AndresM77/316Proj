@@ -16,6 +16,7 @@ async function sendToServer(values) {
     } else {
         values.creator = username;
     }
+    console.log(values);
     try {
         await fetch("https://frank.colab.duke.edu:3002/api/v1/campaign", {
             method: "POST",
@@ -52,18 +53,6 @@ async function validateDescription(description, instance) {
 
     if(description.length > 200) {
         return "Description is too long";
-    }
-
-    return false;
-}
-
-async function validateNumber(number, instance) {
-    if(!number) {
-        return "A goal is required";
-    }
-
-    if(isNaN(number)) {
-        return "Goal is not a number";
     }
 
     return false;
@@ -123,26 +112,6 @@ function DescriptionField() {
     )
 }
 
-function GoalField() {
-    const {
-        meta: { error, isTouched, isValidating },
-        getInputProps
-    } = useField("goal", {
-        validate: validateNumber
-    });
-
-    return (
-        <>
-            <input {...getInputProps()} />{" "}
-            {isValidating ? (
-                <em>Validating...</em>
-            ) : isTouched && error ? (
-                <em>{error}</em>
-            ) : null}
-        </>
-    )
-}
-
 function PaylinkField() {
     const {
         meta: { error, isTouched, isValidating },
@@ -186,11 +155,6 @@ const AddCampaign = () => {
                     <div>
                         <label>
                             Description: <DescriptionField />
-                        </label>
-                    </div>
-                    <div>
-                        <label>
-                            Goal: <GoalField />
                         </label>
                     </div>
                     <div>
