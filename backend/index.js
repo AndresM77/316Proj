@@ -158,13 +158,6 @@ const getLikes = (req, res) => {
     } catch(error) {
         res.status(500).send("Internal Server Error")
     }
-const getCampaign = (req, res) => {
-    pool.query('SELECT CID, name, description, goal, paylink FROM Campaign', (err, result) => {
-        if (err) {
-            res.status(500).send("Internal Server Error")
-        }
-        res.status(200).json(result.rows);
-    })
 }
 
 const getUserLikes = (req, res) => {
@@ -436,15 +429,6 @@ const checkLogin = (req, res) => {
     }
 }
 
-// const getUsers = (req, res) => {
-//     pool.query(`SELECT * FROM Users`, (err, result) => {
-//         if (err) {
-//             res.status(500).send("Internal Server Error")
-//         }
-//         res.status(200).json(result.rows);
-//     })
-// }
-
 app.route("/api/v1/:categories").get(getCategories);
 app.route('/api/v1/dps/:category/:year').get(getDPs);
 app.route("/api/v1/users").get(getUsers);
@@ -463,48 +447,10 @@ app.route("/api/v1/posts").post(addPosts);
 app.route("/api/v1/likes/user").get(getUserLikes);
 app.route("/api/v1/likes/remove").post(removeLikes);
 
-// app.listen(process.env.PORT || 3002, () => {
-//     console.log('Server listening')
-//   })
-
 https.createServer({
     key: fs.readFileSync('/etc/letsencrypt/live/frank.colab.duke.edu/privkey.pem'),
     cert: fs.readFileSync('/etc/letsencrypt/live/frank.colab.duke.edu/fullchain.pem'),
     passphrase: ''
 }, app).listen(process.env.PORT || 3002, () => {
     console.log('Server listening')
-  })
-
-
-
-// const getDepDPs = (req, res) => {
-//     // const category = req.query.category;
-//     let query = "";
-
-//     if(!req.query.category) {
-//         res.status(400).send("category is required");
-//     }
-//     else if(!req.query.time) {
-//         res.status(400).send("time is required");
-//     }
-//     else {
-//         switch(req.query.category) {
-//             case "air":
-//                 query = `SELECT * FROM Air WHERE Air.time=`+`'`+req.query.time+`'`;
-//                 break;
-//             case "rain":
-//                 query = `SELECT * FROM Rain WHERE Rain.time=`+`'`+req.query.time+`'`;
-//                 break;
-//             case "temp":
-//                 query = `SELECT * FROM Temperature WHERE Temperature.time=`+`'`+req.query.time+`'`;
-//                 break;
-//         }
-
-//         pool.query(query, (err, result) => {
-//             if (err) {
-//                 res.status(500).send("Internal Server Error")
-//             }
-//             res.status(200).json(result.rows);
-//         })
-//     }
-// }
+  });

@@ -1,0 +1,31 @@
+/home/jg391/316Proj/backend/index.js:512
+});
+ ^
+
+SyntaxError: Unexpected token )
+    at createScript (vm.js:80:10)
+    at Object.runInThisContext (vm.js:139:10)
+    at Module._compile (module.js:616:28)
+    at Object.Module._extensions..js (module.js:663:10)
+    at Module.load (module.js:565:32)
+    at tryModuleLoad (module.js:505:12)
+    at Function.Module._load (module.js:497:3)
+    at Function.Module.runMain (module.js:693:10)
+    at startup (bootstrap_node.js:188:16)
+    at bootstrap_node.js:609:3
+Server listening
+_http_outgoing.js:491
+    throw new Error('Can\'t set headers after they are sent.');
+    ^
+
+Error: Can't set headers after they are sent.
+    at validateHeader (_http_outgoing.js:491:11)
+    at ServerResponse.setHeader (_http_outgoing.js:498:3)
+    at ServerResponse.header (/home/jg391/316Proj/backend/node_modules/express/lib/response.js:771:10)
+    at ServerResponse.send (/home/jg391/316Proj/backend/node_modules/express/lib/response.js:170:12)
+    at ServerResponse.json (/home/jg391/316Proj/backend/node_modules/express/lib/response.js:267:15)
+    at ServerResponse.send (/home/jg391/316Proj/backend/node_modules/express/lib/response.js:158:21)
+    at pool.query (/home/jg391/316Proj/backend/index.js:201:37)
+    at Query.client.query [as callback] (/home/jg391/316Proj/backend/node_modules/pg-pool/index.js:332:18)
+    at Query.handleError (/home/jg391/316Proj/backend/node_modules/pg/lib/query.js:142:17)
+    at Connection.connectedErrorMessageHandler (/home/jg391/316Proj/backend/node_modules/pg/lib/client.js:211:17)
