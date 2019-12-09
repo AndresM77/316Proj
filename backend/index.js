@@ -161,55 +161,65 @@ const getLikes = (req, res) => {
 }
 
 const getUserLikes = (req, res) => {
-    if(!req.query.username) {
-        res.status(400).send("username is required");
-    }
-    else {
-        pool.query(`SELECT CID FROM Likes WHERE username = `+`'`+req.query.username+`'`, (err, result) => {
-            if(err) {
-                res.status(500).send("Internal Server Error")
-            }
-            res.status(200).json(result.rows);
-        })
+    try{
+        if(!req.query.username) {
+            res.status(400).send("username is required");
+        }
+        else {
+            pool.query(`SELECT CID FROM Likes WHERE username = `+`'`+req.query.username+`'`, (err, result) => {
+                if(err) {
+                    res.status(500).send("Internal Server Error")
+                }
+                res.status(200).json(result.rows);
+            })
+        }
+    } catch(error) {
+        res.status(500).send("Internal Server Error")
     }
 }
 
 const addLikes = (req, res) => {
     try {
-    if(!req.query.cid) {
-        res.status(400).send("CID is required");
-    }
-    if(!req.query.username) {
-        res.status(400).send("Username is required");
-    }
-    pool.query(`INSERT INTO Likes(username, CID) \
-                VALUES ('${req.body.username}','${req.body.CID}')`,
-                (err, result) => {
-                    if(err) {
-                        res.status(500).send(err);
-                    }
-                    res.status(200).send();
-                })
+        if(!req.body.cid) {
+            res.status(400).send("CID is required");
+        }
+        if(!req.body.username) {
+            res.status(400).send("Username is required");
+        }
+        pool.query(`INSERT INTO Likes(username, CID) \
+            VALUES ('${req.body.username}','${req.body.CID}')`,
+            (err, result) => {
+                if(err) {
+                    res.status(500).send(err);
+                }
+                res.status(200).send();
+            }
+        )
     } catch(error) {
         res.status(500).send("Internal Server Error")
     }
 }
 
 const removeLikes = (req, res) => {
-    if(!req.query.username) {
-        res.status(400).send("username is required");
+    try{
+        if(!req.body.username) {
+            res.status(400).send("username is required");
+        }
+        if(!req.body.CID) {
+            res.status(400).send("CID required");
+        }
+        else {
+            pool.query(`DELETE FROM Likes WHERE username = `+`'`+req.body.username+`'` + `and CID = `+`'`+req.body.CID+`'`, (err, result) => {
+                if(err) {
+                    res.status(500).send("Internal Server Error")
+                }
+                res.status(200).send();
+            })
+        } 
+    } catch(error) {
+        res.status(500).send("Internal Server Error");
     }
-    if(!req.query.CID) {
-        res.status(400).send("CID required");
-    }
-    else {
-        pool.query(`DELETE * FROM Likes WHERE username = `+`'`+req.query.username+`'` + `and CID = `+`'`+req.query.CID+`'`, (err, result) => {
-            if(err) {
-                res.status(500).send("Internal Server Error")
-            }
-            res.status(200).send();
-        })
-    } 
+    
 }
 
 const getPledges = (req, res) => {
@@ -407,7 +417,6 @@ const checkLogin = (req, res) => {
                             if(err) {
                                 res.status(500).send(err);
                             }
-                            console.log(result.rows);
                             if(result.rows[0].count == 1) {
                                 res.status(200).send({ "result": true })
                             } else {
@@ -438,13 +447,14 @@ app.route("/api/v1/users/validate/email").post(checkEmail);
 app.route("/api/v1/users/validate/username").post(checkUsername);
 app.route("/api/v1/campaign/:get").get(getCampaign);
 app.route("/api/v1/campaign").post(addCampaign);
-app.route("/api/v1/likes/:get").get(getLikes);
+app.route("/api/v1/likes/get").get(getLikes);
 app.route("/api/v1/likes").post(addLikes);
 app.route("/api/v1/pledges").get(getPledges);
 app.route("/api/v1/pledges").post(addPledges);
 app.route("/api/v1/posts").get(getPosts);
 app.route("/api/v1/posts").post(addPosts);
 app.route("/api/v1/likes/user").get(getUserLikes);
+app.route("/api/v1/likes/remove").post(removeLikes);
 
 // app.listen(process.env.PORT || 3002, () => {
 //     console.log('Server listening')
