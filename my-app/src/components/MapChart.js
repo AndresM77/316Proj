@@ -9,7 +9,7 @@ import {
 import "../App.css";
 import DataTypeSelect from "../components/DataTypeSelect";
 import YearSlider from "../components/YearSlider";
-import { scaleLinear } from "d3-scale";
+import { scaleLog, scaleLinear, scaleSqrt } from "d3-scale";
 
 export default class MapChart extends React.Component {
   constructor(props) {
@@ -64,22 +64,28 @@ export default class MapChart extends React.Component {
   }
   
     render() {
+      let minValue = 5; // based on the data array above
+      let maxValue = 20; // based on the data array above
       let minColor;
       let maxColor;
       if(this.state.selectedCategory === "air"){
         minColor = "#82ed86";
         maxColor = "#CC0617";
+        minValue = 0;
+        maxValue = 800;
       } else if(this.state.selectedCategory === "temp"){
         minColor = "#CFD8DC";
         maxColor = "#C94242";
+        minValue = -20;
+        maxValue = 30;
       } else {
         minColor = "#E66232";
         maxColor = "#214ADE";
+        minValue = 0;
+        maxValue = 783;
       }
   
-      const minValue = 5; // based on the data array above
-      const maxValue = 20; // based on the data array above
-  
+
     const customScale = scaleLinear()
     .domain([minValue, maxValue])
     .range([minColor, maxColor]);
@@ -164,6 +170,18 @@ export default class MapChart extends React.Component {
                   })
                 }
               </Geographies>
+              {this.state.selectedCategory === "air" ? this.state.selectedPoints.map((element, i) => {
+                    return(
+                      <Marker coordinates={[element.lng, element.lat]}
+                        onMouseEnter={() => {
+                          this.props.setTooltipContent(`${element.quality} AQI`);
+                        }}
+                        onMouseLeave={() => {
+                          this.props.setTooltipContent("");
+                        }}>
+                        <circle r={2} fill={customScale(element.quality)} />
+                      </Marker>
+                    )}) : <> </>}
               </ZoomableGroup>
             </ComposableMap>
           </div>
